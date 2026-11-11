@@ -2,7 +2,7 @@
 
 Mockup cliccabile dell'app WeFORM per la gestione del personale Horeca, creato con Claude Design.
 
-**Demo online:** https://mario4art.github.io/weform-mvp-app-mobile/
+**Demo online:** https://mario4art.github.io/WeFORM-MVP-App-mobile/
 
 ## Struttura
 - `index.html` – pagina principale (apre l'MVP)
