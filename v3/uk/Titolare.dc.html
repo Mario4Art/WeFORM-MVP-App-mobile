@@ -1,0 +1,816 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<title>WeFORM v3 · Застосунок власника</title>
+<script src="../../vendor/react.js"></script>
+<script src="../../vendor/react-dom.js"></script>
+<script src="../../support.js"></script>
+<style>html{background:#E9E3D8}body{margin:0;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;background:#E9E3D8}</style>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,800&amp;family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+button{font-family:inherit;border:0;cursor:pointer;padding:0;background:none;color:inherit}
+button:active,a:active{transform:scale(0.97)}
+input{font-family:inherit}
+.scroll{scrollbar-width:none}
+.scroll::-webkit-scrollbar{display:none}
+a{color:#0E4937}a:hover{color:#2D6A0A}
+@keyframes lidUp{from{transform:translateY(0) rotate(0deg)}to{transform:translateY(-30px) rotate(-9deg)}}
+@keyframes starIn{from{opacity:0;transform:scale(0.2)}to{opacity:1;transform:scale(1)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.lid{transform-box:view-box;transform-origin:100px 150px;animation:lidUp .5s ease-out .3s both}
+.star{transform-box:fill-box;transform-origin:center;animation:starIn .45s ease-out .75s both}
+.glow{animation:fadeIn .4s ease-out .7s both}
+.rise{animation:rise .5s ease-out .9s both}
+.sheet{animation:rise .25s ease-out both}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #FCF7F1; font-family: 'Instrument Sans', system-ui, sans-serif; color: #0E4937">
+
+<!-- ================= BENVENUTO ================= -->
+<sc-if value="{{isWelcome}}" hint-placeholder-val="{{ true }}">
+<div style="position: absolute; inset: 0; display: flex; flex-direction: column; padding: 56px 28px 40px; box-sizing: border-box">
+  <span style="display: flex; align-items: center; gap: 6px; font-size: 20px"><img src="../../assets/d99d2bd9a06c4532336ffac737d5299b.png" alt="WeFORM" style="height: 26px; width: auto; display: block"></span>
+  <div style="flex: 1; display: flex; align-items: center; justify-content: center">
+    <svg role="img" aria-label="Клош WeFORM відкривається" width="240" height="240" viewBox="0 0 200 200">
+      <defs><linearGradient id="domeT" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1F7A58"></stop><stop offset="1" stop-color="#0E4937"></stop></linearGradient></defs>
+      <circle cx="100" cy="104" r="86" fill="#EAF5DA"></circle>
+      <circle cx="30" cy="92" r="4" fill="#9CCB8A"></circle>
+      <circle cx="170" cy="66" r="5" fill="#FF5D00"></circle>
+      <ellipse class="glow" cx="100" cy="156" rx="44" ry="8" fill="#F8EDCF"></ellipse>
+      <path class="star" d="M100 118l5 13 13 5-13 5-5 13-5-13-13-5 13-5z" fill="#D6A324"></path>
+      <rect x="34" y="160" width="132" height="8" rx="4" fill="#0E4937"></rect>
+      <g class="lid">
+        <path d="M44 150a56 56 0 0 1 112 0z" fill="url(#domeT)"></path>
+        <path d="M64 132a40 40 0 0 1 20-28" stroke="#FFFFFF" stroke-opacity="0.4" stroke-width="6" fill="none" stroke-linecap="round"></path>
+        <circle cx="100" cy="88" r="9" fill="#FF5D00"></circle>
+        <rect x="38" y="148" width="124" height="8" rx="4" fill="#0E4937"></rect>
+      </g>
+    </svg>
+  </div>
+  <div class="rise" style="display: flex; flex-direction: column">
+    <h1 style="margin: 0; font-size: 32px; line-height: 38px; font-weight: 700">Твоє бачення, твоя команда. Ласкаво просимо!🎯</h1>
+    <p style="margin: 12px 0 28px; font-size: 15px; line-height: 22px; color: #4D665D">Навчання, зміни, відвідуваність і звіти всіх твоїх закладів. Зі ШІ, який підкаже, що покращити.</p>
+    <button onClick="{{enter}}" style="height: 52px; border-radius: 999px; background: #0E4937; color: #FFFFFF; font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px">Увійти
+      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+    </button>
+    <a href="../Main.dc.html" style="margin-top: 14px; text-align: center; font-size: 13px; color: #4D665D; height: 32px; display: flex; align-items: center; justify-content: center">Не власник? <strong style="color: #0E4937; margin-left: 4px">Змінити роль</strong></a>
+  </div>
+</div>
+</sc-if>
+
+<!-- ================= LOGIN TITOLARE ================= -->
+<sc-if value="{{isLogin}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; inset: 0; display: flex; flex-direction: column; padding: 52px 28px 36px; box-sizing: border-box; gap: 16px">
+  <button aria-label="Назад" onClick="{{backWelcome}}" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid #ECE3D6; background: #FFFFFF; display: flex; align-items: center; justify-content: center">
+    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 5l-7 7 7 7"></path></svg>
+  </button>
+  <img src="../../assets/d99d2bd9a06c4532336ffac737d5299b.png" alt="WeFORM" style="height: 26px; width: auto; display: block; align-self: flex-start; margin-top: 12px">
+  <div>
+    <h1 style="margin: 0; font-size: 32px; line-height: 36px; font-weight: 700">З поверненням, Марко<span style="color: #FF5D00">.</span></h1>
+    <p style="margin: 6px 0 0; font-size: 15px; line-height: 22px; color: #4D665D">Увійди в панель власника: усі заклади, команда і звіти.</p>
+  </div>
+  <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600">Робоча пошта
+    <input type="email" value="marco.bianchi@villaaurora.it" style="height: 50px; border-radius: 18px; border: 2px solid #0E4937; padding: 0 16px; font-size: 15px; color: #0E4937; background: #FFFFFF; outline: none">
+  </label>
+  <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600">Пароль
+    <input type="password" value="12345678" style="height: 50px; border-radius: 18px; border: 1px solid #ECE3D6; padding: 0 16px; font-size: 15px; color: #0E4937; background: #FFFFFF; outline: none">
+  </label>
+  <button onClick="{{login}}" style="height: 52px; border-radius: 999px; background: #0E4937; color: #FFFFFF; font-size: 15px; font-weight: 600; margin-top: 4px">Увійти</button>
+  <button onClick="{{login}}" style="height: 52px; border-radius: 999px; border: 1px solid #ECE3D6; background: #FFFFFF; font-size: 15px; font-weight: 600">Увійти з Face ID</button>
+  <div style="margin-top: auto; text-align: center; font-size: 13px; color: #4D665D">Новий клієнт? <strong style="color: #0E4937">Спробуй безкоштовно 14 днів</strong></div>
+</div>
+</sc-if>
+
+<!-- ================= DASHBOARD ================= -->
+<sc-if value="{{isDash}}" hint-placeholder-val="{{ false }}">
+<div class="scroll" style="position: absolute; left: 0; right: 0; top: 0; bottom: 80px; overflow-y: auto; padding: 50px 22px 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px">
+  <div style="display: flex; align-items: center; gap: 10px">
+    <span style="flex: 1; display: flex; align-items: center; gap: 6px; font-size: 19px"><img src="../../assets/d99d2bd9a06c4532336ffac737d5299b.png" alt="WeFORM" style="height: 26px; width: auto; display: block"></span>
+    <a href="../Main.dc.html" aria-label="Вийти й повернутися до входу" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid #ECE3D6; background: #FFFFFF; display: flex; align-items: center; justify-content: center; color: #0E4937">
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3"></path><path d="M10 8l-4 4 4 4M6 12h10"></path></svg>
+    </a>
+    <span style="width: 44px; height: 44px; border-radius: 999px; background: #4D665D; color: #FFFFFF; font-size: 14px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0">MB</span>
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 8px">
+    <span style="font-size: 24px; line-height: 28px; font-weight: 700">Добрий вечір, Марко<span style="color: #FF5D00">.</span></span>
+    <button onClick="{{openSedi}}" style="align-self: flex-start; height: 40px; padding: 0 12px 0 14px; border-radius: 999px; background: #FFFFFF; border: 1px solid #ECE3D6; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 8px">
+      <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4D665D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"></path><circle cx="12" cy="9" r="2.5"></circle></svg>
+      {{sede.name}}
+      <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"></path></svg>
+    </button>
+  </div>
+
+  <button onClick="{{goTeam}}" style="background: #0E4937; color: #FFFFFF; border-radius: 28px; padding: 18px; text-align: left; display: flex; align-items: center; gap: 14px">
+    <span style="flex: 1; display: flex; flex-direction: column; gap: 4px">
+      <span style="font-size: 12.5px; color: #CFE3D8">Зараз на зміні</span>
+      <span style="font-size: 32px; line-height: 36px; font-weight: 700">{{sede.on}}</span>
+      <span style="font-size: 13px; color: #CFE3D8">{{sede.onSub}}</span>
+    </span>
+    <span style="width: 40px; height: 40px; border-radius: 999px; background: #FFFFFF; color: #0E4937; display: flex; align-items: center; justify-content: center">
+      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+    </span>
+  </button>
+
+  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+    <button onClick="{{goLearn}}" style="background: #EAF5DA; border-radius: 22px; padding: 16px; text-align: left; display: flex; flex-direction: column; gap: 4px; min-height: 100px">
+      <span style="font-size: 26px; font-weight: 700">{{sede.form}}%</span><span style="font-size: 12.5px">навчання завершено</span>
+    </button>
+    <button onClick="{{goPlan}}" style="background: #F8EDCF; border-radius: 22px; padding: 16px; text-align: left; display: flex; flex-direction: column; gap: 4px; min-height: 100px">
+      <span style="font-size: 26px; font-weight: 700">{{sede.hours}}</span><span style="font-size: 12.5px">заплановано цього тижня</span>
+    </button>
+    <button onClick="{{goPlan}}" style="background: #FFE7D6; border-radius: 22px; padding: 16px; text-align: left; display: flex; flex-direction: column; gap: 4px; min-height: 100px">
+      <span style="font-size: 26px; font-weight: 700">{{sede.cost}}%</span><span style="font-size: 12.5px">витрати на персонал від очікуваного виторгу</span>
+    </button>
+    <button onClick="{{goTeam}}" style="background: #E1ECE7; border-radius: 22px; padding: 16px; text-align: left; display: flex; flex-direction: column; gap: 4px; min-height: 100px">
+      <span style="font-size: 26px; font-weight: 700">{{sede.ready}}</span><span style="font-size: 12.5px">середній час до «готовий»</span>
+    </button>
+  </div>
+
+  <sc-if value="{{isAll}}" hint-placeholder-val="{{ false }}">
+    <div style="background: #FFFFFF; border-radius: 22px; padding: 16px; display: flex; flex-direction: column; gap: 4px">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px"><span style="font-size: 15px; font-weight: 600">Порівняння закладів</span><span style="font-size: 12px; color: #4D665D">навчання · витрати · на зміні</span></div>
+      <sc-for list="{{compare}}" as="c" hint-placeholder-count="3">
+        <button onClick="{{c.pick}}" style="display: grid; grid-template-columns: minmax(0, 1fr) 56px 48px 56px; gap: 6px; align-items: center; padding: 10px 0; border-top: 1px solid #ECE3D6; text-align: left; font-size: 13px">
+          <span style="font-weight: 600">{{c.short}}</span>
+          <span style="{{c.formStyle}}">{{c.form}}%</span>
+          <span style="{{c.costStyle}}">{{c.cost}}%</span>
+          <span style="text-align: right; color: #4D665D">{{c.on}}</span>
+        </button>
+      </sc-for>
+    </div>
+  </sc-if>
+
+  <button onClick="{{announce}}" style="background: #FFFFFF; border: 1px solid #ECE3D6; border-radius: 22px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; text-align: left">
+    <span style="width: 40px; height: 40px; border-radius: 14px; background: #FFE7D6; display: flex; align-items: center; justify-content: center; flex-shrink: 0">
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0E4937" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10v4h4l6 4V6L7 10z M16 9a4 4 0 0 1 0 6"></path></svg>
+    </span>
+    <span style="flex: 1; display: flex; flex-direction: column; gap: 2px">
+      <span style="font-size: 15px; font-weight: 600">Повідомити команду</span>
+      <span style="font-size: 12.5px; color: #4D665D">Оголошення для {{sede.short}}: прийде сповіщенням</span>
+    </span>
+  </button>
+
+  <button onClick="{{goAi}}" style="background: #FFFFFF; border: 2px solid #0E4937; border-radius: 22px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; text-align: left">
+    <span style="width: 40px; height: 40px; border-radius: 14px; background: #EAF5DA; display: flex; align-items: center; justify-content: center; flex-shrink: 0">
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24"><path d="M12 2l2.4 6.8L21 11l-6.6 2.2L12 20l-2.4-6.8L3 11l6.6-2.2z" fill="#D6A324"></path></svg>
+    </span>
+    <span style="flex: 1; display: flex; flex-direction: column; gap: 2px">
+      <span style="font-size: 15px; font-weight: 600">Запитай WeFORM AI</span>
+      <span style="font-size: 12.5px; color: #4D665D">«Що покращити в обслуговуванні зали?»</span>
+    </span>
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 5l7 7-7 7"></path></svg>
+  </button>
+
+  <button onClick="{{goLearn}}" style="background: #F8EDCF; border-radius: 22px; padding: 14px 16px; display: flex; gap: 10px; align-items: center; text-align: left">
+    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7A5800" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20z"></path><path d="M12 10v4M12 17v.5"></path></svg>
+    <span style="flex: 1; font-size: 13px; line-height: 18px; color: #0E4937"><strong>2 людини на зміні сьогодні</strong> не пройшли тест «Алергени»</span>
+  </button>
+
+  <div style="display: flex; justify-content: space-between; align-items: baseline; margin-top: 4px">
+    <h2 style="margin: 0; font-size: 17px; font-weight: 600">На схвалення</h2>
+    <span style="font-size: 12.5px; color: #4D665D">{{pendingLabel}}</span>
+  </div>
+  <sc-for list="{{approvals}}" as="a" hint-placeholder-count="3">
+    <div style="background: #FFFFFF; border-radius: 22px; padding: 14px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 10px 30px rgba(14,73,55,0.08)">
+      <div style="display: flex; align-items: center; gap: 12px">
+        <span style="{{a.av}}">{{a.ini}}</span>
+        <span style="flex: 1; display: flex; flex-direction: column; gap: 2px">
+          <span style="font-size: 15px; font-weight: 600">{{a.name}}</span><span style="font-size: 12.5px; color: #4D665D">{{a.what}}</span>
+        </span>
+        <sc-if value="{{a.isDone}}" hint-placeholder-val="{{ false }}"><span style="{{a.chip}}">{{a.st}}</span></sc-if>
+      </div>
+      <sc-if value="{{a.warn}}" hint-placeholder-val="{{ false }}">
+        <div style="background: #F8EDCF; border-radius: 14px; padding: 10px 12px; font-size: 12.5px; line-height: 17px">{{a.warn}}</div>
+      </sc-if>
+      <sc-if value="{{a.isPending}}" hint-placeholder-val="{{ true }}">
+        <div style="display: flex; gap: 8px">
+          <button onClick="{{a.reject}}" style="flex: 1; height: 44px; border-radius: 999px; border: 1px solid #ECE3D6; background: #FFFFFF; font-size: 14px; font-weight: 600">Відхилити</button>
+          <button onClick="{{a.approve}}" style="flex: 1; height: 44px; border-radius: 999px; background: #0E4937; color: #FFFFFF; font-size: 14px; font-weight: 600">Схвалити</button>
+        </div>
+      </sc-if>
+    </div>
+  </sc-for>
+
+  <h2 style="margin: 4px 0 0; font-size: 17px; font-weight: 600">Відмітки сьогодні ввечері</h2>
+  <div style="background: #FFFFFF; border-radius: 22px; padding: 4px 14px">
+    <sc-for list="{{punches}}" as="p" hint-placeholder-count="4">
+      <div style="display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #ECE3D6">
+        <span style="{{p.av}}">{{p.ini}}</span>
+        <span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 600">{{p.name}}</span><span style="font-size: 12.5px; color: #4D665D">{{p.dep}}</span></span>
+        <span style="{{p.chip}}">{{p.label}}</span>
+      </div>
+    </sc-for>
+  </div>
+</div>
+</sc-if>
+
+<!-- ================= PLANNER TURNI ================= -->
+<sc-if value="{{isPlan}}" hint-placeholder-val="{{ false }}">
+<div class="scroll" style="position: absolute; left: 0; right: 0; top: 0; bottom: 80px; overflow-y: auto; padding: 56px 22px 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px">
+  <div>
+    <h1 style="margin: 0; font-size: 28px; line-height: 32px; font-weight: 700">Зміни<span style="color: #FF5D00">.</span></h1>
+    <span style="font-size: 13px; color: #4D665D">9 – 15 листопада · {{planState}}</span>
+  </div>
+  <div style="display: flex; gap: 8px">
+    <button onClick="{{aiFill}}" style="flex: 1; height: 44px; border-radius: 999px; border: 1px solid #ECE3D6; background: #FFFFFF; font-size: 14px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 6px">
+      <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24"><path d="M12 2l2.4 6.8L21 11l-6.6 2.2L12 20l-2.4-6.8L3 11l6.6-2.2z" fill="#D6A324"></path></svg>
+      Запропонувати зі ШІ
+    </button>
+    <button onClick="{{copyWeek}}" style="flex: 1; height: 44px; border-radius: 999px; border: 1px solid #ECE3D6; background: #FFFFFF; font-size: 14px; font-weight: 600">Копіювати мин. тиждень</button>
+  </div>
+  <div style="background: #FFFFFF; border-radius: 22px; padding: 12px 10px; display: flex; flex-direction: column; gap: 6px">
+    <div style="display: grid; grid-template-columns: 62px repeat(7, minmax(0, 1fr)); gap: 3px; font-size: 12px; color: #4D665D; text-align: center">
+      <span></span><span>Пн 9</span><span>Вт 10</span><span>Ср 11</span><span>Чт 12</span><span>Пт 13</span><span>Сб 14</span><span>Нд 15</span>
+    </div>
+    <sc-for list="{{grid}}" as="row" hint-placeholder-count="6">
+      <div style="display: grid; grid-template-columns: 62px repeat(7, minmax(0, 1fr)); gap: 3px; align-items: center">
+        <span style="display: flex; flex-direction: column; font-size: 12px; line-height: 15px"><strong>{{row.name}}</strong><span style="color: #4D665D">{{row.dep}}</span></span>
+        <sc-for list="{{row.cells}}" as="c" hint-placeholder-count="7">
+          <span style="{{c.style}}">{{c.t}}</span>
+        </sc-for>
+      </div>
+    </sc-for>
+    <div style="display: flex; gap: 12px; padding-top: 6px; font-size: 12px; color: #4D665D; flex-wrap: wrap">
+      <span style="display: flex; align-items: center; gap: 4px"><span style="width: 10px; height: 10px; border-radius: 4px; background: #FFE7D6"></span>Зала</span>
+      <span style="display: flex; align-items: center; gap: 4px"><span style="width: 10px; height: 10px; border-radius: 4px; background: #E1ECE7"></span>Bar</span>
+      <span style="display: flex; align-items: center; gap: 4px"><span style="width: 10px; height: 10px; border-radius: 4px; background: #F8EDCF"></span>Кухня</span>
+      <span style="display: flex; align-items: center; gap: 4px"><span style="width: 10px; height: 10px; border-radius: 4px; border: 1.5px dashed #0E4937; box-sizing: border-box"></span>Пропозиція ШІ</span>
+    </div>
+  </div>
+  <div style="background: #E1ECE7; border-radius: 22px; padding: 14px 16px; font-size: 13px; line-height: 19px">
+    <strong>Орієнтовні витрати 6 840 €</strong> · 29% очікуваного виторгу. У суботу кухня починає о 16:30, а замовлення йдуть приблизно з 19:00.
+  </div>
+  <button onClick="{{publish}}" style="height: 52px; border-radius: 999px; background: #0E4937; color: #FFFFFF; font-size: 15px; font-weight: 600">Опублікувати й повідомити команду</button>
+</div>
+</sc-if>
+
+<!-- ================= TEAM ================= -->
+<sc-if value="{{isTeam}}" hint-placeholder-val="{{ false }}">
+<div class="scroll" style="position: absolute; left: 0; right: 0; top: 0; bottom: 80px; overflow-y: auto; padding: 56px 22px 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px">
+  <div>
+    <h1 style="margin: 0; font-size: 28px; line-height: 32px; font-weight: 700">Твоя команда<span style="color: #FF5D00">.</span></h1>
+    <span style="font-size: 13px; color: #4D665D">11 людей · 3 на онбордингу</span>
+  </div>
+  <label style="display: flex; align-items: center; gap: 8px; height: 46px; background: #F6EDE1; border-radius: 18px; padding: 0 14px; color: #4D665D">
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg>
+    <input type="search" placeholder="Пошук колег, посад" aria-label="Пошук у команді" style="flex: 1; border: 0; outline: none; font-size: 14px; background: transparent; color: #0E4937">
+  </label>
+  <div style="display: flex; gap: 8px">
+    <sc-for list="{{depFilters}}" as="f" hint-placeholder-count="4">
+      <button onClick="{{f.pick}}" style="{{f.style}}">{{f.label}}</button>
+    </sc-for>
+  </div>
+  <div style="background: #FFFFFF; border-radius: 22px; padding: 4px 14px">
+    <sc-for list="{{staffList}}" as="m" hint-placeholder-count="6">
+      <button onClick="{{m.open}}" style="width: 100%; display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #ECE3D6; text-align: left">
+        <span style="{{m.av}}">{{m.ini}}</span>
+        <span style="flex: 1; display: flex; flex-direction: column; gap: 4px; min-width: 0">
+          <span style="font-size: 14px; font-weight: 600">{{m.name}}</span>
+          <span style="font-size: 12.5px; color: #4D665D">{{m.role}} · {{m.hours}} цього тижня</span>
+          <span style="display: block; height: 5px; border-radius: 999px; background: #F6EDE1; overflow: hidden"><span style="{{m.bar}}"></span></span>
+        </span>
+        <span style="display: flex; flex-direction: column; align-items: flex-end"><span style="font-size: 15px; font-weight: 700">{{m.ready}}%</span><span style="font-size: 11.5px; color: #4D665D">готовність</span></span>
+      </button>
+    </sc-for>
+  </div>
+</div>
+</sc-if>
+
+<!-- ================= SCHEDA DIPENDENTE ================= -->
+<sc-if value="{{isPerson}}" hint-placeholder-val="{{ false }}">
+<div class="scroll" style="position: absolute; left: 0; right: 0; top: 0; bottom: 80px; overflow-y: auto; padding: 52px 22px 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px">
+  <button aria-label="Назад" onClick="{{goTeam}}" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid #ECE3D6; background: #FFFFFF; display: flex; align-items: center; justify-content: center">
+    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 5l-7 7 7 7"></path></svg>
+  </button>
+  <div style="display: flex; align-items: center; gap: 14px">
+    <span style="{{p.avBig}}">{{p.ini}}</span>
+    <span style="display: flex; flex-direction: column; gap: 2px">
+      <span style="font-size: 24px; font-weight: 700">{{p.name}}</span>
+      <span style="font-size: 13px; color: #4D665D">{{p.role}} · {{p.dep}} · {{p.hired}}</span>
+    </span>
+  </div>
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+    <div style="background: #F8EDCF; border-radius: 22px; padding: 12px; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 20px; font-weight: 700">{{p.hours}}</span><span style="font-size: 11.5px">год за тиждень</span></div>
+    <div style="background: #FFE7D6; border-radius: 22px; padding: 12px; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 20px; font-weight: 700">{{p.extra}}</span><span style="font-size: 11.5px">понаднормові за місяць</span></div>
+    <div style="background: #EAF5DA; border-radius: 22px; padding: 12px; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 20px; font-weight: 700">{{p.leave}}</span><span style="font-size: 11.5px">залишок відпустки</span></div>
+  </div>
+  <div style="background: #FFFFFF; border-radius: 22px; padding: 16px; display: flex; flex-direction: column; gap: 12px">
+    <div style="display: flex; justify-content: space-between; align-items: baseline">
+      <span style="font-size: 15px; font-weight: 600">Відео й тести</span><span style="font-size: 13px; font-weight: 700; color: #2D6A0A">готовність {{p.ready}}%</span>
+    </div>
+    <sc-for list="{{p.mods}}" as="md" hint-placeholder-count="4">
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <div style="display: flex; justify-content: space-between; gap: 8px; font-size: 13px"><span>{{md.t}}</span><span style="{{md.qs}}">{{md.q}}</span></div>
+        <div style="height: 6px; border-radius: 999px; background: #F6EDE1; overflow: hidden"><div style="{{md.bar}}"></div></div>
+      </div>
+    </sc-for>
+  </div>
+  <div style="background: #FFFFFF; border-radius: 22px; padding: 16px; display: flex; flex-direction: column">
+    <span style="font-size: 15px; font-weight: 600; margin-bottom: 4px">Останні відмітки</span>
+    <sc-for list="{{p.punches}}" as="pp" hint-placeholder-count="3">
+      <div style="display: flex; justify-content: space-between; padding: 10px 0; border-top: 1px solid #ECE3D6; font-size: 13px"><span>{{pp.d}}</span><span style="color: #4D665D">{{pp.r}}</span><span style="font-weight: 600">{{pp.t}}</span></div>
+    </sc-for>
+  </div>
+  <div style="display: flex; gap: 8px">
+    <button onClick="{{shadow}}" style="flex: 1; height: 50px; border-radius: 999px; border: 1px solid #ECE3D6; background: #FFFFFF; font-size: 14px; font-weight: 600">Стажування</button>
+    <button onClick="{{assign}}" style="flex: 1; height: 50px; border-radius: 999px; background: #0E4937; color: #FFFFFF; font-size: 14px; font-weight: 600">Призначити відео</button>
+  </div>
+</div>
+</sc-if>
+
+<!-- ================= FORMAZIONE ================= -->
+<sc-if value="{{isLearn}}" hint-placeholder-val="{{ false }}">
+<div class="scroll" style="position: absolute; left: 0; right: 0; top: 0; bottom: 80px; overflow-y: auto; padding: 56px 22px 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px">
+  <div>
+    <h1 style="margin: 0; font-size: 28px; line-height: 32px; font-weight: 700">Навчання<span style="color: #FF5D00">.</span></h1>
+    <span style="font-size: 13px; color: #4D665D">Відео й тести · останні 30 днів</span>
+  </div>
+  <button onClick="{{goLib}}" style="background: #0E4937; color: #FFFFFF; border-radius: 22px; padding: 16px; display: flex; align-items: center; gap: 14px; text-align: left">
+    <span style="width: 44px; height: 44px; border-radius: 14px; background: #FFFFFF; color: #0E4937; display: flex; align-items: center; justify-content: center; flex-shrink: 0">
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg>
+    </span>
+    <span style="flex: 1; display: flex; flex-direction: column; gap: 2px">
+      <span style="font-size: 16px; font-weight: 700">Твої відео</span>
+      <span style="font-size: 12.5px; color: #CFE3D8">{{libCount}} матеріалів в акаунті · за посадою й закладом</span>
+    </span>
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 5l7 7-7 7"></path></svg>
+  </button>
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+    <div style="background: #EAF5DA; border-radius: 22px; padding: 12px; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 22px; font-weight: 700">72%</span><span style="font-size: 11.5px">відео переглянуто</span></div>
+    <div style="background: #E1ECE7; border-radius: 22px; padding: 12px; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 22px; font-weight: 700">84%</span><span style="font-size: 11.5px">середній бал тестів</span></div>
+    <div style="background: #F8EDCF; border-radius: 22px; padding: 12px; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 22px; font-weight: 700">9 дн.</span><span style="font-size: 11.5px">до «готовий»</span></div>
+  </div>
+  <div style="background: #FFFFFF; border-radius: 22px; padding: 16px; display: flex; flex-direction: column; gap: 12px">
+    <div style="display: flex; justify-content: space-between; align-items: baseline"><span style="font-size: 15px; font-weight: 600">За відео</span><span style="font-size: 12.5px; color: #4D665D">перегляди · середній бал</span></div>
+    <sc-for list="{{modules}}" as="m" hint-placeholder-count="6">
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <div style="display: flex; justify-content: space-between; gap: 8px; font-size: 13px"><span style="font-weight: 500">{{m.t}}</span><span style="white-space: nowrap; color: #4D665D">{{m.seen}} · <span style="{{m.qs}}">{{m.q}}</span></span></div>
+        <div style="height: 6px; border-radius: 999px; background: #F6EDE1; overflow: hidden"><div style="{{m.bar}}"></div></div>
+      </div>
+    </sc-for>
+  </div>
+  <div style="background: #FFFFFF; border-radius: 22px; padding: 16px; display: flex; flex-direction: column; gap: 10px">
+    <div style="display: flex; justify-content: space-between; align-items: baseline"><span style="font-size: 15px; font-weight: 600">HACCP · терміни й записи</span></div>
+    <div style="display: flex; align-items: center; gap: 10px; font-size: 13px"><span style="height: 24px; padding: 0 10px; border-radius: 999px; background: #FFE7D6; color: #B83A00; font-size: 11.5px; font-weight: 600; display: flex; align-items: center">За 20 дн.</span><span>Сертифікат HACCP Алессіо Феррі</span></div>
+    <div style="display: flex; align-items: center; gap: 10px; font-size: 13px"><span style="height: 24px; padding: 0 10px; border-radius: 999px; background: #F8EDCF; color: #7A5800; font-size: 11.5px; font-weight: 600; display: flex; align-items: center">13 / 14</span><span>Журнали температур заповнено цього тижня</span></div>
+    <div style="display: flex; align-items: center; gap: 10px; font-size: 13px"><span style="height: 24px; padding: 0 10px; border-radius: 999px; background: #EAF5DA; color: #2D6A0A; font-size: 11.5px; font-weight: 600; display: flex; align-items: center">Відповідає</span><span>Посібник самоконтролю · оновлено жовт. 2026</span></div>
+    <button onClick="{{renewHaccp}}" style="height: 44px; border-radius: 999px; border: 1px solid #ECE3D6; font-size: 14px; font-weight: 600">Записатися на продовження в партнера</button>
+  </div>
+  <div style="background: #FFE7D6; border-radius: 22px; padding: 16px; display: flex; flex-direction: column; gap: 6px">
+    <span style="font-size: 15px; font-weight: 600">Питання з найбільшою кількістю помилок</span>
+    <span style="font-size: 13px; line-height: 18px">«До якого рівня наливаєш келих?» · Подача вина · 46% помилок</span>
+    <span style="font-size: 13px; line-height: 18px">«Де лежить книга алергенів?» · Алергени · 38% помилок</span>
+  </div>
+  <h2 style="margin: 4px 0 0; font-size: 17px; font-weight: 600">Хто відстає</h2>
+  <div style="background: #FFFFFF; border-radius: 22px; padding: 4px 14px">
+    <sc-for list="{{behind}}" as="m" hint-placeholder-count="3">
+      <button onClick="{{m.open}}" style="width: 100%; display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #ECE3D6; text-align: left">
+        <span style="{{m.av}}">{{m.ini}}</span>
+        <span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 600">{{m.name}}</span><span style="font-size: 12.5px; color: #4D665D">{{m.missing}}</span></span>
+        <span style="font-size: 15px; font-weight: 700">{{m.ready}}%</span>
+      </button>
+    </sc-for>
+  </div>
+  <button onClick="{{remind}}" style="height: 50px; border-radius: 999px; background: #0E4937; color: #FFFFFF; font-size: 15px; font-weight: 600">Нагадати тим, хто відстає</button>
+  <div style="background: #FFFFFF; border-radius: 22px; padding: 16px; display: flex; flex-direction: column; gap: 10px">
+    <span style="font-size: 15px; font-weight: 600">Додай відео свого закладу</span>
+    <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600">Посилання YouTube
+      <input type="url" placeholder="https://youtube.com/…" style="height: 48px; border-radius: 18px; border: 1px solid #ECE3D6; padding: 0 14px; font-size: 14px; color: #0E4937; outline: none">
+    </label>
+    <span style="font-size: 12.5px; color: #4D665D">WeFORM автоматично створює з відео тест на 3 питання.</span>
+    <button onClick="{{addVideo}}" style="height: 46px; border-radius: 999px; border: 1px solid #ECE3D6; font-size: 14px; font-weight: 600">Додати й призначити за посадою</button>
+  </div>
+</div>
+</sc-if>
+
+<!-- ================= LIBRERIA VIDEO ================= -->
+<sc-if value="{{isLib}}" hint-placeholder-val="{{ false }}">
+<div class="scroll" style="position: absolute; left: 0; right: 0; top: 0; bottom: 80px; overflow-y: auto; padding: 52px 22px 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px">
+  <button aria-label="Назад" onClick="{{goLearn}}" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid #ECE3D6; background: #FFFFFF; display: flex; align-items: center; justify-content: center">
+    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 5l-7 7 7 7"></path></svg>
+  </button>
+  <div>
+    <h1 style="margin: 0; font-size: 28px; line-height: 32px; font-weight: 700">Твої відео<span style="color: #FF5D00">.</span></h1>
+    <span style="font-size: 13px; color: #4D665D">{{libCount}} матеріалів · {{sede.name}}</span>
+  </div>
+  <div class="scroll" style="display: flex; gap: 8px; overflow-x: auto; margin: 0 -22px; padding: 0 22px">
+    <sc-for list="{{libFilters}}" as="f" hint-placeholder-count="6">
+      <button onClick="{{f.pick}}" style="{{f.style}}">{{f.label}}</button>
+    </sc-for>
+  </div>
+  <sc-for list="{{library}}" as="v" hint-placeholder-count="5">
+    <div style="background: #FFFFFF; border-radius: 22px; padding: 12px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 10px 30px rgba(14,73,55,0.08)">
+      <a href="{{v.yt}}" target="_blank" rel="noopener" style="display: flex; gap: 12px; align-items: center; text-decoration: none; color: #0E4937">
+        <span style="{{v.thumb}}">
+          <svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="{{v.icon}}"></path></svg>
+          <span style="position: absolute; right: 6px; bottom: 6px; width: 24px; height: 24px; border-radius: 999px; background: #0E4937; color: #FFFFFF; display: flex; align-items: center; justify-content: center">
+            <svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg>
+          </span>
+        </span>
+        <span style="flex: 1; display: flex; flex-direction: column; gap: 3px; min-width: 0">
+          <span style="font-size: 15px; font-weight: 600">{{v.title}}</span>
+          <span style="font-size: 12.5px; color: #4D665D">{{v.dep}} · {{v.dur}} · тест на 3 питання</span>
+          <span style="font-size: 12.5px; color: #4D665D">Призначено: {{v.roles}}</span>
+        </span>
+      </a>
+      <div style="display: flex; gap: 8px; align-items: center">
+        <span style="height: 26px; padding: 0 10px; border-radius: 999px; background: #F6EDE1; font-size: 12px; font-weight: 600; display: flex; align-items: center">Переглянули {{v.seen}}</span>
+        <span style="{{v.quizChip}}">Середній бал {{v.quiz}}%</span>
+        <button onClick="{{v.assign}}" style="margin-left: auto; height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid #ECE3D6; font-size: 13px; font-weight: 600">Призначити</button>
+      </div>
+    </div>
+  </sc-for>
+  <div style="background: #FFFFFF; border-radius: 22px; padding: 16px; display: flex; flex-direction: column; gap: 10px">
+    <span style="font-size: 15px; font-weight: 600">Додай відео в акаунт</span>
+    <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600">Посилання YouTube або відеофайл
+      <input type="url" placeholder="https://youtube.com/…" style="height: 48px; border-radius: 18px; border: 1px solid #ECE3D6; padding: 0 14px; font-size: 14px; color: #0E4937; outline: none">
+    </label>
+    <span style="font-size: 12.5px; color: #4D665D">WeFORM автоматично створює з відео тест на 3 питання.</span>
+    <button onClick="{{addVideo}}" style="height: 46px; border-radius: 999px; background: #0E4937; color: #FFFFFF; font-size: 14px; font-weight: 600">Завантажити й призначити за посадою</button>
+  </div>
+</div>
+</sc-if>
+
+<!-- ================= WeFORM AI ================= -->
+<sc-if value="{{isAi}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; left: 0; right: 0; top: 0; bottom: 80px; display: flex; flex-direction: column">
+  <div style="padding: 52px 22px 12px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #ECE3D6; background: #FCF7F1">
+    <span style="width: 44px; height: 44px; border-radius: 999px; background: #EAF5DA; display: flex; align-items: center; justify-content: center">
+      <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24"><path d="M12 2l2.4 6.8L21 11l-6.6 2.2L12 20l-2.4-6.8L3 11l6.6-2.2z" fill="#D6A324"></path></svg>
+    </span>
+    <span style="flex: 1; display: flex; flex-direction: column">
+      <span style="font-size: 22px; line-height: 26px; font-weight: 700">WeFORM AI<span style="color: #FF5D00">.</span></span>
+      <span style="font-size: 12.5px; color: #4D665D">Відповідає на основі даних Villa Aurora</span>
+    </span>
+    <button aria-label="Нова розмова" onClick="{{resetChat}}" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid #ECE3D6; background: #FFFFFF; display: flex; align-items: center; justify-content: center">
+      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
+    </button>
+  </div>
+  <div class="scroll" ref="{{chatRef}}" style="flex: 1; overflow-y: auto; padding: 16px 22px; display: flex; flex-direction: column; gap: 12px">
+    <sc-for list="{{msgs}}" as="m" hint-placeholder-count="2">
+      <sc-if value="{{m.me}}" hint-placeholder-val="{{ false }}">
+        <div style="align-self: flex-end; max-width: 80%; background: #0E4937; color: #FFFFFF; border-radius: 22px 22px 6px 22px; padding: 12px 14px; font-size: 14px; line-height: 20px">{{m.text}}</div>
+      </sc-if>
+      <sc-if value="{{m.ai}}" hint-placeholder-val="{{ true }}">
+        <div style="align-self: flex-start; max-width: 92%; background: #FFFFFF; border-radius: 22px 22px 22px 6px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 10px 30px rgba(14,73,55,0.08)">
+          <span style="font-size: 14px; line-height: 21px">{{m.text}}</span>
+          <sc-for list="{{m.bullets}}" as="b" hint-placeholder-count="0">
+            <span style="display: flex; gap: 8px; font-size: 13px; line-height: 19px"><span style="width: 6px; height: 6px; border-radius: 999px; background: #72BF00; margin-top: 7px; flex-shrink: 0"></span>{{b}}</span>
+          </sc-for>
+          <sc-if value="{{m.action}}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{m.act}}" style="align-self: flex-start; height: 40px; padding: 0 16px; border-radius: 999px; background: #0E4937; color: #FFFFFF; font-size: 13px; font-weight: 600">{{m.action}}</button>
+          </sc-if>
+          <sc-if value="{{m.src}}" hint-placeholder-val="{{ false }}">
+            <span style="font-size: 12px; color: #4D665D">{{m.src}}</span>
+          </sc-if>
+        </div>
+      </sc-if>
+    </sc-for>
+    <sc-if value="{{typing}}" hint-placeholder-val="{{ false }}">
+      <div style="align-self: flex-start; background: #FFFFFF; border-radius: 22px; padding: 12px 16px; font-size: 13px; color: #4D665D">Читаю зміни, відмітки й тести…</div>
+    </sc-if>
+  </div>
+  <div style="padding: 10px 22px 12px; display: flex; flex-direction: column; gap: 10px; background: #FCF7F1; border-top: 1px solid #ECE3D6">
+    <div class="scroll" style="display: flex; gap: 8px; overflow-x: auto; margin: 0 -22px; padding: 0 22px">
+      <sc-for list="{{suggestions}}" as="sg" hint-placeholder-count="4">
+        <button onClick="{{sg.ask}}" style="height: 38px; padding: 0 14px; border-radius: 999px; border: 1px solid #ECE3D6; background: #FFFFFF; font-size: 13px; font-weight: 500; white-space: nowrap; flex-shrink: 0">{{sg.q}}</button>
+      </sc-for>
+    </div>
+    <div style="display: flex; gap: 8px">
+      <label style="flex: 1; display: flex">
+        <input type="text" aria-label="Напиши питання" placeholder="Запитай, що можна покращити…" value="{{draft}}" onChange="{{onType}}" style="flex: 1; height: 48px; border-radius: 999px; border: 1px solid #ECE3D6; background: #FFFFFF; padding: 0 16px; font-size: 14px; color: #0E4937; outline: none">
+      </label>
+      <button aria-label="Надіслати" onClick="{{send}}" style="width: 48px; height: 48px; border-radius: 999px; background: #0E4937; color: #FFFFFF; display: flex; align-items: center; justify-content: center">
+        <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+      </button>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<!-- ================= SEDI E ABBONAMENTO ================= -->
+<sc-if value="{{sediOpen}}" hint-placeholder-val="{{ false }}">
+  <div style="position: absolute; inset: 0; background: rgba(14,73,55,0.35); display: flex; flex-direction: column; justify-content: flex-end; z-index: 5">
+    <button aria-label="Закрити" onClick="{{closeSedi}}" style="flex: 1"></button>
+    <div class="sheet" style="background: #FCF7F1; border-radius: 28px 28px 0 0; padding: 20px 22px 32px; display: flex; flex-direction: column; gap: 10px">
+      <div style="display: flex; align-items: center; justify-content: space-between">
+        <span style="font-size: 20px; font-weight: 700">Твої заклади<span style="color: #FF5D00">.</span></span>
+        <button onClick="{{closeSedi}}" style="height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid #ECE3D6; background: #FFFFFF; font-size: 13px; font-weight: 600">Закрити</button>
+      </div>
+      <sc-for list="{{sediList}}" as="sd" hint-placeholder-count="4">
+        <button onClick="{{sd.pick}}" style="{{sd.style}}">
+          <span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 600">{{sd.name}}</span><span style="font-size: 12.5px; color: #4D665D">{{sd.sub}}</span></span>
+          <span style="{{sd.radio}}"></span>
+        </button>
+      </sc-for>
+      <div style="background: #E1ECE7; border-radius: 22px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; margin-top: 4px">
+        <span style="font-size: 12.5px">Підписка</span>
+        <span style="font-size: 17px; font-weight: 700">Professional · 99 € на місяць за заклад</span>
+        <span style="font-size: 12.5px; line-height: 17px; color: #4D665D">3 активні заклади · власні відео з тестами від ШІ · автоматичні зміни зі схваленням</span>
+      </div>
+      <button onClick="{{addSede}}" style="height: 48px; border-radius: 999px; background: #0E4937; color: #FFFFFF; font-size: 14px; font-weight: 600">Додати заклад</button>
+    </div>
+  </div>
+</sc-if>
+
+<!-- ================= TAB BAR ================= -->
+<sc-if value="{{showNav}}" hint-placeholder-val="{{ false }}">
+<nav style="position: absolute; left: 0; right: 0; bottom: 0; height: 80px; background: #FFFFFF; border-top: 1px solid #ECE3D6; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); padding: 0 6px 14px; box-sizing: border-box">
+  <button onClick="{{goDash}}" style="{{tab.dash}}">
+    <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="{{tab.dashW}}" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"></path></svg>Головна
+  </button>
+  <button onClick="{{goPlan}}" style="{{tab.plan}}">
+    <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="{{tab.planW}}" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>Зміни
+  </button>
+  <button onClick="{{goTeam}}" style="{{tab.team}}">
+    <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="{{tab.teamW}}" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20a6.5 6.5 0 0 1 13 0"></path><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6 6 0 0 1 3.5 6"></path></svg>Команда
+  </button>
+  <button onClick="{{goLearn}}" style="{{tab.learn}}">
+    <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="{{tab.learnW}}" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"></path></svg>Навчання
+  </button>
+  <button onClick="{{goAi}}" style="{{tab.ai}}">
+    <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="{{tab.aiW}}" stroke-linejoin="round"><path d="M12 3l2.2 6.3L20.5 11.5l-6.3 2.2L12 20l-2.2-6.3L3.5 11.5l6.3-2.2z"></path></svg>ШІ
+  </button>
+</nav>
+</sc-if>
+
+<!-- ================= TOAST ================= -->
+<sc-if value="{{hasToast}}" hint-placeholder-val="{{ false }}">
+  <div role="status" style="position: absolute; left: 22px; right: 22px; top: 50px; background: #0E4937; color: #FFFFFF; border-radius: 18px; padding: 14px 16px; font-size: 14px; font-weight: 500; display: flex; align-items: center; gap: 10px; box-shadow: 0 10px 30px rgba(14,73,55,0.2)">
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17 19 7"></path></svg>
+    {{toast}}
+  </div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+var TINT = { 'Зала': '#FFE7D6', 'Bar': '#E1ECE7', 'Кухня': '#F8EDCF' };
+function M(t, pct, q) { return { t: t, pct: pct, q: q }; }
+var STAFF = [
+  { id: 'gr', name: 'Giulia Rossi', short: 'Giulia', ini: 'GR', av: '#9A5B3D', role: 'Офіціантка', dep: 'Зала', hired: 'з 27 жовт.', hours: '26,5 h', extra: '4 h', leave: '14,5 дн.', ready: 38,
+    mods: [M('Зустріч біля столу', 100, '3/3'), M('Алергени: 14, які треба знати', 0, ''), M('Подача вина', 0, ''), M('Фірмове еспресо', 0, '')],
+    punches: [['Пн 9', '17:56 – 23:41', '5 h 45'], ['Сб 7', '11:28 – 15:10', '3 h 42'], ['Пт 6', '17:50 – 23:58', '6 h 08']], missing: 'Бракує «Алергени» і «Подача вина»' },
+  { id: 'lv', name: 'Luca Verdi', short: 'Luca', ini: 'LV', av: '#4F6B45', role: 'Ранер', dep: 'Зала', hired: '2 роки', hours: '34 h', extra: '6 h', leave: '9 дн.', ready: 86,
+    mods: [M('Зустріч біля столу', 100, '3/3'), M('Алергени: 14, які треба знати', 100, '3/3'), M('Подача вина', 40, '')],
+    punches: [['Пн 9', '17:58 – 23:40', '5 h 42'], ['Нд 8', '11:30 – 15:05', '3 h 35'], ['Сб 7', '17:55 – 00:10', '6 h 15']], missing: '' },
+  { id: 'sc', name: 'Sara Conti', short: 'Sara', ini: 'SC', av: '#7A4E8C', role: 'Офіціантка', dep: 'Зала', hired: '1 рік', hours: '36 h', extra: '8 h', leave: '6 дн.', ready: 95,
+    mods: [M('Зустріч біля столу', 100, '3/3'), M('Алергени: 14, які треба знати', 100, '3/3'), M('Подача вина', 100, '2/3')],
+    punches: [['Пн 9', '17:50 – 23:45', '5 h 55'], ['Сб 7', '17:52 – 00:05', '6 h 13'], ['Пт 6', '17:49 – 23:50', '6 h 01']], missing: '' },
+  { id: 'af', name: 'Alessio Ferri', short: 'Alessio', ini: 'AF', av: '#2F5D6B', role: 'Бариста', dep: 'Bar', hired: 'з 1 лист.', hours: '22 h', extra: '0 h', leave: '2 дн.', ready: 41,
+    mods: [M('Фірмове еспресо', 100, '3/3'), M('Капучино й збите молоко', 100, '2/3'), M('Фірмові Шприц і Негроні', 30, ''), M('Алергени: 14, які треба знати', 0, '')],
+    punches: [['Пн 9', '17:56 – 00:20', '6 h 24'], ['Сб 7', '18:05 – 00:30', '6 h 25'], ['Пт 6', '18:00 – 00:15', '6 h 15']], missing: 'Бракує «Алергени» і «Коктейлі»' },
+  { id: 'dr', name: 'Davide Russo', short: 'Davide', ini: 'DR', av: '#8A5A1F', role: 'Кухар', dep: 'Кухня', hired: '3 роки', hours: '40 h', extra: '10 h', leave: '11 дн.', ready: 100,
+    mods: [M('Mise en place на лінії', 100, '3/3'), M('Температури й зберігання', 100, '3/3'), M('Алергени: 14, які треба знати', 100, '3/3')],
+    punches: [['Пн 9', '16:30 – 23:30', '7 h 00'], ['Сб 7', '16:30 – 00:00', '7 h 30'], ['Пт 6', '16:30 – 23:45', '7 h 15']], missing: '' },
+  { id: 'pn', name: 'Paolo Neri', short: 'Paolo', ini: 'PN', av: '#355E8A', role: 'Помічник кухаря', dep: 'Кухня', hired: '8 місяців', hours: '35 h', extra: '8 h', leave: '7 дн.', ready: 72,
+    mods: [M('Mise en place на лінії', 100, '3/3'), M('Температури й зберігання', 100, '2/3'), M('Алергени: 14, які треба знати', 50, '')],
+    punches: [['Пн 9', '16:30 – 23:20', '6 h 50'], ['Сб 7', '16:35 – 23:55', '7 h 20'], ['Пт 6', '16:30 – 23:40', '7 h 10']], missing: 'Алергени на 50%' }
+];
+var PLAN = {
+  gr: ['18–23', '18–23', '17–21', '11–15', '', '18–24', ''],
+  lv: ['18–23', '', '18–23', '11–15', '18–23', '18–24', '11–15'],
+  sc: ['', '18–23', '18–23', '', '18–23', '18–24', '11–15'],
+  af: ['18–24', '18–24', '', '18–24', '18–24', '', '18–24'],
+  dr: ['16–23', '16–23', '16–23', '', '16–23', '16–24', ''],
+  pn: ['', '16–23', '16–23', '16–23', '', '16–24', '11–15']
+};
+var AI_FILL = { gr: [4, '18–23'], sc: [0, '18–23'], af: [5, '18–24'] };
+var CHIP = { ok: 'background:#EAF5DA;color:#2D6A0A', late: 'background:#F8EDCF;color:#7A5800', 'Схвалено': 'background:#EAF5DA;color:#2D6A0A', 'Відхилено': 'background:#FFE7D6;color:#B83A00' };
+var CHIPB = 'height:24px;padding:0 10px;border-radius:999px;font-size:11.5px;font-weight:600;display:inline-flex;align-items:center;white-space:nowrap;';
+var P_ON = 'height:38px;padding:0 16px;border-radius:999px;font-size:13px;font-weight:600;background:#72BF00;color:#0E4937;border:1px solid #72BF00';
+var P_OFF = 'height:38px;padding:0 16px;border-radius:999px;font-size:13px;font-weight:500;background:#FFFFFF;color:#0E4937;border:1px solid #ECE3D6';
+function av(c, n) { return 'width:' + n + 'px;height:' + n + 'px;border-radius:999px;background:' + c + ';color:#FFFFFF;font-size:' + (n > 50 ? 20 : 13) + 'px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0'; }
+
+var SRC = 'На основі змін, відміток і тестів Villa Aurora · останні 30 днів';
+var ANSWERS = {
+  sala: { q: 'Що покращити в обслуговуванні зали?',
+    text: 'Найслабше місце — подача вина: середній бал 67% проти 84% по закладу, а 2 з 5 працівників зали ще не дивилися відео.',
+    bullets: ['Найчастіша помилка — скільки наливати в келих (46%)', 'Джулія й Лука не завершили «Подача вина»', 'У суботу після 21:00 у залі 3 з 4 запланованих людей'],
+    action: 'Призначити «Подача вина» 2 людям', key: 'toast:Відео призначено Джулії та Луці' },
+  extra: { q: 'Як скоротити понаднормові?',
+    text: 'У листопаді 31 год понаднормових, 58% — кухня в суботу. Давіде й Паоло починають о 16:30, а перші замовлення в середньому о 19:10.',
+    bullets: ['Якщо в суботу кухня почне о 17:30, заощадиш близько 8 год на тиждень', 'У Паоло 3 год у банку годин', 'Бар закриває касу о 00:20: якщо о 23:45 — це близько 2 год на тиждень'],
+    action: 'Відкрити планувальник на суботу', key: 'plan' },
+  onb: { q: 'Чому новачкам потрібно стільки часу?',
+    text: 'Зараз новачок у середньому стає «готовим» за 9 днів при меті 7. Найбільше гальмують HACCP і коктейлі.',
+    bullets: ['Хто стажується перші 3 дні, готовий за 6 днів', 'Алессіо (бар) на 41%: бракує «Шприц і Негроні»', 'Відео до хвилини завершують удвічі частіше'],
+    action: 'Запланувати стажування для Алессіо', key: 'toast:Стажування із Сарою запропоновано на четвер' },
+  who: { q: 'Кого навчити цього тижня?',
+    text: 'Троє людей мають прогалини, що стосуються їхніх найближчих змін.',
+    bullets: ['Джулія · «Алергени» не пройдено, сьогодні в залі', 'Алессіо · алергени й коктейлі, у суботу на барі', 'Паоло · алергени на 50%, у середу кухня'],
+    action: 'Надіслати нагадування 3 людям', key: 'toast:Нагадування надіслано 3 людям' },
+  cost: { q: 'Яка частка персоналу у виторгу?',
+    text: 'Цього тижня орієнтовні витрати на персонал — 6 840 €, 29% очікуваного виторгу: нижче встановленого порогу 32%.',
+    bullets: ['П’ятниця найдорожча: 35%, бо очікуваний виторг нижчий', 'У неділю на обід одна людина зайва відносно середньої кількості гостей', 'У жовтні було 31%'],
+    action: 'Відкрити планувальник', key: 'plan' }
+};
+var ORDER = ['sala', 'extra', 'onb', 'who', 'cost', 'sedi'];
+ANSWERS.sedi = { q: 'Який заклад найслабший і чому?',
+  text: 'Bistrot Aurora у Бергамо відстає найбільше: навчання 58%, витрати на персонал 34% — вище порогу 32%. А в Комо команда готова за 7 днів.',
+  bullets: ['У Бергамо 3 з 6 людей не переглянули відео HACCP', 'Витрати ростуть, бо в понеділок працюють 2 людини при малій кількості гостей', 'Перенесення шляху Комо в Бергамо може скоротити час до «готовий» приблизно на 3 дні'],
+  action: 'Скопіювати шлях Комо в Бергамо', key: 'toast:Шлях Комо призначено команді Бергамо' };
+var SEDI = {
+  all: { name: 'Усі заклади', short: 'усіх закладів', on: '18 з 23', onSub: '3 заклади · 26 людей', form: 73, hours: '856 h', cost: 31, ready: '9 дн.', sub: 'Загальний огляд' },
+  mi: { name: 'Villa Aurora · Мілан', short: 'Мілан', on: '8 з 11', onSub: '1 запізнення · 2 прийдуть о 19:00', form: 72, hours: '412 h', cost: 29, ready: '9 дн.', sub: '11 людей · ресторан і лаунж-бар' },
+  co: { name: 'Villa Aurora · озеро Комо', short: 'Como', on: '6 з 7', onSub: 'усі вчасно', form: 85, hours: '268 h', cost: 31, ready: '7 дн.', sub: '9 людей · готель і ресторан' },
+  bg: { name: 'Bistrot Aurora · Бергамо', short: 'Bergamo', on: '4 з 5', onSub: '1 на лікарняному', form: 58, hours: '176 h', cost: 34, ready: '12 дн.', sub: '6 людей · бістро' }
+};
+var SEDI_ORDER = ['all', 'mi', 'co', 'bg'];
+var LTINT = { 'Bar': '#E1ECE7', 'Зала': '#FFE7D6', 'Кухня': '#F8EDCF', 'HACCP': '#EAF5DA', 'Готель': '#F6EDE1' };
+var LICON = {
+  bell: 'M4 17h16 M6 17a6 6 0 0 1 12 0 M12 8v3 M10 8h4 M3 20h18',
+  wine: 'M8 3h8l-.5 5a3.5 3.5 0 0 1-7 0z M12 11.5V20 M8.5 20h7',
+  shield: 'M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z M9 12l2 2 4-4',
+  cup: 'M4 9h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z M16 10h2a2.5 2.5 0 0 1 0 5h-2 M8 3c0 1.5 1 1.5 1 3 M12 3c0 1.5 1 1.5 1 3',
+  milk: 'M5 8h12v4a6 6 0 0 1-12 0z M17 9h1.5a2.5 2.5 0 0 1 0 5H16 M3 21h18',
+  cocktail: 'M5 4h14l-7 8z M12 12v8 M8 20h8 M15 4l3-2',
+  pot: 'M4 10h16v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z M2 10h20 M9 6c0-1 1-1 1-2 M14 6c0-1 1-1 1-2',
+  thermo: 'M10 4a2 2 0 0 1 4 0v10a4 4 0 1 1-4 0z M12 9v7',
+  bed: 'M3 18V7 M3 14h18v4 M21 14v-2a3 3 0 0 0-3-3h-7v5 M5.5 11.5a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0-3 0'
+};
+var LIB = [
+  { title: 'Зустріч гостей і обслуговування в залі', dep: 'Зала', dur: '5 хв', i: 'bell', roles: 'Зала · 5 людей', seen: '5/5', quiz: 93, yt: 'https://www.youtube.com/watch?v=ahmRl0i6hS0' },
+  { title: 'Як подавати вино', dep: 'Зала', dur: '4 хв', i: 'wine', roles: 'Зала · 5 людей', seen: '3/5', quiz: 67, yt: 'https://www.youtube.com/watch?v=oVbx_b1grFY' },
+  { title: 'HACCP та алергени', dep: 'HACCP', dur: '6 хв', i: 'shield', roles: 'Усі · 11 людей', seen: '8/11', quiz: 81, yt: 'https://www.youtube.com/watch?v=--3OBlSWpfI' },
+  { title: 'Кава еспресо', dep: 'Bar', dur: '3 хв', i: 'cup', roles: 'Бар і зала · 7 людей', seen: '4/4', quiz: 92, yt: 'https://www.youtube.com/watch?v=5_X75hicjFo' },
+  { title: 'Збивання молока для капучино', dep: 'Bar', dur: '4 хв', i: 'milk', roles: 'Бар · 2 людини', seen: '2/2', quiz: 83, yt: 'https://www.youtube.com/watch?v=Lo8zoTnPFS0' },
+  { title: 'Ідеальний Негроні', dep: 'Bar', dur: '3 хв', i: 'cocktail', roles: 'Бар · 2 людини', seen: '1/2', quiz: 78, yt: 'https://www.youtube.com/watch?v=7wconPmM4tA' },
+  { title: 'Mise en place на кухні', dep: 'Кухня', dur: '5 хв', i: 'pot', roles: 'Кухня · 3 людини', seen: '3/3', quiz: 100, yt: 'https://www.youtube.com/watch?v=7ITNsT9yktc' },
+  { title: 'HACCP: холодильник', dep: 'HACCP', dur: '4 хв', i: 'thermo', roles: 'Усі · 11 людей', seen: '6/7', quiz: 88, yt: 'https://www.youtube.com/watch?v=iIUpCVagvbE' },
+  { title: 'Прибирання готельного номера', dep: 'Готель', dur: '6 хв', i: 'bed', roles: 'Хаускіпінг · заклад у Комо', seen: '4/4', quiz: 90, yt: 'https://www.youtube.com/watch?v=1qVYTtQO14E' }
+];
+function match(t) {
+  t = t.toLowerCase();
+  if (/sed|bergamo|como|milano|peggio/.test(t)) return 'sedi';
+  if (/vino|sala|servizio|clienti|migliora/.test(t)) return 'sala';
+  if (/straordinar|ore|orari|turn/.test(t)) return 'extra';
+  if (/nuov|assunt|onboarding|pront/.test(t)) return 'onb';
+  if (/form|chi|quiz|video/.test(t)) return 'who';
+  if (/cost|incass|soldi|spes|margin/.test(t)) return 'cost';
+  return '';
+}
+var HELLO = { ai: true, me: false, text: 'Привіт, Марко. Запитай, що можна покращити у Villa Aurora: я відповідаю на основі змін, відміток, запитів і тестів твоєї команди.', bullets: [], action: '', src: '' };
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tab: 'welcome', personId: 'gr', dep: 'Усі', aiDraft: false, published: false, toast: '',
+      sede: 'mi', sedi: false, libDep: 'Усі',
+      msgs: [HELLO], typing: false, draft: '',
+      approvals: [
+        { id: 'a0', ini: 'SC', c: '#7A4E8C', name: 'Обмін змінами · Сара ↔ Джулія', tn: 'Сари та Джулії', what: 'Чт 12 обід ↔ Нд 15 обід · погодили обидві', warn: 'Покриття не змінюється: та сама посада й той самий час.', st: '' },
+        { id: 'a1', ini: 'GR', c: '#9A5B3D', name: 'Giulia Rossi', what: 'Відпустка 28–31 грудня · 4 дн.', warn: '31 грудня: у залі не вистачатиме людей (3 з 5), якщо схвалиш. Сара може взяти 2 зміни.', st: '' },
+        { id: 'a2', ini: 'PN', c: '#355E8A', name: 'Paolo Neri', what: 'Відгул 3 год · пт 13 лист.', warn: '', st: '' },
+        { id: 'a3', ini: 'SC', c: '#7A4E8C', name: 'Sara Conti', what: 'Зміна графіка з Лукою · сб 14', warn: '', st: '' }
+      ]
+    };
+  }
+  componentDidUpdate() { if (this.chatEl) this.chatEl.scrollTop = this.chatEl.scrollHeight; }
+  componentWillUnmount() { if (this.tt) clearTimeout(this.tt); if (this.at) clearTimeout(this.at); }
+  showToast(m) { var self = this; this.setState({ toast: m }); if (this.tt) clearTimeout(this.tt); this.tt = setTimeout(function () { self.setState({ toast: '' }); }, 3000); }
+  ask(text, k0) {
+    var self = this; text = (text || '').trim(); if (!text || this.state.typing) return;
+    var k = k0 || match(text);
+    this.setState({ msgs: this.state.msgs.concat([{ me: true, ai: false, text: text }]), typing: true, draft: '' });
+    this.at = setTimeout(function () {
+      var a = ANSWERS[k];
+      var m = a ? { ai: true, me: false, text: a.text, bullets: a.bullets, action: a.action, key: a.key, src: SRC }
+                : { ai: true, me: false, text: 'У цьому макеті я відповідаю на запропоновані нижче питання. У реальній версії я читаю всі дані закладу й відповідаю на будь-які питання про персонал, зміни й навчання.', bullets: [], action: '', src: '' };
+      self.setState({ msgs: self.state.msgs.concat([m]), typing: false });
+    }, 900);
+  }
+  doAction(key) {
+    if (key === 'plan') { this.setState({ tab: 'plan' }); return; }
+    if (key.indexOf('toast:') === 0) this.showToast(key.slice(6));
+  }
+  renderVals() {
+    var s = this.state, self = this, t = s.tab;
+    var go = function (x) { return function () { self.setState({ tab: x }); }; };
+    var open = function (id) { return function () { self.setState({ tab: 'person', personId: id }); }; };
+    var tabS = function (on) { return 'display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:11.5px;' + (on ? 'font-weight:700;color:#0E4937' : 'font-weight:500;color:#4D665D'); };
+    var pending = s.approvals.filter(function (a) { return !a.st; }).length;
+
+    var approvals = s.approvals.map(function (a) {
+      return Object.assign({}, a, { av: av(a.c, 44), isPending: !a.st, isDone: !!a.st, chip: CHIPB + (CHIP[a.st] || ''),
+        approve: function () { self.decide(a.id, 'Схвалено'); }, reject: function () { self.decide(a.id, 'Відхилено'); } });
+    });
+    var punches = [
+      { ini: 'GR', c: '#9A5B3D', name: 'Giulia Rossi', dep: 'Зала · 18:00', label: '17:52', k: 'ok' },
+      { ini: 'LV', c: '#4F6B45', name: 'Luca Verdi', dep: 'Зала · 18:00', label: 'Запізнення 5 хв', k: 'late' },
+      { ini: 'AF', c: '#2F5D6B', name: 'Alessio Ferri', dep: 'Бар · 18:00', label: '17:56', k: 'ok' },
+      { ini: 'DR', c: '#8A5A1F', name: 'Davide Russo', dep: 'Кухня · 16:30', label: '16:24', k: 'ok' }
+    ].map(function (p) { return Object.assign({}, p, { av: av(p.c, 36), chip: CHIPB + CHIP[p.k] }); });
+
+    var grid = STAFF.map(function (m) {
+      var row = PLAN[m.id].slice(), fill = AI_FILL[m.id];
+      return { name: m.short, dep: m.dep, cells: row.map(function (c, i) {
+        var ai = s.aiDraft && fill && fill[0] === i;
+        var txt = ai ? fill[1] : c;
+        var base = 'height:34px;border-radius:10px;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;color:#0E4937;letter-spacing:-0.2px;box-sizing:border-box;';
+        return { t: txt, style: base + (ai ? 'border:1.5px dashed #0E4937;background:#FFFFFF' : txt ? 'background:' + TINT[m.dep] : 'background:#FCF7F1') };
+      }) };
+    });
+
+    var staffList = STAFF.filter(function (m) { return s.dep === 'Усі' || m.dep === s.dep; }).map(function (m) {
+      return { name: m.name, ini: m.ini, role: m.role, hours: m.hours, ready: m.ready, av: av(m.av, 44), open: open(m.id),
+        bar: 'display:block;height:100%;border-radius:999px;width:' + m.ready + '%;background:' + (m.ready >= 80 ? '#72BF00' : m.ready >= 50 ? '#D6A324' : '#FF5D00') };
+    });
+    var depFilters = ['Усі', 'Зала', 'Bar', 'Кухня'].map(function (d) { return { label: d, style: d === s.dep ? P_ON : P_OFF, pick: function () { self.setState({ dep: d }); } }; });
+
+    var pm = STAFF.filter(function (m) { return m.id === s.personId; })[0] || STAFF[0];
+    var p = { name: pm.name, ini: pm.ini, role: pm.role, dep: pm.dep, hired: pm.hired, hours: pm.hours, extra: pm.extra, leave: pm.leave, ready: pm.ready, avBig: av(pm.av, 64),
+      mods: pm.mods.map(function (md) {
+        return { t: md.t, q: md.q ? 'тест ' + md.q : (md.pct ? 'у процесі ' + md.pct + '%' : 'не розпочато'),
+          qs: 'font-weight:600;white-space:nowrap;color:' + (md.q === '3/3' ? '#2D6A0A' : md.q ? '#7A5800' : '#4D665D'),
+          bar: 'height:100%;border-radius:999px;width:' + md.pct + '%;background:' + (md.pct >= 100 ? '#72BF00' : '#D6A324') };
+      }),
+      punches: pm.punches.map(function (x) { return { d: x[0], r: x[1], t: x[2] }; }) };
+
+    var modules = [
+      ['Зустріч біля столу', 5, 5, 93], ['Алергени: 14, які треба знати', 8, 11, 81], ['Подача вина', 3, 5, 67],
+      ['Фірмове еспресо', 4, 4, 92], ['Шприц і Негроні', 1, 2, 78], ['Температури й зберігання', 6, 7, 88], ['Mise en place на лінії', 3, 3, 100]
+    ].map(function (m) {
+      var pct = Math.round(m[1] / m[2] * 100);
+      return { t: m[0], seen: m[1] + '/' + m[2], q: m[3] + '%', qs: 'font-weight:700;color:' + (m[3] >= 85 ? '#2D6A0A' : m[3] >= 75 ? '#0E4937' : '#B83A00'),
+        bar: 'height:100%;border-radius:999px;width:' + pct + '%;background:' + (pct >= 100 ? '#72BF00' : '#D6A324') };
+    });
+    var behind = STAFF.filter(function (m) { return m.missing; }).map(function (m) { return { name: m.name, ini: m.ini, ready: m.ready, missing: m.missing, av: av(m.av, 40), open: open(m.id) }; });
+
+    var msgs = s.msgs.map(function (m) { return Object.assign({ bullets: [], action: '', src: '' }, m, { act: function () { self.doAction(m.key || ''); } }); });
+    var suggestions = ORDER.map(function (k) { return { q: ANSWERS[k].q, ask: function () { self.ask(ANSWERS[k].q, k); } }; });
+
+    var sede = SEDI[s.sede];
+    var sediList = SEDI_ORDER.map(function (k) {
+      var on = s.sede === k;
+      return { name: SEDI[k].name, sub: SEDI[k].sub,
+        style: 'display:flex;align-items:center;gap:12px;text-align:left;padding:12px 14px;border-radius:20px;background:#FFFFFF;border:2px solid ' + (on ? '#0E4937' : '#ECE3D6'),
+        radio: 'width:22px;height:22px;border-radius:999px;box-sizing:border-box;flex-shrink:0;border:' + (on ? '7px solid #0E4937' : '2px solid #ECE3D6'),
+        pick: function () { self.setState({ sede: k, sedi: false }); } };
+    });
+    var compare = ['mi', 'co', 'bg'].map(function (k) {
+      var x = SEDI[k];
+      return { short: x.short, form: x.form, cost: x.cost, on: x.on,
+        formStyle: 'font-weight:700;color:' + (x.form >= 80 ? '#2D6A0A' : x.form >= 65 ? '#0E4937' : '#B83A00'),
+        costStyle: 'font-weight:700;color:' + (x.cost > 32 ? '#B83A00' : '#0E4937'),
+        pick: function () { self.setState({ sede: k }); } };
+    });
+    return {
+      isWelcome: t === 'welcome', showNav: t !== 'welcome' && t !== 'login',
+      isLib: t === 'lib', goLib: go('lib'), libCount: LIB.length,
+      libFilters: ['Усі', 'Зала', 'Bar', 'Кухня', 'HACCP', 'Готель'].map(function (d) { return { label: d, style: (d === s.libDep ? P_ON : P_OFF) + ';white-space:nowrap;flex-shrink:0', pick: function () { self.setState({ libDep: d }); } }; }),
+      library: LIB.filter(function (v) { return s.libDep === 'Усі' || v.dep === s.libDep; }).map(function (v) {
+        return Object.assign({}, v, { icon: LICON[v.i],
+          thumb: 'position:relative;width:84px;height:84px;border-radius:18px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#0E4937;background:' + LTINT[v.dep],
+          quizChip: 'height:26px;padding:0 10px;border-radius:999px;font-size:12px;font-weight:600;display:flex;align-items:center;' + (v.quiz >= 85 ? 'background:#EAF5DA;color:#2D6A0A' : v.quiz >= 75 ? 'background:#F8EDCF;color:#7A5800' : 'background:#FFE7D6;color:#B83A00'),
+          assign: function () { self.showToast('«' + v.title + '» призначено новачкам'); } });
+      }),
+      enter: function () { self.setState({ tab: 'login' }); },
+      isLogin: t === 'login', backWelcome: function () { self.setState({ tab: 'welcome' }); }, login: function () { self.setState({ tab: 'dash' }); },
+      sede: sede, isAll: s.sede === 'all', sediList: sediList, compare: compare, sediOpen: s.sedi,
+      openSedi: function () { self.setState({ sedi: true }); }, closeSedi: function () { self.setState({ sedi: false }); },
+      addSede: function () { self.setState({ sedi: false }); self.showToast('Новий заклад: 99 € на місяць, 14 днів безкоштовно'); },
+      announce: function () { self.showToast('Оголошення надіслано: ' + sede.short); },
+      renewHaccp: function () { self.showToast('Запит надіслано партнерському навчальному центру'); },
+      isDash: t === 'dash', isPlan: t === 'plan', isTeam: t === 'team', isPerson: t === 'person', isLearn: t === 'learn', isAi: t === 'ai',
+      goDash: go('dash'), goPlan: go('plan'), goTeam: go('team'), goLearn: go('learn'), goAi: go('ai'),
+      tab: { dash: tabS(t === 'dash'), plan: tabS(t === 'plan'), team: tabS(t === 'team' || t === 'person'), learn: tabS(t === 'learn' || t === 'lib'), ai: tabS(t === 'ai'),
+        dashW: t === 'dash' ? 2.3 : 1.7, planW: t === 'plan' ? 2.3 : 1.7, teamW: (t === 'team' || t === 'person') ? 2.3 : 1.7, learnW: t === 'learn' ? 2.3 : 1.7, aiW: t === 'ai' ? 2.3 : 1.7 },
+      approvals: approvals, punches: punches, pendingLabel: pending ? pending + ' очікують' : 'усе зроблено',
+      grid: grid, planState: s.published ? 'опубліковано' : s.aiDraft ? 'чернетка з пропозиціями ШІ' : 'чернетка',
+      aiFill: function () { self.setState({ aiDraft: !self.state.aiDraft }); if (!self.state.aiDraft) self.showToast('3 прогалини закрито з урахуванням доступності й навчання'); },
+      copyWeek: function () { self.showToast('Минулий тиждень скопійовано'); },
+      publish: function () { self.setState({ published: true }); self.showToast('Зміни опубліковано: 11 людей сповіщено'); },
+      staffList: staffList, depFilters: depFilters, p: p,
+      assign: function () { self.showToast('Відео призначено: ' + pm.short); },
+      shadow: function () { self.showToast('Стажування запропоновано на четвер'); },
+      modules: modules, behind: behind,
+      remind: function () { self.showToast('Нагадування надіслано 3 людям'); },
+      addVideo: function () { self.showToast('Відео додано · чернетку тесту створено'); },
+      msgs: msgs, typing: s.typing, suggestions: suggestions, draft: s.draft,
+      chatRef: function (el) { self.chatEl = el; },
+      onType: function (e) { self.setState({ draft: e.target.value }); },
+      send: function () { self.ask(self.state.draft); },
+      resetChat: function () { self.setState({ msgs: [HELLO], draft: '' }); },
+      hasToast: !!s.toast, toast: s.toast
+    };
+  }
+  decide(id, st) {
+    var list = this.state.approvals.map(function (a) { return a.id === id ? Object.assign({}, a, { st: st }) : a; });
+    var who = list.filter(function (a) { return a.id === id; })[0];
+    this.setState({ approvals: list });
+    this.showToast((who.tn ? 'Обмін для ' + who.tn : 'Запит від ' + who.name.split(' ')[0]) + ' ' + (who.tn ? (st === 'Схвалено' ? 'схвалено' : 'відхилено') : st.toLowerCase()) + ' · сповіщення надіслано');
+  }
+}
+</script>
+</body>
+</html>
