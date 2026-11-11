@@ -25,3 +25,7 @@ Nomi, numeri, quiz e documenti sono dati di esempio.
 ## Vederlo in locale
 
 Serve la cartella con un piccolo server, per esempio `python3 -m http.server`, e apri `http://localhost:8000/`. Aperto direttamente da file (`file://`) alcuni browser bloccano gli script.
+
+## Schermo intero sul telefono
+
+Aperto dal telefono, il mockup riempie tutta la larghezza e l'altezza dello schermo; dal computer resta in una cornice centrata. Per aprirlo come un'app, senza le barre del browser, aggiungilo alla schermata Home: su iPhone Safari → Condividi → «Aggiungi alla schermata Home»; su Android Chrome → menu ⋮ → «Aggiungi a schermata Home» / «Installa app».
