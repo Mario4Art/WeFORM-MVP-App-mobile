@@ -26,6 +26,12 @@ Nomi, numeri, quiz e documenti sono dati di esempio.
 
 Serve la cartella con un piccolo server, per esempio `python3 -m http.server`, e apri `http://localhost:8000/`. Aperto direttamente da file (`file://`) alcuni browser bloccano gli script.
 
-## Schermo intero sul telefono
+## Versione tablet
 
-Aperto dal telefono, il mockup riempie tutta la larghezza e l'altezza dello schermo; dal computer resta in una cornice centrata. Per aprirlo come un'app, senza le barre del browser, aggiungilo alla schermata Home: su iPhone Safari → Condividi → «Aggiungi alla schermata Home»; su Android Chrome → menu ⋮ → «Aggiungi a schermata Home» / «Installa app».
+- `ipad/` – la stessa app adattata ai tablet (menu a sinistra, contenuti centrati), in tutte e 5 le lingue
+- `index.html` apre da solo la versione giusta: tablet → `ipad/`, telefono e computer → `v3/`. Per forzarla: `?v=tablet` oppure `?v=phone`.
+- `fit.js` adatta la versione tablet a tutto lo schermo di qualsiasi tablet (iPad, iPad mini, iPad Pro, tablet Android), in verticale e in orizzontale.
+
+## Schermo intero
+
+Aperto dal telefono o dal tablet, il mockup riempie tutta la larghezza e l'altezza dello schermo; la versione telefono aperta dal computer resta in una cornice centrata. Per aprirlo come un'app, senza le barre del browser, aggiungilo alla schermata Home: su iPhone Safari → Condividi → «Aggiungi alla schermata Home»; su Android Chrome → menu ⋮ → «Aggiungi a schermata Home» / «Installa app».

@@ -11,11 +11,24 @@
 <link rel="apple-touch-icon" href="assets/icon-180.png">
 <link rel="icon" type="image/png" href="assets/icon-192.png">
 <title>WeFORM · Mockup MVP</title>
-<meta http-equiv="refresh" content="0; url=v3/Main.dc.html">
-<script>location.replace('v3/Main.dc.html');</script>
-<style>body{margin:0;font-family:system-ui,sans-serif;background:#FCF7F1;color:#0E4937;display:flex;min-height:100vh;align-items:center;justify-content:center}</style>
+<script>
+// Apre la versione giusta: tablet -> ipad/, telefono e computer -> v3/.
+// Si può forzare con ?v=tablet oppure ?v=phone.
+(function () {
+  var q = (location.search.match(/[?&]v=(tablet|ipad|phone|telefono)/) || [])[1];
+  var touch = navigator.maxTouchPoints > 1 || 'ontouchstart' in window;
+  var iPadOS = /Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints > 1;
+  var shortSide = Math.min(screen.width, screen.height);
+  var tablet = iPadOS || /iPad|Tablet/i.test(navigator.userAgent) ||
+               (/Android/i.test(navigator.userAgent) && !/Mobile/i.test(navigator.userAgent)) ||
+               (touch && shortSide >= 600);
+  if (q) tablet = (q === 'tablet' || q === 'ipad');
+  location.replace(tablet ? 'ipad/Main.dc.html' : 'v3/Main.dc.html');
+})();
+</script>
+<style>body{margin:0;font-family:system-ui,sans-serif;background:#FCF7F1;color:#0E4937;display:flex;min-height:100vh;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap}a{color:#0E4937;font-weight:600}</style>
 </head>
 <body>
-<p>Apertura di WeFORM… <a href="v3/Main.dc.html">Apri il mockup</a></p>
+<p>Apertura di WeFORM… <a href="ipad/Main.dc.html">Versione tablet</a> · <a href="v3/Main.dc.html">Versione telefono</a></p>
 </body>
 </html>

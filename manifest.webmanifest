@@ -1,10 +1,10 @@
 {
   "name": "WeFORM · Mockup MVP",
   "short_name": "WeFORM",
-  "start_url": "./v3/Main.dc.html",
+  "start_url": "./",
   "scope": "./",
   "display": "fullscreen",
-  "orientation": "portrait",
+  "orientation": "any",
   "background_color": "#FCF7F1",
   "theme_color": "#FCF7F1",
   "icons": [

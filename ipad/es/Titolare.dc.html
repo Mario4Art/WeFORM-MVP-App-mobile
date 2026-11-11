@@ -1,0 +1,826 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>WeFORM iPad · App propietario</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="WeFORM">
+<meta name="theme-color" content="#FCF7F1">
+<link rel="manifest" href="../../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../../assets/icon-180.png">
+<link rel="icon" type="image/png" href="../../assets/icon-192.png">
+<script src="../../vendor/react.js"></script>
+<script src="../../vendor/react-dom.js"></script>
+<script src="../../support.js"></script>
+<script src="../../fit.js"></script>
+<style>html{background:#E9E3D8}body{margin:0;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;background:#E9E3D8}</style>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,800&amp;family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+button{font-family:inherit;border:0;cursor:pointer;padding:0;background:none;color:inherit}
+button:active,a:active{transform:scale(0.97)}
+input{font-family:inherit}
+.scroll{scrollbar-width:none}
+.scroll::-webkit-scrollbar{display:none}
+a{color:#0E4937}a:hover{color:#2D6A0A}
+@keyframes lidUp{from{transform:translateY(0) rotate(0deg)}to{transform:translateY(-30px) rotate(-9deg)}}
+@keyframes starIn{from{opacity:0;transform:scale(0.2)}to{opacity:1;transform:scale(1)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.lid{transform-box:view-box;transform-origin:100px 150px;animation:lidUp .5s ease-out .3s both}
+.star{transform-box:fill-box;transform-origin:center;animation:starIn .45s ease-out .75s both}
+.glow{animation:fadeIn .4s ease-out .7s both}
+.rise{animation:rise .5s ease-out .9s both}
+.sheet{animation:rise .25s ease-out both}
+</style>
+</helmet>
+<div style="width: 820px; height: 1180px; position: relative; overflow: hidden; background: #FCF7F1; font-family: 'Instrument Sans', system-ui, sans-serif; color: #0E4937">
+
+<!-- ================= BENVENUTO ================= -->
+<sc-if value="{{isWelcome}}" hint-placeholder-val="{{ true }}">
+<div style="position: absolute; inset: 0; display: flex; flex-direction: column; padding: 56px max(48px, calc((100% - var(--cw, 600px)) / 2)) 40px; box-sizing: border-box">
+  <span style="display: flex; align-items: center; gap: 6px; font-size: 20px"><img src="../../assets/d99d2bd9a06c4532336ffac737d5299b.png" alt="WeFORM" style="height: 26px; width: auto; display: block"></span>
+  <div style="flex: 1; display: flex; align-items: center; justify-content: center">
+    <svg role="img" aria-label="La campana WeFORM se abre" width="320" height="320" viewBox="0 0 200 200">
+      <defs><linearGradient id="domeT" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1F7A58"></stop><stop offset="1" stop-color="#0E4937"></stop></linearGradient></defs>
+      <circle cx="100" cy="104" r="86" fill="#EAF5DA"></circle>
+      <circle cx="30" cy="92" r="4" fill="#9CCB8A"></circle>
+      <circle cx="170" cy="66" r="5" fill="#FF5D00"></circle>
+      <ellipse class="glow" cx="100" cy="156" rx="44" ry="8" fill="#F8EDCF"></ellipse>
+      <path class="star" d="M100 118l5 13 13 5-13 5-5 13-5-13-13-5 13-5z" fill="#D6A324"></path>
+      <rect x="34" y="160" width="132" height="8" rx="4" fill="#0E4937"></rect>
+      <g class="lid">
+        <path d="M44 150a56 56 0 0 1 112 0z" fill="url(#domeT)"></path>
+        <path d="M64 132a40 40 0 0 1 20-28" stroke="#FFFFFF" stroke-opacity="0.4" stroke-width="6" fill="none" stroke-linecap="round"></path>
+        <circle cx="100" cy="88" r="9" fill="#FF5D00"></circle>
+        <rect x="38" y="148" width="124" height="8" rx="4" fill="#0E4937"></rect>
+      </g>
+    </svg>
+  </div>
+  <div class="rise" style="display: flex; flex-direction: column">
+    <h1 style="margin: 0; font-size: 32px; line-height: 38px; font-weight: 700">Tu visión, tu equipo. ¡Bienvenido!🎯</h1>
+    <p style="margin: 12px 0 28px; font-size: 15px; line-height: 22px; color: #4D665D">Formación, turnos, asistencia e informes de todos tus locales. Con una IA que te dice dónde mejorar.</p>
+    <button onClick="{{enter}}" style="height: 52px; border-radius: 999px; background: #0E4937; color: #FFFFFF; font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px">Entrar
+      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+    </button>
+    <a href="../Main.dc.html" style="margin-top: 14px; text-align: center; font-size: 13px; color: #4D665D; height: 32px; display: flex; align-items: center; justify-content: center">¿No eres el propietario? <strong style="color: #0E4937; margin-left: 4px">Cambiar rol</strong></a>
+  </div>
+</div>
+</sc-if>
+
+<!-- ================= LOGIN TITOLARE ================= -->
+<sc-if value="{{isLogin}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; inset: 0; display: flex; flex-direction: column; padding: 52px max(48px, calc((100% - var(--cw, 600px)) / 2)) 36px; box-sizing: border-box; gap: 16px">
+  <button aria-label="Atrás" onClick="{{backWelcome}}" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid #ECE3D6; background: #FFFFFF; display: flex; align-items: center; justify-content: center">
+    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 5l-7 7 7 7"></path></svg>
+  </button>
+  <img src="../../assets/d99d2bd9a06c4532336ffac737d5299b.png" alt="WeFORM" style="height: 26px; width: auto; display: block; align-self: flex-start; margin-top: 12px">
+  <div>
+    <h1 style="margin: 0; font-size: 32px; line-height: 36px; font-weight: 700">Bienvenido de nuevo, Marco<span style="color: #FF5D00">.</span></h1>
+    <p style="margin: 6px 0 0; font-size: 15px; line-height: 22px; color: #4D665D">Entra en el panel del propietario: todos los locales, el equipo y los informes.</p>
+  </div>
+  <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600">Correo de empresa
+    <input type="email" value="marco.bianchi@villaaurora.it" style="height: 50px; border-radius: 18px; border: 2px solid #0E4937; padding: 0 16px; font-size: 15px; color: #0E4937; background: #FFFFFF; outline: none">
+  </label>
+  <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600">Contraseña
+    <input type="password" value="12345678" style="height: 50px; border-radius: 18px; border: 1px solid #ECE3D6; padding: 0 16px; font-size: 15px; color: #0E4937; background: #FFFFFF; outline: none">
+  </label>
+  <button onClick="{{login}}" style="height: 52px; border-radius: 999px; background: #0E4937; color: #FFFFFF; font-size: 15px; font-weight: 600; margin-top: 4px">Entrar</button>
+  <button onClick="{{login}}" style="height: 52px; border-radius: 999px; border: 1px solid #ECE3D6; background: #FFFFFF; font-size: 15px; font-weight: 600">Entrar con Face ID</button>
+  <div style="margin-top: auto; text-align: center; font-size: 13px; color: #4D665D">¿Nuevo cliente? <strong style="color: #0E4937">Prueba gratis 14 días</strong></div>
+</div>
+</sc-if>
+
+<!-- ================= DASHBOARD ================= -->
+<sc-if value="{{isDash}}" hint-placeholder-val="{{ false }}">
+<div class="scroll" style="position: absolute; left: 104px; right: 0; top: 0; bottom: 0; overflow-y: auto; padding: 50px max(48px, calc((100% - var(--cw, 600px)) / 2)) 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px">
+  <div style="display: flex; align-items: center; gap: 10px">
+    <span style="flex: 1; display: flex; align-items: center; gap: 6px; font-size: 19px"><img src="../../assets/d99d2bd9a06c4532336ffac737d5299b.png" alt="WeFORM" style="height: 26px; width: auto; display: block"></span>
+    <a href="../Main.dc.html" aria-label="Salir y volver al inicio de sesión" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid #ECE3D6; background: #FFFFFF; display: flex; align-items: center; justify-content: center; color: #0E4937">
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3"></path><path d="M10 8l-4 4 4 4M6 12h10"></path></svg>
+    </a>
+    <span style="width: 44px; height: 44px; border-radius: 999px; background: #4D665D; color: #FFFFFF; font-size: 14px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0">MB</span>
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 8px">
+    <span style="font-size: 24px; line-height: 28px; font-weight: 700">Buenas tardes, Marco<span style="color: #FF5D00">.</span></span>
+    <button onClick="{{openSedi}}" style="align-self: flex-start; height: 40px; padding: 0 12px 0 14px; border-radius: 999px; background: #FFFFFF; border: 1px solid #ECE3D6; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 8px">
+      <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4D665D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"></path><circle cx="12" cy="9" r="2.5"></circle></svg>
+      {{sede.name}}
+      <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"></path></svg>
+    </button>
+  </div>
+
+  <button onClick="{{goTeam}}" style="background: #0E4937; color: #FFFFFF; border-radius: 28px; padding: 18px; text-align: left; display: flex; align-items: center; gap: 14px">
+    <span style="flex: 1; display: flex; flex-direction: column; gap: 4px">
+      <span style="font-size: 12.5px; color: #CFE3D8">De servicio ahora</span>
+      <span style="font-size: 32px; line-height: 36px; font-weight: 700">{{sede.on}}</span>
+      <span style="font-size: 13px; color: #CFE3D8">{{sede.onSub}}</span>
+    </span>
+    <span style="width: 40px; height: 40px; border-radius: 999px; background: #FFFFFF; color: #0E4937; display: flex; align-items: center; justify-content: center">
+      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+    </span>
+  </button>
+
+  <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px">
+    <button onClick="{{goLearn}}" style="background: #EAF5DA; border-radius: 22px; padding: 16px; text-align: left; display: flex; flex-direction: column; gap: 4px; min-height: 100px">
+      <span style="font-size: 26px; font-weight: 700">{{sede.form}}%</span><span style="font-size: 12.5px">formación completada</span>
+    </button>
+    <button onClick="{{goPlan}}" style="background: #F8EDCF; border-radius: 22px; padding: 16px; text-align: left; display: flex; flex-direction: column; gap: 4px; min-height: 100px">
+      <span style="font-size: 26px; font-weight: 700">{{sede.hours}}</span><span style="font-size: 12.5px">planificadas esta semana</span>
+    </button>
+    <button onClick="{{goPlan}}" style="background: #FFE7D6; border-radius: 22px; padding: 16px; text-align: left; display: flex; flex-direction: column; gap: 4px; min-height: 100px">
+      <span style="font-size: 26px; font-weight: 700">{{sede.cost}}%</span><span style="font-size: 12.5px">coste de personal sobre ingresos previstos</span>
+    </button>
+    <button onClick="{{goTeam}}" style="background: #E1ECE7; border-radius: 22px; padding: 16px; text-align: left; display: flex; flex-direction: column; gap: 4px; min-height: 100px">
+      <span style="font-size: 26px; font-weight: 700">{{sede.ready}}</span><span style="font-size: 12.5px">tiempo medio para estar “listo”</span>
+    </button>
+  </div>
+
+  <sc-if value="{{isAll}}" hint-placeholder-val="{{ false }}">
+    <div style="background: #FFFFFF; border-radius: 22px; padding: 16px; display: flex; flex-direction: column; gap: 4px">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px"><span style="font-size: 15px; font-weight: 600">Comparativa de locales</span><span style="font-size: 12px; color: #4D665D">formación · coste · de servicio</span></div>
+      <sc-for list="{{compare}}" as="c" hint-placeholder-count="3">
+        <button onClick="{{c.pick}}" style="display: grid; grid-template-columns: minmax(0, 1fr) 56px 48px 56px; gap: 6px; align-items: center; padding: 10px 0; border-top: 1px solid #ECE3D6; text-align: left; font-size: 13px">
+          <span style="font-weight: 600">{{c.short}}</span>
+          <span style="{{c.formStyle}}">{{c.form}}%</span>
+          <span style="{{c.costStyle}}">{{c.cost}}%</span>
+          <span style="text-align: right; color: #4D665D">{{c.on}}</span>
+        </button>
+      </sc-for>
+    </div>
+  </sc-if>
+
+  <button onClick="{{announce}}" style="background: #FFFFFF; border: 1px solid #ECE3D6; border-radius: 22px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; text-align: left">
+    <span style="width: 40px; height: 40px; border-radius: 14px; background: #FFE7D6; display: flex; align-items: center; justify-content: center; flex-shrink: 0">
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0E4937" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10v4h4l6 4V6L7 10z M16 9a4 4 0 0 1 0 6"></path></svg>
+    </span>
+    <span style="flex: 1; display: flex; flex-direction: column; gap: 2px">
+      <span style="font-size: 15px; font-weight: 600">Avisar al equipo</span>
+      <span style="font-size: 12.5px; color: #4D665D">Comunicado a {{sede.short}}: llega como notificación</span>
+    </span>
+  </button>
+
+  <button onClick="{{goAi}}" style="background: #FFFFFF; border: 2px solid #0E4937; border-radius: 22px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; text-align: left">
+    <span style="width: 40px; height: 40px; border-radius: 14px; background: #EAF5DA; display: flex; align-items: center; justify-content: center; flex-shrink: 0">
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24"><path d="M12 2l2.4 6.8L21 11l-6.6 2.2L12 20l-2.4-6.8L3 11l6.6-2.2z" fill="#D6A324"></path></svg>
+    </span>
+    <span style="flex: 1; display: flex; flex-direction: column; gap: 2px">
+      <span style="font-size: 15px; font-weight: 600">Pregunta a WeFORM AI</span>
+      <span style="font-size: 12.5px; color: #4D665D">“¿Dónde puedo mejorar el servicio en sala?”</span>
+    </span>
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 5l7 7-7 7"></path></svg>
+  </button>
+
+  <button onClick="{{goLearn}}" style="background: #F8EDCF; border-radius: 22px; padding: 14px 16px; display: flex; gap: 10px; align-items: center; text-align: left">
+    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7A5800" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20z"></path><path d="M12 10v4M12 17v.5"></path></svg>
+    <span style="flex: 1; font-size: 13px; line-height: 18px; color: #0E4937"><strong>2 personas de turno esta noche</strong> no han hecho el quiz de alérgenos</span>
+  </button>
+
+  <div style="display: flex; justify-content: space-between; align-items: baseline; margin-top: 4px">
+    <h2 style="margin: 0; font-size: 17px; font-weight: 600">Por aprobar</h2>
+    <span style="font-size: 12.5px; color: #4D665D">{{pendingLabel}}</span>
+  </div>
+  <sc-for list="{{approvals}}" as="a" hint-placeholder-count="3">
+    <div style="background: #FFFFFF; border-radius: 22px; padding: 14px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 10px 30px rgba(14,73,55,0.08)">
+      <div style="display: flex; align-items: center; gap: 12px">
+        <span style="{{a.av}}">{{a.ini}}</span>
+        <span style="flex: 1; display: flex; flex-direction: column; gap: 2px">
+          <span style="font-size: 15px; font-weight: 600">{{a.name}}</span><span style="font-size: 12.5px; color: #4D665D">{{a.what}}</span>
+        </span>
+        <sc-if value="{{a.isDone}}" hint-placeholder-val="{{ false }}"><span style="{{a.chip}}">{{a.st}}</span></sc-if>
+      </div>
+      <sc-if value="{{a.warn}}" hint-placeholder-val="{{ false }}">
+        <div style="background: #F8EDCF; border-radius: 14px; padding: 10px 12px; font-size: 12.5px; line-height: 17px">{{a.warn}}</div>
+      </sc-if>
+      <sc-if value="{{a.isPending}}" hint-placeholder-val="{{ true }}">
+        <div style="display: flex; gap: 8px">
+          <button onClick="{{a.reject}}" style="flex: 1; height: 44px; border-radius: 999px; border: 1px solid #ECE3D6; background: #FFFFFF; font-size: 14px; font-weight: 600">Rechazar</button>
+          <button onClick="{{a.approve}}" style="flex: 1; height: 44px; border-radius: 999px; background: #0E4937; color: #FFFFFF; font-size: 14px; font-weight: 600">Aprobar</button>
+        </div>
+      </sc-if>
+    </div>
+  </sc-for>
+
+  <h2 style="margin: 4px 0 0; font-size: 17px; font-weight: 600">Fichajes de esta noche</h2>
+  <div style="background: #FFFFFF; border-radius: 22px; padding: 4px 14px">
+    <sc-for list="{{punches}}" as="p" hint-placeholder-count="4">
+      <div style="display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #ECE3D6">
+        <span style="{{p.av}}">{{p.ini}}</span>
+        <span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 600">{{p.name}}</span><span style="font-size: 12.5px; color: #4D665D">{{p.dep}}</span></span>
+        <span style="{{p.chip}}">{{p.label}}</span>
+      </div>
+    </sc-for>
+  </div>
+</div>
+</sc-if>
+
+<!-- ================= PLANNER TURNI ================= -->
+<sc-if value="{{isPlan}}" hint-placeholder-val="{{ false }}">
+<div class="scroll" style="position: absolute; left: 104px; right: 0; top: 0; bottom: 0; overflow-y: auto; padding: 56px max(48px, calc((100% - var(--cw, 600px)) / 2)) 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px">
+  <div>
+    <h1 style="margin: 0; font-size: 28px; line-height: 32px; font-weight: 700">Turnos<span style="color: #FF5D00">.</span></h1>
+    <span style="font-size: 13px; color: #4D665D">9 – 15 de noviembre · {{planState}}</span>
+  </div>
+  <div style="display: flex; gap: 8px">
+    <button onClick="{{aiFill}}" style="flex: 1; height: 44px; border-radius: 999px; border: 1px solid #ECE3D6; background: #FFFFFF; font-size: 14px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 6px">
+      <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24"><path d="M12 2l2.4 6.8L21 11l-6.6 2.2L12 20l-2.4-6.8L3 11l6.6-2.2z" fill="#D6A324"></path></svg>
+      Proponer con IA
+    </button>
+    <button onClick="{{copyWeek}}" style="flex: 1; height: 44px; border-radius: 999px; border: 1px solid #ECE3D6; background: #FFFFFF; font-size: 14px; font-weight: 600">Copiar sem. anterior</button>
+  </div>
+  <div style="background: #FFFFFF; border-radius: 22px; padding: 12px 10px; display: flex; flex-direction: column; gap: 6px">
+    <div style="display: grid; grid-template-columns: 62px repeat(7, minmax(0, 1fr)); gap: 3px; font-size: 12px; color: #4D665D; text-align: center">
+      <span></span><span>L 9</span><span>M 10</span><span>X 11</span><span>J 12</span><span>V 13</span><span>S 14</span><span>D 15</span>
+    </div>
+    <sc-for list="{{grid}}" as="row" hint-placeholder-count="6">
+      <div style="display: grid; grid-template-columns: 62px repeat(7, minmax(0, 1fr)); gap: 3px; align-items: center">
+        <span style="display: flex; flex-direction: column; font-size: 12px; line-height: 15px"><strong>{{row.name}}</strong><span style="color: #4D665D">{{row.dep}}</span></span>
+        <sc-for list="{{row.cells}}" as="c" hint-placeholder-count="7">
+          <span style="{{c.style}}">{{c.t}}</span>
+        </sc-for>
+      </div>
+    </sc-for>
+    <div style="display: flex; gap: 12px; padding-top: 6px; font-size: 12px; color: #4D665D; flex-wrap: wrap">
+      <span style="display: flex; align-items: center; gap: 4px"><span style="width: 10px; height: 10px; border-radius: 4px; background: #FFE7D6"></span>Sala</span>
+      <span style="display: flex; align-items: center; gap: 4px"><span style="width: 10px; height: 10px; border-radius: 4px; background: #E1ECE7"></span>Bar</span>
+      <span style="display: flex; align-items: center; gap: 4px"><span style="width: 10px; height: 10px; border-radius: 4px; background: #F8EDCF"></span>Cocina</span>
+      <span style="display: flex; align-items: center; gap: 4px"><span style="width: 10px; height: 10px; border-radius: 4px; border: 1.5px dashed #0E4937; box-sizing: border-box"></span>Propuesta IA</span>
+    </div>
+  </div>
+  <div style="background: #E1ECE7; border-radius: 22px; padding: 14px 16px; font-size: 13px; line-height: 19px">
+    <strong>Coste estimado 6.840 €</strong> · 29 % de los ingresos previstos. El sábado la cocina entra a las 16:30, pero las comandas empiezan hacia las 19:00.
+  </div>
+  <button onClick="{{publish}}" style="height: 52px; border-radius: 999px; background: #0E4937; color: #FFFFFF; font-size: 15px; font-weight: 600">Publicar y avisar al equipo</button>
+</div>
+</sc-if>
+
+<!-- ================= TEAM ================= -->
+<sc-if value="{{isTeam}}" hint-placeholder-val="{{ false }}">
+<div class="scroll" style="position: absolute; left: 104px; right: 0; top: 0; bottom: 0; overflow-y: auto; padding: 56px max(48px, calc((100% - var(--cw, 600px)) / 2)) 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px">
+  <div>
+    <h1 style="margin: 0; font-size: 28px; line-height: 32px; font-weight: 700">Tu equipo<span style="color: #FF5D00">.</span></h1>
+    <span style="font-size: 13px; color: #4D665D">11 personas · 3 en onboarding</span>
+  </div>
+  <label style="display: flex; align-items: center; gap: 8px; height: 46px; background: #F6EDE1; border-radius: 18px; padding: 0 14px; color: #4D665D">
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg>
+    <input type="search" placeholder="Buscar compañeros, roles" aria-label="Buscar en el equipo" style="flex: 1; border: 0; outline: none; font-size: 14px; background: transparent; color: #0E4937">
+  </label>
+  <div style="display: flex; gap: 8px">
+    <sc-for list="{{depFilters}}" as="f" hint-placeholder-count="4">
+      <button onClick="{{f.pick}}" style="{{f.style}}">{{f.label}}</button>
+    </sc-for>
+  </div>
+  <div style="background: #FFFFFF; border-radius: 22px; padding: 4px 14px">
+    <sc-for list="{{staffList}}" as="m" hint-placeholder-count="6">
+      <button onClick="{{m.open}}" style="width: 100%; display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #ECE3D6; text-align: left">
+        <span style="{{m.av}}">{{m.ini}}</span>
+        <span style="flex: 1; display: flex; flex-direction: column; gap: 4px; min-width: 0">
+          <span style="font-size: 14px; font-weight: 600">{{m.name}}</span>
+          <span style="font-size: 12.5px; color: #4D665D">{{m.role}} · {{m.hours}} esta sem.</span>
+          <span style="display: block; height: 5px; border-radius: 999px; background: #F6EDE1; overflow: hidden"><span style="{{m.bar}}"></span></span>
+        </span>
+        <span style="display: flex; flex-direction: column; align-items: flex-end"><span style="font-size: 15px; font-weight: 700">{{m.ready}}%</span><span style="font-size: 11.5px; color: #4D665D">listo</span></span>
+      </button>
+    </sc-for>
+  </div>
+</div>
+</sc-if>
+
+<!-- ================= SCHEDA DIPENDENTE ================= -->
+<sc-if value="{{isPerson}}" hint-placeholder-val="{{ false }}">
+<div class="scroll" style="position: absolute; left: 104px; right: 0; top: 0; bottom: 0; overflow-y: auto; padding: 52px max(48px, calc((100% - var(--cw, 600px)) / 2)) 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px">
+  <button aria-label="Atrás" onClick="{{goTeam}}" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid #ECE3D6; background: #FFFFFF; display: flex; align-items: center; justify-content: center">
+    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 5l-7 7 7 7"></path></svg>
+  </button>
+  <div style="display: flex; align-items: center; gap: 14px">
+    <span style="{{p.avBig}}">{{p.ini}}</span>
+    <span style="display: flex; flex-direction: column; gap: 2px">
+      <span style="font-size: 24px; font-weight: 700">{{p.name}}</span>
+      <span style="font-size: 13px; color: #4D665D">{{p.role}} · {{p.dep}} · {{p.hired}}</span>
+    </span>
+  </div>
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+    <div style="background: #F8EDCF; border-radius: 22px; padding: 12px; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 20px; font-weight: 700">{{p.hours}}</span><span style="font-size: 11.5px">horas semana</span></div>
+    <div style="background: #FFE7D6; border-radius: 22px; padding: 12px; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 20px; font-weight: 700">{{p.extra}}</span><span style="font-size: 11.5px">horas extra mes</span></div>
+    <div style="background: #EAF5DA; border-radius: 22px; padding: 12px; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 20px; font-weight: 700">{{p.leave}}</span><span style="font-size: 11.5px">vacaciones restantes</span></div>
+  </div>
+  <div style="background: #FFFFFF; border-radius: 22px; padding: 16px; display: flex; flex-direction: column; gap: 12px">
+    <div style="display: flex; justify-content: space-between; align-items: baseline">
+      <span style="font-size: 15px; font-weight: 600">Vídeos y quiz</span><span style="font-size: 13px; font-weight: 700; color: #2D6A0A">{{p.ready}} % listo</span>
+    </div>
+    <sc-for list="{{p.mods}}" as="md" hint-placeholder-count="4">
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <div style="display: flex; justify-content: space-between; gap: 8px; font-size: 13px"><span>{{md.t}}</span><span style="{{md.qs}}">{{md.q}}</span></div>
+        <div style="height: 6px; border-radius: 999px; background: #F6EDE1; overflow: hidden"><div style="{{md.bar}}"></div></div>
+      </div>
+    </sc-for>
+  </div>
+  <div style="background: #FFFFFF; border-radius: 22px; padding: 16px; display: flex; flex-direction: column">
+    <span style="font-size: 15px; font-weight: 600; margin-bottom: 4px">Últimos fichajes</span>
+    <sc-for list="{{p.punches}}" as="pp" hint-placeholder-count="3">
+      <div style="display: flex; justify-content: space-between; padding: 10px 0; border-top: 1px solid #ECE3D6; font-size: 13px"><span>{{pp.d}}</span><span style="color: #4D665D">{{pp.r}}</span><span style="font-weight: 600">{{pp.t}}</span></div>
+    </sc-for>
+  </div>
+  <div style="display: flex; gap: 8px">
+    <button onClick="{{shadow}}" style="flex: 1; height: 50px; border-radius: 999px; border: 1px solid #ECE3D6; background: #FFFFFF; font-size: 14px; font-weight: 600">Acompañamiento</button>
+    <button onClick="{{assign}}" style="flex: 1; height: 50px; border-radius: 999px; background: #0E4937; color: #FFFFFF; font-size: 14px; font-weight: 600">Asignar vídeo</button>
+  </div>
+</div>
+</sc-if>
+
+<!-- ================= FORMAZIONE ================= -->
+<sc-if value="{{isLearn}}" hint-placeholder-val="{{ false }}">
+<div class="scroll" style="position: absolute; left: 104px; right: 0; top: 0; bottom: 0; overflow-y: auto; padding: 56px max(48px, calc((100% - var(--cw, 600px)) / 2)) 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px">
+  <div>
+    <h1 style="margin: 0; font-size: 28px; line-height: 32px; font-weight: 700">Formación<span style="color: #FF5D00">.</span></h1>
+    <span style="font-size: 13px; color: #4D665D">Vídeos y quiz · últimos 30 días</span>
+  </div>
+  <button onClick="{{goLib}}" style="background: #0E4937; color: #FFFFFF; border-radius: 22px; padding: 16px; display: flex; align-items: center; gap: 14px; text-align: left">
+    <span style="width: 44px; height: 44px; border-radius: 14px; background: #FFFFFF; color: #0E4937; display: flex; align-items: center; justify-content: center; flex-shrink: 0">
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg>
+    </span>
+    <span style="flex: 1; display: flex; flex-direction: column; gap: 2px">
+      <span style="font-size: 16px; font-weight: 700">Tus vídeos</span>
+      <span style="font-size: 12.5px; color: #CFE3D8">{{libCount}} contenidos en tu cuenta · por rol y local</span>
+    </span>
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 5l7 7-7 7"></path></svg>
+  </button>
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+    <div style="background: #EAF5DA; border-radius: 22px; padding: 12px; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 22px; font-weight: 700">72%</span><span style="font-size: 11.5px">vídeos vistos</span></div>
+    <div style="background: #E1ECE7; border-radius: 22px; padding: 12px; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 22px; font-weight: 700">84%</span><span style="font-size: 11.5px">media quiz</span></div>
+    <div style="background: #F8EDCF; border-radius: 22px; padding: 12px; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 22px; font-weight: 700">9 días</span><span style="font-size: 11.5px">hasta “listo”</span></div>
+  </div>
+  <div style="background: #FFFFFF; border-radius: 22px; padding: 16px; display: flex; flex-direction: column; gap: 12px">
+    <div style="display: flex; justify-content: space-between; align-items: baseline"><span style="font-size: 15px; font-weight: 600">Por vídeo</span><span style="font-size: 12.5px; color: #4D665D">vistos · media quiz</span></div>
+    <sc-for list="{{modules}}" as="m" hint-placeholder-count="6">
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <div style="display: flex; justify-content: space-between; gap: 8px; font-size: 13px"><span style="font-weight: 500">{{m.t}}</span><span style="white-space: nowrap; color: #4D665D">{{m.seen}} · <span style="{{m.qs}}">{{m.q}}</span></span></div>
+        <div style="height: 6px; border-radius: 999px; background: #F6EDE1; overflow: hidden"><div style="{{m.bar}}"></div></div>
+      </div>
+    </sc-for>
+  </div>
+  <div style="background: #FFFFFF; border-radius: 22px; padding: 16px; display: flex; flex-direction: column; gap: 10px">
+    <div style="display: flex; justify-content: space-between; align-items: baseline"><span style="font-size: 15px; font-weight: 600">APPCC · vencimientos y registros</span></div>
+    <div style="display: flex; align-items: center; gap: 10px; font-size: 13px"><span style="height: 24px; padding: 0 10px; border-radius: 999px; background: #FFE7D6; color: #B83A00; font-size: 11.5px; font-weight: 600; display: flex; align-items: center">En 20 días</span><span>Certificado APPCC de Alessio Ferri</span></div>
+    <div style="display: flex; align-items: center; gap: 10px; font-size: 13px"><span style="height: 24px; padding: 0 10px; border-radius: 999px; background: #F8EDCF; color: #7A5800; font-size: 11.5px; font-weight: 600; display: flex; align-items: center">13 / 14</span><span>Hojas de temperatura rellenadas esta semana</span></div>
+    <div style="display: flex; align-items: center; gap: 10px; font-size: 13px"><span style="height: 24px; padding: 0 10px; border-radius: 999px; background: #EAF5DA; color: #2D6A0A; font-size: 11.5px; font-weight: 600; display: flex; align-items: center">En regla</span><span>Manual de autocontrol · actualizado oct 2026</span></div>
+    <button onClick="{{renewHaccp}}" style="height: 44px; border-radius: 999px; border: 1px solid #ECE3D6; font-size: 14px; font-weight: 600">Reserva la renovación con un centro colaborador</button>
+  </div>
+  <div style="background: #FFE7D6; border-radius: 22px; padding: 16px; display: flex; flex-direction: column; gap: 6px">
+    <span style="font-size: 15px; font-weight: 600">Preguntas más falladas</span>
+    <span style="font-size: 13px; line-height: 18px">“¿Hasta dónde se llena la copa?” · Servicio del vino · 46 % de errores</span>
+    <span style="font-size: 13px; line-height: 18px">“¿Dónde está el libro de alérgenos?” · Alérgenos · 38 % de errores</span>
+  </div>
+  <h2 style="margin: 4px 0 0; font-size: 17px; font-weight: 600">Quién va atrasado</h2>
+  <div style="background: #FFFFFF; border-radius: 22px; padding: 4px 14px">
+    <sc-for list="{{behind}}" as="m" hint-placeholder-count="3">
+      <button onClick="{{m.open}}" style="width: 100%; display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #ECE3D6; text-align: left">
+        <span style="{{m.av}}">{{m.ini}}</span>
+        <span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 600">{{m.name}}</span><span style="font-size: 12.5px; color: #4D665D">{{m.missing}}</span></span>
+        <span style="font-size: 15px; font-weight: 700">{{m.ready}}%</span>
+      </button>
+    </sc-for>
+  </div>
+  <button onClick="{{remind}}" style="height: 50px; border-radius: 999px; background: #0E4937; color: #FFFFFF; font-size: 15px; font-weight: 600">Recordar los vídeos a quien va atrasado</button>
+  <div style="background: #FFFFFF; border-radius: 22px; padding: 16px; display: flex; flex-direction: column; gap: 10px">
+    <span style="font-size: 15px; font-weight: 600">Añade un vídeo de tu local</span>
+    <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600">Enlace de YouTube
+      <input type="url" placeholder="https://youtube.com/…" style="height: 48px; border-radius: 18px; border: 1px solid #ECE3D6; padding: 0 14px; font-size: 14px; color: #0E4937; outline: none">
+    </label>
+    <span style="font-size: 12.5px; color: #4D665D">WeFORM crea automáticamente un quiz de 3 preguntas a partir del vídeo.</span>
+    <button onClick="{{addVideo}}" style="height: 46px; border-radius: 999px; border: 1px solid #ECE3D6; font-size: 14px; font-weight: 600">Añadir y asignar por rol</button>
+  </div>
+</div>
+</sc-if>
+
+<!-- ================= LIBRERIA VIDEO ================= -->
+<sc-if value="{{isLib}}" hint-placeholder-val="{{ false }}">
+<div class="scroll" style="position: absolute; left: 104px; right: 0; top: 0; bottom: 0; overflow-y: auto; padding: 52px max(48px, calc((100% - var(--cw, 600px)) / 2)) 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px">
+  <button aria-label="Atrás" onClick="{{goLearn}}" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid #ECE3D6; background: #FFFFFF; display: flex; align-items: center; justify-content: center">
+    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 5l-7 7 7 7"></path></svg>
+  </button>
+  <div>
+    <h1 style="margin: 0; font-size: 28px; line-height: 32px; font-weight: 700">Tus vídeos<span style="color: #FF5D00">.</span></h1>
+    <span style="font-size: 13px; color: #4D665D">{{libCount}} contenidos · {{sede.name}}</span>
+  </div>
+  <div class="scroll" style="display: flex; gap: 8px; overflow-x: auto; margin: 0; padding: 0">
+    <sc-for list="{{libFilters}}" as="f" hint-placeholder-count="6">
+      <button onClick="{{f.pick}}" style="{{f.style}}">{{f.label}}</button>
+    </sc-for>
+  </div>
+  <sc-for list="{{library}}" as="v" hint-placeholder-count="5">
+    <div style="background: #FFFFFF; border-radius: 22px; padding: 12px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 10px 30px rgba(14,73,55,0.08)">
+      <a href="{{v.yt}}" target="_blank" rel="noopener" style="display: flex; gap: 12px; align-items: center; text-decoration: none; color: #0E4937">
+        <span style="{{v.thumb}}">
+          <svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="{{v.icon}}"></path></svg>
+          <span style="position: absolute; right: 6px; bottom: 6px; width: 24px; height: 24px; border-radius: 999px; background: #0E4937; color: #FFFFFF; display: flex; align-items: center; justify-content: center">
+            <svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg>
+          </span>
+        </span>
+        <span style="flex: 1; display: flex; flex-direction: column; gap: 3px; min-width: 0">
+          <span style="font-size: 15px; font-weight: 600">{{v.title}}</span>
+          <span style="font-size: 12.5px; color: #4D665D">{{v.dep}} · {{v.dur}} · quiz de 3 preguntas</span>
+          <span style="font-size: 12.5px; color: #4D665D">Asignado a: {{v.roles}}</span>
+        </span>
+      </a>
+      <div style="display: flex; gap: 8px; align-items: center">
+        <span style="height: 26px; padding: 0 10px; border-radius: 999px; background: #F6EDE1; font-size: 12px; font-weight: 600; display: flex; align-items: center">Visto {{v.seen}}</span>
+        <span style="{{v.quizChip}}">Media quiz {{v.quiz}} %</span>
+        <button onClick="{{v.assign}}" style="margin-left: auto; height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid #ECE3D6; font-size: 13px; font-weight: 600">Asignar</button>
+      </div>
+    </div>
+  </sc-for>
+  <div style="background: #FFFFFF; border-radius: 22px; padding: 16px; display: flex; flex-direction: column; gap: 10px">
+    <span style="font-size: 15px; font-weight: 600">Añade un vídeo a tu cuenta</span>
+    <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600">Enlace de YouTube o archivo de vídeo
+      <input type="url" placeholder="https://youtube.com/…" style="height: 48px; border-radius: 18px; border: 1px solid #ECE3D6; padding: 0 14px; font-size: 14px; color: #0E4937; outline: none">
+    </label>
+    <span style="font-size: 12.5px; color: #4D665D">WeFORM crea automáticamente un quiz de 3 preguntas a partir del vídeo.</span>
+    <button onClick="{{addVideo}}" style="height: 46px; border-radius: 999px; background: #0E4937; color: #FFFFFF; font-size: 14px; font-weight: 600">Subir y asignar por rol</button>
+  </div>
+</div>
+</sc-if>
+
+<!-- ================= WeFORM AI ================= -->
+<sc-if value="{{isAi}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; left: 104px; right: 0; top: 0; bottom: 0; display: flex; flex-direction: column">
+  <div style="padding: 52px max(48px, calc((100% - var(--cw, 600px)) / 2)) 12px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #ECE3D6; background: #FCF7F1">
+    <span style="width: 44px; height: 44px; border-radius: 999px; background: #EAF5DA; display: flex; align-items: center; justify-content: center">
+      <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24"><path d="M12 2l2.4 6.8L21 11l-6.6 2.2L12 20l-2.4-6.8L3 11l6.6-2.2z" fill="#D6A324"></path></svg>
+    </span>
+    <span style="flex: 1; display: flex; flex-direction: column">
+      <span style="font-size: 22px; line-height: 26px; font-weight: 700">WeFORM AI<span style="color: #FF5D00">.</span></span>
+      <span style="font-size: 12.5px; color: #4D665D">Responde con los datos de Villa Aurora</span>
+    </span>
+    <button aria-label="Nueva conversación" onClick="{{resetChat}}" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid #ECE3D6; background: #FFFFFF; display: flex; align-items: center; justify-content: center">
+      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
+    </button>
+  </div>
+  <div class="scroll" ref="{{chatRef}}" style="flex: 1; overflow-y: auto; padding: 16px max(48px, calc((100% - var(--cw, 600px)) / 2)); display: flex; flex-direction: column; gap: 12px">
+    <sc-for list="{{msgs}}" as="m" hint-placeholder-count="2">
+      <sc-if value="{{m.me}}" hint-placeholder-val="{{ false }}">
+        <div style="align-self: flex-end; max-width: 80%; background: #0E4937; color: #FFFFFF; border-radius: 22px 22px 6px 22px; padding: 12px 14px; font-size: 14px; line-height: 20px">{{m.text}}</div>
+      </sc-if>
+      <sc-if value="{{m.ai}}" hint-placeholder-val="{{ true }}">
+        <div style="align-self: flex-start; max-width: 92%; background: #FFFFFF; border-radius: 22px 22px 22px 6px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 10px 30px rgba(14,73,55,0.08)">
+          <span style="font-size: 14px; line-height: 21px">{{m.text}}</span>
+          <sc-for list="{{m.bullets}}" as="b" hint-placeholder-count="0">
+            <span style="display: flex; gap: 8px; font-size: 13px; line-height: 19px"><span style="width: 6px; height: 6px; border-radius: 999px; background: #72BF00; margin-top: 7px; flex-shrink: 0"></span>{{b}}</span>
+          </sc-for>
+          <sc-if value="{{m.action}}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{m.act}}" style="align-self: flex-start; height: 40px; padding: 0 16px; border-radius: 999px; background: #0E4937; color: #FFFFFF; font-size: 13px; font-weight: 600">{{m.action}}</button>
+          </sc-if>
+          <sc-if value="{{m.src}}" hint-placeholder-val="{{ false }}">
+            <span style="font-size: 12px; color: #4D665D">{{m.src}}</span>
+          </sc-if>
+        </div>
+      </sc-if>
+    </sc-for>
+    <sc-if value="{{typing}}" hint-placeholder-val="{{ false }}">
+      <div style="align-self: flex-start; background: #FFFFFF; border-radius: 22px; padding: 12px 16px; font-size: 13px; color: #4D665D">Estoy leyendo turnos, fichajes y quiz…</div>
+    </sc-if>
+  </div>
+  <div style="padding: 10px max(48px, calc((100% - var(--cw, 600px)) / 2)) 12px; display: flex; flex-direction: column; gap: 10px; background: #FCF7F1; border-top: 1px solid #ECE3D6">
+    <div class="scroll" style="display: flex; gap: 8px; overflow-x: auto; margin: 0; padding: 0">
+      <sc-for list="{{suggestions}}" as="sg" hint-placeholder-count="4">
+        <button onClick="{{sg.ask}}" style="height: 38px; padding: 0 14px; border-radius: 999px; border: 1px solid #ECE3D6; background: #FFFFFF; font-size: 13px; font-weight: 500; white-space: nowrap; flex-shrink: 0">{{sg.q}}</button>
+      </sc-for>
+    </div>
+    <div style="display: flex; gap: 8px">
+      <label style="flex: 1; display: flex">
+        <input type="text" aria-label="Escribe una pregunta" placeholder="Pregunta dónde puedes mejorar…" value="{{draft}}" onChange="{{onType}}" style="flex: 1; height: 48px; border-radius: 999px; border: 1px solid #ECE3D6; background: #FFFFFF; padding: 0 16px; font-size: 14px; color: #0E4937; outline: none">
+      </label>
+      <button aria-label="Enviar" onClick="{{send}}" style="width: 48px; height: 48px; border-radius: 999px; background: #0E4937; color: #FFFFFF; display: flex; align-items: center; justify-content: center">
+        <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+      </button>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<!-- ================= SEDI E ABBONAMENTO ================= -->
+<sc-if value="{{sediOpen}}" hint-placeholder-val="{{ false }}">
+  <div style="position: absolute; inset: 0; background: rgba(14,73,55,0.35); display: flex; flex-direction: column; justify-content: flex-end; z-index: 5">
+    <button aria-label="Cerrar" onClick="{{closeSedi}}" style="flex: 1"></button>
+    <div class="sheet" style="width: 100%; max-width: 640px; align-self: center; box-sizing: border-box; background: #FCF7F1; border-radius: 28px 28px 0 0; padding: 20px max(48px, calc((100% - var(--cw, 600px)) / 2)) 32px; display: flex; flex-direction: column; gap: 10px">
+      <div style="display: flex; align-items: center; justify-content: space-between">
+        <span style="font-size: 20px; font-weight: 700">Tus locales<span style="color: #FF5D00">.</span></span>
+        <button onClick="{{closeSedi}}" style="height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid #ECE3D6; background: #FFFFFF; font-size: 13px; font-weight: 600">Cerrar</button>
+      </div>
+      <sc-for list="{{sediList}}" as="sd" hint-placeholder-count="4">
+        <button onClick="{{sd.pick}}" style="{{sd.style}}">
+          <span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 600">{{sd.name}}</span><span style="font-size: 12.5px; color: #4D665D">{{sd.sub}}</span></span>
+          <span style="{{sd.radio}}"></span>
+        </button>
+      </sc-for>
+      <div style="background: #E1ECE7; border-radius: 22px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; margin-top: 4px">
+        <span style="font-size: 12.5px">Suscripción</span>
+        <span style="font-size: 17px; font-weight: 700">Professional · 99 € al mes por local</span>
+        <span style="font-size: 12.5px; line-height: 17px; color: #4D665D">3 locales activos · vídeos propios con quiz generados por IA · turnos automáticos con aprobación</span>
+      </div>
+      <button onClick="{{addSede}}" style="height: 48px; border-radius: 999px; background: #0E4937; color: #FFFFFF; font-size: 14px; font-weight: 600">Añadir un local</button>
+    </div>
+  </div>
+</sc-if>
+
+<!-- ================= TAB BAR ================= -->
+<sc-if value="{{showNav}}" hint-placeholder-val="{{ false }}">
+<nav style="position: absolute; left: 0; top: 0; bottom: 0; width: 104px; background: #FFFFFF; border-right: 1px solid #ECE3D6; display: flex; flex-direction: column; justify-content: center; gap: 10px; padding: 0 10px; box-sizing: border-box">
+  <button onClick="{{goDash}}" style="{{tab.dash}}">
+    <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="{{tab.dashW}}" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"></path></svg>Inicio
+  </button>
+  <button onClick="{{goPlan}}" style="{{tab.plan}}">
+    <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="{{tab.planW}}" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>Turnos
+  </button>
+  <button onClick="{{goTeam}}" style="{{tab.team}}">
+    <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="{{tab.teamW}}" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20a6.5 6.5 0 0 1 13 0"></path><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6 6 0 0 1 3.5 6"></path></svg>Equipo
+  </button>
+  <button onClick="{{goLearn}}" style="{{tab.learn}}">
+    <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="{{tab.learnW}}" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"></path></svg>Formación
+  </button>
+  <button onClick="{{goAi}}" style="{{tab.ai}}">
+    <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="{{tab.aiW}}" stroke-linejoin="round"><path d="M12 3l2.2 6.3L20.5 11.5l-6.3 2.2L12 20l-2.2-6.3L3.5 11.5l6.3-2.2z"></path></svg>IA
+  </button>
+</nav>
+</sc-if>
+
+<!-- ================= TOAST ================= -->
+<sc-if value="{{hasToast}}" hint-placeholder-val="{{ false }}">
+  <div role="status" style="position: absolute; left: 50%; transform: translateX(-50%); width: 480px; box-sizing: border-box; top: 40px; background: #0E4937; color: #FFFFFF; border-radius: 18px; padding: 14px 16px; font-size: 14px; font-weight: 500; display: flex; align-items: center; gap: 10px; box-shadow: 0 10px 30px rgba(14,73,55,0.2)">
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17 19 7"></path></svg>
+    {{toast}}
+  </div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":820,"height":1180}}'>
+var TINT = { 'Sala': '#FFE7D6', 'Bar': '#E1ECE7', 'Cocina': '#F8EDCF' };
+function M(t, pct, q) { return { t: t, pct: pct, q: q }; }
+var STAFF = [
+  { id: 'gr', name: 'Giulia Rossi', short: 'Giulia', ini: 'GR', av: '#9A5B3D', role: 'Camarera', dep: 'Sala', hired: 'desde el 27 oct', hours: '26,5 h', extra: '4 h', leave: '14,5 días', ready: 38,
+    mods: [M('Acogida en mesa', 100, '3/3'), M('Alérgenos: los 14 que hay que conocer', 0, ''), M('Servicio del vino', 0, ''), M('El espresso de la casa', 0, '')],
+    punches: [['Lun 9', '17:56 – 23:41', '5 h 45'], ['Sáb 7', '11:28 – 15:10', '3 h 42'], ['Vie 6', '17:50 – 23:58', '6 h 08']], missing: 'Faltan Alérgenos y Servicio del vino' },
+  { id: 'lv', name: 'Luca Verdi', short: 'Luca', ini: 'LV', av: '#4F6B45', role: 'Runner', dep: 'Sala', hired: 'desde hace 2 años', hours: '34 h', extra: '6 h', leave: '9 días', ready: 86,
+    mods: [M('Acogida en mesa', 100, '3/3'), M('Alérgenos: los 14 que hay que conocer', 100, '3/3'), M('Servicio del vino', 40, '')],
+    punches: [['Lun 9', '17:58 – 23:40', '5 h 42'], ['Dom 8', '11:30 – 15:05', '3 h 35'], ['Sáb 7', '17:55 – 00:10', '6 h 15']], missing: '' },
+  { id: 'sc', name: 'Sara Conti', short: 'Sara', ini: 'SC', av: '#7A4E8C', role: 'Camarera', dep: 'Sala', hired: 'desde hace 1 año', hours: '36 h', extra: '8 h', leave: '6 días', ready: 95,
+    mods: [M('Acogida en mesa', 100, '3/3'), M('Alérgenos: los 14 que hay que conocer', 100, '3/3'), M('Servicio del vino', 100, '2/3')],
+    punches: [['Lun 9', '17:50 – 23:45', '5 h 55'], ['Sáb 7', '17:52 – 00:05', '6 h 13'], ['Vie 6', '17:49 – 23:50', '6 h 01']], missing: '' },
+  { id: 'af', name: 'Alessio Ferri', short: 'Alessio', ini: 'AF', av: '#2F5D6B', role: 'Barista', dep: 'Bar', hired: 'desde el 1 nov', hours: '22 h', extra: '0 h', leave: '2 días', ready: 41,
+    mods: [M('El espresso de la casa', 100, '3/3'), M('Capuchino y leche montada', 100, '2/3'), M('Spritz y Negroni de la casa', 30, ''), M('Alérgenos: los 14 que hay que conocer', 0, '')],
+    punches: [['Lun 9', '17:56 – 00:20', '6 h 24'], ['Sáb 7', '18:05 – 00:30', '6 h 25'], ['Vie 6', '18:00 – 00:15', '6 h 15']], missing: 'Faltan Alérgenos y Cócteles' },
+  { id: 'dr', name: 'Davide Russo', short: 'Davide', ini: 'DR', av: '#8A5A1F', role: 'Cocinero', dep: 'Cocina', hired: 'desde hace 3 años', hours: '40 h', extra: '10 h', leave: '11 días', ready: 100,
+    mods: [M('Mise en place de la línea', 100, '3/3'), M('Temperaturas y conservación', 100, '3/3'), M('Alérgenos: los 14 que hay que conocer', 100, '3/3')],
+    punches: [['Lun 9', '16:30 – 23:30', '7 h 00'], ['Sáb 7', '16:30 – 00:00', '7 h 30'], ['Vie 6', '16:30 – 23:45', '7 h 15']], missing: '' },
+  { id: 'pn', name: 'Paolo Neri', short: 'Paolo', ini: 'PN', av: '#355E8A', role: 'Ayudante de cocina', dep: 'Cocina', hired: 'desde hace 8 meses', hours: '35 h', extra: '8 h', leave: '7 días', ready: 72,
+    mods: [M('Mise en place de la línea', 100, '3/3'), M('Temperaturas y conservación', 100, '2/3'), M('Alérgenos: los 14 que hay que conocer', 50, '')],
+    punches: [['Lun 9', '16:30 – 23:20', '6 h 50'], ['Sáb 7', '16:35 – 23:55', '7 h 20'], ['Vie 6', '16:30 – 23:40', '7 h 10']], missing: 'Alérgenos al 50 %' }
+];
+var PLAN = {
+  gr: ['18–23', '18–23', '17–21', '11–15', '', '18–24', ''],
+  lv: ['18–23', '', '18–23', '11–15', '18–23', '18–24', '11–15'],
+  sc: ['', '18–23', '18–23', '', '18–23', '18–24', '11–15'],
+  af: ['18–24', '18–24', '', '18–24', '18–24', '', '18–24'],
+  dr: ['16–23', '16–23', '16–23', '', '16–23', '16–24', ''],
+  pn: ['', '16–23', '16–23', '16–23', '', '16–24', '11–15']
+};
+var AI_FILL = { gr: [4, '18–23'], sc: [0, '18–23'], af: [5, '18–24'] };
+var CHIP = { ok: 'background:#EAF5DA;color:#2D6A0A', late: 'background:#F8EDCF;color:#7A5800', 'Aprobada': 'background:#EAF5DA;color:#2D6A0A', 'Rechazada': 'background:#FFE7D6;color:#B83A00' };
+var CHIPB = 'height:24px;padding:0 10px;border-radius:999px;font-size:11.5px;font-weight:600;display:inline-flex;align-items:center;white-space:nowrap;';
+var P_ON = 'height:38px;padding:0 16px;border-radius:999px;font-size:13px;font-weight:600;background:#72BF00;color:#0E4937;border:1px solid #72BF00';
+var P_OFF = 'height:38px;padding:0 16px;border-radius:999px;font-size:13px;font-weight:500;background:#FFFFFF;color:#0E4937;border:1px solid #ECE3D6';
+function av(c, n) { return 'width:' + n + 'px;height:' + n + 'px;border-radius:999px;background:' + c + ';color:#FFFFFF;font-size:' + (n > 50 ? 20 : 13) + 'px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0'; }
+
+var SRC = 'Basado en turnos, fichajes y quiz de Villa Aurora · últimos 30 días';
+var ANSWERS = {
+  sala: { q: '¿Dónde puedo mejorar el servicio en sala?',
+    text: 'El punto más débil es el servicio del vino: la media de los quiz es del 67 % frente al 84 % del local, y 2 de 5 personas de sala aún no han visto el vídeo.',
+    bullets: ['La pregunta más fallada es cuánto servir en la copa (46 % de errores)', 'Giulia y Luca no han completado «Servicio del vino»', 'El sábado después de las 21:00 la sala tiene 3 de 4 personas previstas'],
+    action: 'Asignar «Servicio del vino» a 2 personas', key: 'toast:Vídeo asignado a Giulia y Luca' },
+  extra: { q: '¿Cómo reduzco las horas extra?',
+    text: 'En noviembre hay 31 h extra y el 58 % son en cocina el sábado. Davide y Paolo entran a las 16:30, pero las primeras comandas llegan de media a las 19:10.',
+    bullets: ['Si la cocina entra a las 17:30 el sábado ahorras unas 8 h a la semana', 'Paolo tiene 3 h de bolsa de horas por recuperar', 'El bar cierra caja a las 00:20: adelantarlo a las 23:45 supone unas 2 h a la semana'],
+    action: 'Abrir el planificador del sábado', key: 'plan' },
+  onb: { q: '¿Por qué los nuevos tardan tanto?',
+    text: 'Hoy un nuevo empleado tarda de media 9 días en estar «listo», frente a un objetivo de 7. Frenan sobre todo APPCC y cócteles.',
+    bullets: ['Quien tiene acompañamiento los 3 primeros días está listo en 6', 'Alessio (bar) está al 41 %: falta «Spritz y Negroni»', 'Los vídeos de menos de un minuto se completan el doble de veces'],
+    action: 'Programar acompañamiento para Alessio', key: 'toast:Acompañamiento con Sara propuesto para el jueves' },
+  who: { q: '¿A quién debo formar esta semana?',
+    text: 'Tres personas tienen lagunas que afectan a sus turnos de los próximos días.',
+    bullets: ['Giulia · Alérgenos pendiente, está en sala esta noche', 'Alessio · Alérgenos y cócteles, está en la barra el sábado', 'Paolo · Alérgenos al 50 %, cocina el miércoles'],
+    action: 'Enviar recordatorio a 3 personas', key: 'toast:Recordatorio enviado a 3 personas' },
+  cost: { q: '¿Cuánto pesa el personal sobre los ingresos?',
+    text: 'Esta semana el coste de personal estimado es de 6.840 €, el 29 % de los ingresos previstos: por debajo del umbral del 32 % que fijaste.',
+    bullets: ['El viernes pesa más: 35 %, porque los ingresos previstos son menores', 'El domingo a mediodía tienes una persona de más para los cubiertos medios', 'En octubre estabas al 31 %'],
+    action: 'Abrir el planificador', key: 'plan' }
+};
+var ORDER = ['sala', 'extra', 'onb', 'who', 'cost', 'sedi'];
+ANSWERS.sedi = { q: '¿Qué local va peor y por qué?',
+  text: 'Bistrot Aurora en Bérgamo es el local más atrasado: formación al 58 % y coste de personal al 34 %, por encima del umbral del 32 %. En Como, en cambio, el equipo está listo en 7 días.',
+  bullets: ['En Bérgamo 3 de 6 personas no han hecho los vídeos de APPCC', 'El coste sube porque el lunes abre con 2 personas y pocos cubiertos', 'Copiar el itinerario de Como en Bérgamo puede reducir el tiempo hasta «listo» unos 3 días'],
+  action: 'Copiar el itinerario de Como en Bérgamo', key: 'toast:Itinerario de Como asignado al equipo de Bérgamo' };
+var SEDI = {
+  all: { name: 'Todos los locales', short: 'todos los locales', on: '18 de 23', onSub: '3 locales · 26 personas', form: 73, hours: '856 h', cost: 31, ready: '9 días', sub: 'Vista general' },
+  mi: { name: 'Villa Aurora · Milán', short: 'Milán', on: '8 de 11', onSub: '1 retraso · 2 llegan a las 19:00', form: 72, hours: '412 h', cost: 29, ready: '9 días', sub: '11 personas · restaurante y lounge bar' },
+  co: { name: 'Villa Aurora · Lago de Como', short: 'Como', on: '6 de 7', onSub: 'todos puntuales', form: 85, hours: '268 h', cost: 31, ready: '7 días', sub: '9 personas · hotel y restaurante' },
+  bg: { name: 'Bistrot Aurora · Bérgamo', short: 'Bergamo', on: '4 de 5', onSub: '1 de baja', form: 58, hours: '176 h', cost: 34, ready: '12 días', sub: '6 personas · bistró' }
+};
+var SEDI_ORDER = ['all', 'mi', 'co', 'bg'];
+var LTINT = { 'Bar': '#E1ECE7', 'Sala': '#FFE7D6', 'Cocina': '#F8EDCF', 'HACCP': '#EAF5DA', 'Hotel': '#F6EDE1' };
+var LICON = {
+  bell: 'M4 17h16 M6 17a6 6 0 0 1 12 0 M12 8v3 M10 8h4 M3 20h18',
+  wine: 'M8 3h8l-.5 5a3.5 3.5 0 0 1-7 0z M12 11.5V20 M8.5 20h7',
+  shield: 'M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z M9 12l2 2 4-4',
+  cup: 'M4 9h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z M16 10h2a2.5 2.5 0 0 1 0 5h-2 M8 3c0 1.5 1 1.5 1 3 M12 3c0 1.5 1 1.5 1 3',
+  milk: 'M5 8h12v4a6 6 0 0 1-12 0z M17 9h1.5a2.5 2.5 0 0 1 0 5H16 M3 21h18',
+  cocktail: 'M5 4h14l-7 8z M12 12v8 M8 20h8 M15 4l3-2',
+  pot: 'M4 10h16v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z M2 10h20 M9 6c0-1 1-1 1-2 M14 6c0-1 1-1 1-2',
+  thermo: 'M10 4a2 2 0 0 1 4 0v10a4 4 0 1 1-4 0z M12 9v7',
+  bed: 'M3 18V7 M3 14h18v4 M21 14v-2a3 3 0 0 0-3-3h-7v5 M5.5 11.5a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0-3 0'
+};
+var LIB = [
+  { title: 'Acogida y servicio de sala', dep: 'Sala', dur: '5 min', i: 'bell', roles: 'Sala · 5 personas', seen: '5/5', quiz: 93, yt: 'https://www.youtube.com/watch?v=ahmRl0i6hS0' },
+  { title: 'Cómo servir el vino', dep: 'Sala', dur: '4 min', i: 'wine', roles: 'Sala · 5 personas', seen: '3/5', quiz: 67, yt: 'https://www.youtube.com/watch?v=oVbx_b1grFY' },
+  { title: 'APPCC y alérgenos', dep: 'HACCP', dur: '6 min', i: 'shield', roles: 'Todos · 11 personas', seen: '8/11', quiz: 81, yt: 'https://www.youtube.com/watch?v=--3OBlSWpfI' },
+  { title: 'El café espresso', dep: 'Bar', dur: '3 min', i: 'cup', roles: 'Bar y Sala · 7 personas', seen: '4/4', quiz: 92, yt: 'https://www.youtube.com/watch?v=5_X75hicjFo' },
+  { title: 'Montar la leche para el capuchino', dep: 'Bar', dur: '4 min', i: 'milk', roles: 'Bar · 2 personas', seen: '2/2', quiz: 83, yt: 'https://www.youtube.com/watch?v=Lo8zoTnPFS0' },
+  { title: 'El Negroni perfecto', dep: 'Bar', dur: '3 min', i: 'cocktail', roles: 'Bar · 2 personas', seen: '1/2', quiz: 78, yt: 'https://www.youtube.com/watch?v=7wconPmM4tA' },
+  { title: 'La mise en place en cocina', dep: 'Cocina', dur: '5 min', i: 'pot', roles: 'Cocina · 3 personas', seen: '3/3', quiz: 100, yt: 'https://www.youtube.com/watch?v=7ITNsT9yktc' },
+  { title: 'APPCC: la nevera', dep: 'HACCP', dur: '4 min', i: 'thermo', roles: 'Todos · 11 personas', seen: '6/7', quiz: 88, yt: 'https://www.youtube.com/watch?v=iIUpCVagvbE' },
+  { title: 'Arreglar una habitación de hotel', dep: 'Hotel', dur: '6 min', i: 'bed', roles: 'Pisos · local de Como', seen: '4/4', quiz: 90, yt: 'https://www.youtube.com/watch?v=1qVYTtQO14E' }
+];
+function match(t) {
+  t = t.toLowerCase();
+  if (/sed|bergamo|como|milano|peggio/.test(t)) return 'sedi';
+  if (/vino|sala|servizio|clienti|migliora/.test(t)) return 'sala';
+  if (/straordinar|ore|orari|turn/.test(t)) return 'extra';
+  if (/nuov|assunt|onboarding|pront/.test(t)) return 'onb';
+  if (/form|chi|quiz|video/.test(t)) return 'who';
+  if (/cost|incass|soldi|spes|margin/.test(t)) return 'cost';
+  return '';
+}
+var HELLO = { ai: true, me: false, text: 'Hola Marco. Pregúntame dónde puede mejorar Villa Aurora: respondo con los turnos, fichajes, solicitudes y quiz de tu equipo.', bullets: [], action: '', src: '' };
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tab: 'welcome', personId: 'gr', dep: 'Todos', aiDraft: false, published: false, toast: '',
+      sede: 'mi', sedi: false, libDep: 'Todos',
+      msgs: [HELLO], typing: false, draft: '',
+      approvals: [
+        { id: 'a0', ini: 'SC', c: '#7A4E8C', name: 'Cambio de turno · Sara ↔ Giulia', tn: 'Sara y Giulia', what: 'Jue 12 comida ↔ Dom 15 comida · aceptado por ambas', warn: 'Cobertura sin cambios: mismo rol y misma franja horaria.', st: '' },
+        { id: 'a1', ini: 'GR', c: '#9A5B3D', name: 'Giulia Rossi', what: 'Vacaciones 28–31 de diciembre · 4 días', warn: '31 de diciembre: sala corta de personal (3 de 5) si apruebas. Sara puede cubrir 2 turnos.', st: '' },
+        { id: 'a2', ini: 'PN', c: '#355E8A', name: 'Paolo Neri', what: 'Permiso 3 h · vie 13 nov', warn: '', st: '' },
+        { id: 'a3', ini: 'SC', c: '#7A4E8C', name: 'Sara Conti', what: 'Cambio de turno con Luca · sáb 14', warn: '', st: '' }
+      ]
+    };
+  }
+  componentDidUpdate() { if (this.chatEl) this.chatEl.scrollTop = this.chatEl.scrollHeight; }
+  componentWillUnmount() { if (this.tt) clearTimeout(this.tt); if (this.at) clearTimeout(this.at); }
+  showToast(m) { var self = this; this.setState({ toast: m }); if (this.tt) clearTimeout(this.tt); this.tt = setTimeout(function () { self.setState({ toast: '' }); }, 3000); }
+  ask(text, k0) {
+    var self = this; text = (text || '').trim(); if (!text || this.state.typing) return;
+    var k = k0 || match(text);
+    this.setState({ msgs: this.state.msgs.concat([{ me: true, ai: false, text: text }]), typing: true, draft: '' });
+    this.at = setTimeout(function () {
+      var a = ANSWERS[k];
+      var m = a ? { ai: true, me: false, text: a.text, bullets: a.bullets, action: a.action, key: a.key, src: SRC }
+                : { ai: true, me: false, text: 'En este mockup respondo a las preguntas sugeridas abajo. En la versión real leo todos los datos del local y respondo cualquier pregunta sobre personal, turnos y formación.', bullets: [], action: '', src: '' };
+      self.setState({ msgs: self.state.msgs.concat([m]), typing: false });
+    }, 900);
+  }
+  doAction(key) {
+    if (key === 'plan') { this.setState({ tab: 'plan' }); return; }
+    if (key.indexOf('toast:') === 0) this.showToast(key.slice(6));
+  }
+  renderVals() {
+    var s = this.state, self = this, t = s.tab;
+    var go = function (x) { return function () { self.setState({ tab: x }); }; };
+    var open = function (id) { return function () { self.setState({ tab: 'person', personId: id }); }; };
+    var tabS = function (on) { return 'display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;height:80px;border-radius:22px;font-size:12px;' + (on ? 'font-weight:700;color:#0E4937;background:#EAF5DA' : 'font-weight:500;color:#4D665D'); };
+    var pending = s.approvals.filter(function (a) { return !a.st; }).length;
+
+    var approvals = s.approvals.map(function (a) {
+      return Object.assign({}, a, { av: av(a.c, 44), isPending: !a.st, isDone: !!a.st, chip: CHIPB + (CHIP[a.st] || ''),
+        approve: function () { self.decide(a.id, 'Aprobada'); }, reject: function () { self.decide(a.id, 'Rechazada'); } });
+    });
+    var punches = [
+      { ini: 'GR', c: '#9A5B3D', name: 'Giulia Rossi', dep: 'Sala · 18:00', label: '17:52', k: 'ok' },
+      { ini: 'LV', c: '#4F6B45', name: 'Luca Verdi', dep: 'Sala · 18:00', label: '5 min de retraso', k: 'late' },
+      { ini: 'AF', c: '#2F5D6B', name: 'Alessio Ferri', dep: 'Bar · 18:00', label: '17:56', k: 'ok' },
+      { ini: 'DR', c: '#8A5A1F', name: 'Davide Russo', dep: 'Cocina · 16:30', label: '16:24', k: 'ok' }
+    ].map(function (p) { return Object.assign({}, p, { av: av(p.c, 36), chip: CHIPB + CHIP[p.k] }); });
+
+    var grid = STAFF.map(function (m) {
+      var row = PLAN[m.id].slice(), fill = AI_FILL[m.id];
+      return { name: m.short, dep: m.dep, cells: row.map(function (c, i) {
+        var ai = s.aiDraft && fill && fill[0] === i;
+        var txt = ai ? fill[1] : c;
+        var base = 'height:34px;border-radius:10px;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;color:#0E4937;letter-spacing:-0.2px;box-sizing:border-box;';
+        return { t: txt, style: base + (ai ? 'border:1.5px dashed #0E4937;background:#FFFFFF' : txt ? 'background:' + TINT[m.dep] : 'background:#FCF7F1') };
+      }) };
+    });
+
+    var staffList = STAFF.filter(function (m) { return s.dep === 'Todos' || m.dep === s.dep; }).map(function (m) {
+      return { name: m.name, ini: m.ini, role: m.role, hours: m.hours, ready: m.ready, av: av(m.av, 44), open: open(m.id),
+        bar: 'display:block;height:100%;border-radius:999px;width:' + m.ready + '%;background:' + (m.ready >= 80 ? '#72BF00' : m.ready >= 50 ? '#D6A324' : '#FF5D00') };
+    });
+    var depFilters = ['Todos', 'Sala', 'Bar', 'Cocina'].map(function (d) { return { label: d, style: d === s.dep ? P_ON : P_OFF, pick: function () { self.setState({ dep: d }); } }; });
+
+    var pm = STAFF.filter(function (m) { return m.id === s.personId; })[0] || STAFF[0];
+    var p = { name: pm.name, ini: pm.ini, role: pm.role, dep: pm.dep, hired: pm.hired, hours: pm.hours, extra: pm.extra, leave: pm.leave, ready: pm.ready, avBig: av(pm.av, 64),
+      mods: pm.mods.map(function (md) {
+        return { t: md.t, q: md.q ? 'quiz ' + md.q : (md.pct ? 'en curso ' + md.pct + '%' : 'sin empezar'),
+          qs: 'font-weight:600;white-space:nowrap;color:' + (md.q === '3/3' ? '#2D6A0A' : md.q ? '#7A5800' : '#4D665D'),
+          bar: 'height:100%;border-radius:999px;width:' + md.pct + '%;background:' + (md.pct >= 100 ? '#72BF00' : '#D6A324') };
+      }),
+      punches: pm.punches.map(function (x) { return { d: x[0], r: x[1], t: x[2] }; }) };
+
+    var modules = [
+      ['Acogida en mesa', 5, 5, 93], ['Alérgenos: los 14 que hay que conocer', 8, 11, 81], ['Servicio del vino', 3, 5, 67],
+      ['El espresso de la casa', 4, 4, 92], ['Spritz y Negroni', 1, 2, 78], ['Temperaturas y conservación', 6, 7, 88], ['Mise en place de la línea', 3, 3, 100]
+    ].map(function (m) {
+      var pct = Math.round(m[1] / m[2] * 100);
+      return { t: m[0], seen: m[1] + '/' + m[2], q: m[3] + '%', qs: 'font-weight:700;color:' + (m[3] >= 85 ? '#2D6A0A' : m[3] >= 75 ? '#0E4937' : '#B83A00'),
+        bar: 'height:100%;border-radius:999px;width:' + pct + '%;background:' + (pct >= 100 ? '#72BF00' : '#D6A324') };
+    });
+    var behind = STAFF.filter(function (m) { return m.missing; }).map(function (m) { return { name: m.name, ini: m.ini, ready: m.ready, missing: m.missing, av: av(m.av, 40), open: open(m.id) }; });
+
+    var msgs = s.msgs.map(function (m) { return Object.assign({ bullets: [], action: '', src: '' }, m, { act: function () { self.doAction(m.key || ''); } }); });
+    var suggestions = ORDER.map(function (k) { return { q: ANSWERS[k].q, ask: function () { self.ask(ANSWERS[k].q, k); } }; });
+
+    var sede = SEDI[s.sede];
+    var sediList = SEDI_ORDER.map(function (k) {
+      var on = s.sede === k;
+      return { name: SEDI[k].name, sub: SEDI[k].sub,
+        style: 'display:flex;align-items:center;gap:12px;text-align:left;padding:12px 14px;border-radius:20px;background:#FFFFFF;border:2px solid ' + (on ? '#0E4937' : '#ECE3D6'),
+        radio: 'width:22px;height:22px;border-radius:999px;box-sizing:border-box;flex-shrink:0;border:' + (on ? '7px solid #0E4937' : '2px solid #ECE3D6'),
+        pick: function () { self.setState({ sede: k, sedi: false }); } };
+    });
+    var compare = ['mi', 'co', 'bg'].map(function (k) {
+      var x = SEDI[k];
+      return { short: x.short, form: x.form, cost: x.cost, on: x.on,
+        formStyle: 'font-weight:700;color:' + (x.form >= 80 ? '#2D6A0A' : x.form >= 65 ? '#0E4937' : '#B83A00'),
+        costStyle: 'font-weight:700;color:' + (x.cost > 32 ? '#B83A00' : '#0E4937'),
+        pick: function () { self.setState({ sede: k }); } };
+    });
+    return {
+      isWelcome: t === 'welcome', showNav: t !== 'welcome' && t !== 'login',
+      isLib: t === 'lib', goLib: go('lib'), libCount: LIB.length,
+      libFilters: ['Todos', 'Sala', 'Bar', 'Cocina', 'HACCP', 'Hotel'].map(function (d) { return { label: d, style: (d === s.libDep ? P_ON : P_OFF) + ';white-space:nowrap;flex-shrink:0', pick: function () { self.setState({ libDep: d }); } }; }),
+      library: LIB.filter(function (v) { return s.libDep === 'Todos' || v.dep === s.libDep; }).map(function (v) {
+        return Object.assign({}, v, { icon: LICON[v.i],
+          thumb: 'position:relative;width:84px;height:84px;border-radius:18px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#0E4937;background:' + LTINT[v.dep],
+          quizChip: 'height:26px;padding:0 10px;border-radius:999px;font-size:12px;font-weight:600;display:flex;align-items:center;' + (v.quiz >= 85 ? 'background:#EAF5DA;color:#2D6A0A' : v.quiz >= 75 ? 'background:#F8EDCF;color:#7A5800' : 'background:#FFE7D6;color:#B83A00'),
+          assign: function () { self.showToast('«' + v.title + '» asignado a los nuevos empleados'); } });
+      }),
+      enter: function () { self.setState({ tab: 'login' }); },
+      isLogin: t === 'login', backWelcome: function () { self.setState({ tab: 'welcome' }); }, login: function () { self.setState({ tab: 'dash' }); },
+      sede: sede, isAll: s.sede === 'all', sediList: sediList, compare: compare, sediOpen: s.sedi,
+      openSedi: function () { self.setState({ sedi: true }); }, closeSedi: function () { self.setState({ sedi: false }); },
+      addSede: function () { self.setState({ sedi: false }); self.showToast('Nuevo local: 99 € al mes, 14 días de prueba gratis'); },
+      announce: function () { self.showToast('Comunicado enviado a ' + sede.short); },
+      renewHaccp: function () { self.showToast('Solicitud enviada al centro formativo colaborador'); },
+      isDash: t === 'dash', isPlan: t === 'plan', isTeam: t === 'team', isPerson: t === 'person', isLearn: t === 'learn', isAi: t === 'ai',
+      goDash: go('dash'), goPlan: go('plan'), goTeam: go('team'), goLearn: go('learn'), goAi: go('ai'),
+      tab: { dash: tabS(t === 'dash'), plan: tabS(t === 'plan'), team: tabS(t === 'team' || t === 'person'), learn: tabS(t === 'learn' || t === 'lib'), ai: tabS(t === 'ai'),
+        dashW: t === 'dash' ? 2.3 : 1.7, planW: t === 'plan' ? 2.3 : 1.7, teamW: (t === 'team' || t === 'person') ? 2.3 : 1.7, learnW: t === 'learn' ? 2.3 : 1.7, aiW: t === 'ai' ? 2.3 : 1.7 },
+      approvals: approvals, punches: punches, pendingLabel: pending ? pending + ' pendientes' : 'todo hecho',
+      grid: grid, planState: s.published ? 'publicado' : s.aiDraft ? 'borrador con propuestas de IA' : 'borrador',
+      aiFill: function () { self.setState({ aiDraft: !self.state.aiDraft }); if (!self.state.aiDraft) self.showToast('3 huecos cubiertos según disponibilidad y formación'); },
+      copyWeek: function () { self.showToast('Semana anterior copiada'); },
+      publish: function () { self.setState({ published: true }); self.showToast('Turnos publicados: 11 personas avisadas'); },
+      staffList: staffList, depFilters: depFilters, p: p,
+      assign: function () { self.showToast('Vídeo asignado a ' + pm.short); },
+      shadow: function () { self.showToast('Acompañamiento propuesto para el jueves'); },
+      modules: modules, behind: behind,
+      remind: function () { self.showToast('Recordatorio enviado a 3 personas'); },
+      addVideo: function () { self.showToast('Vídeo añadido · quiz generado en borrador'); },
+      msgs: msgs, typing: s.typing, suggestions: suggestions, draft: s.draft,
+      chatRef: function (el) { self.chatEl = el; },
+      onType: function (e) { self.setState({ draft: e.target.value }); },
+      send: function () { self.ask(self.state.draft); },
+      resetChat: function () { self.setState({ msgs: [HELLO], draft: '' }); },
+      hasToast: !!s.toast, toast: s.toast
+    };
+  }
+  decide(id, st) {
+    var list = this.state.approvals.map(function (a) { return a.id === id ? Object.assign({}, a, { st: st }) : a; });
+    var who = list.filter(function (a) { return a.id === id; })[0];
+    this.setState({ approvals: list });
+    this.showToast((who.tn ? 'Cambio de ' + who.tn : 'Solicitud de ' + who.name.split(' ')[0]) + ' ' + (who.tn ? (st === 'Aprobada' ? 'aprobado' : 'rechazado') : st.toLowerCase()) + ' · notificación enviada');
+  }
+}
+</script>
+</body>
+</html>

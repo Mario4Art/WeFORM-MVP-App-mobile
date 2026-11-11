@@ -1,0 +1,995 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>WeFORM iPad · App empleado</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="WeFORM">
+<meta name="theme-color" content="#FCF7F1">
+<link rel="manifest" href="../../manifest.webmanifest">
+<link rel="apple-touch-icon" href="../../assets/icon-180.png">
+<link rel="icon" type="image/png" href="../../assets/icon-192.png">
+<script src="../../vendor/react.js"></script>
+<script src="../../vendor/react-dom.js"></script>
+<script src="../../support.js"></script>
+<script src="../../fit.js"></script>
+<style>html{background:#E9E3D8}body{margin:0;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;background:#E9E3D8}</style>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,800&amp;family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+button{font-family:inherit;border:0;cursor:pointer;padding:0;background:none;color:inherit}
+button:active,a:active{transform:scale(0.97)}
+input,textarea{font-family:inherit}
+.scroll{scrollbar-width:none}
+.scroll::-webkit-scrollbar{display:none}
+a{color:#0E4937}a:hover{color:#2D6A0A}
+@keyframes lidUp{from{transform:translateY(0) rotate(0deg)}to{transform:translateY(-30px) rotate(-9deg)}}
+@keyframes starIn{from{opacity:0;transform:scale(0.2)}to{opacity:1;transform:scale(1)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.lid{transform-box:view-box;transform-origin:100px 150px;animation:lidUp .5s ease-out .3s both}
+.star{transform-box:fill-box;transform-origin:center;animation:starIn .45s ease-out .75s both}
+.glow{animation:fadeIn .4s ease-out .7s both}
+.rise{animation:rise .5s ease-out .9s both}
+.sheet{animation:rise .25s ease-out both}
+</style>
+</helmet>
+<div style="width: 820px; height: 1180px; position: relative; overflow: hidden; background: #FCF7F1; font-family: 'Instrument Sans', system-ui, sans-serif; color: #0E4937">
+
+<!-- ================= ACCESSO ================= -->
+<sc-if value="{{isIntro}}" hint-placeholder-val="{{ true }}">
+<div style="position: absolute; inset: 0; display: flex; flex-direction: column; padding: 56px max(48px, calc((100% - var(--cw, 600px)) / 2)) 40px; box-sizing: border-box">
+  <div style="display: flex; align-items: center; justify-content: space-between">
+    <span style="display: flex; align-items: center; gap: 6px; font-size: 20px"><img src="../../assets/d99d2bd9a06c4532336ffac737d5299b.png" alt="WeFORM" style="height: 26px; width: auto; display: block"></span>
+    <a href="../Main.dc.html" style="height: 44px; padding: 0 12px; border-radius: 999px; border: 1px solid #ECE3D6; background: #FFFFFF; font-size: 13px; font-weight: 600; color: #0E4937; display: flex; align-items: center; text-decoration: none">Cambiar rol</a>
+  </div>
+  <div style="flex: 1; display: flex; align-items: center; justify-content: center">
+    <svg role="img" aria-label="La campana WeFORM se abre" width="320" height="320" viewBox="0 0 200 200">
+      <defs><linearGradient id="domeA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1F7A58"></stop><stop offset="1" stop-color="#0E4937"></stop></linearGradient></defs>
+      <circle cx="100" cy="104" r="86" fill="#EAF5DA"></circle>
+      <circle cx="30" cy="92" r="4" fill="#9CCB8A"></circle>
+      <circle cx="170" cy="66" r="5" fill="#FF5D00"></circle>
+      <ellipse class="glow" cx="100" cy="156" rx="44" ry="8" fill="#F8EDCF"></ellipse>
+      <path class="star" d="M100 118l5 13 13 5-13 5-5 13-5-13-13-5 13-5z" fill="#D6A324"></path>
+      <rect x="34" y="160" width="132" height="8" rx="4" fill="#0E4937"></rect>
+      <g class="lid">
+        <path d="M44 150a56 56 0 0 1 112 0z" fill="url(#domeA)"></path>
+        <path d="M64 132a40 40 0 0 1 20-28" stroke="#FFFFFF" stroke-opacity="0.4" stroke-width="6" fill="none" stroke-linecap="round"></path>
+        <circle cx="100" cy="88" r="9" fill="#FF5D00"></circle>
+        <rect x="38" y="148" width="124" height="8" rx="4" fill="#0E4937"></rect>
+      </g>
+    </svg>
+  </div>
+  <div class="rise" style="display: flex; flex-direction: column">
+    <div style="display: flex; gap: 6px; margin-bottom: 18px">
+      <span style="width: 22px; height: 4px; border-radius: 4px; background: #0E4937"></span>
+      <span style="width: 8px; height: 4px; border-radius: 4px; background: #ECE3D6"></span>
+      <span style="width: 8px; height: 4px; border-radius: 4px; background: #ECE3D6"></span>
+    </div>
+    <h1 style="margin: 0; font-size: 32px; line-height: 38px; font-weight: 700">¿Listo? ¡Entra y a por todas!🚀</h1>
+    <p style="margin: 12px 0 28px; font-size: 15px; line-height: 22px; color: #4D665D">Vídeos de formación de un minuto, turnos, cambios, vacaciones y nóminas. Todo en una app.</p>
+    <button onClick="{{goLogin}}" style="height: 52px; border-radius: 999px; background: #0E4937; color: #FFFFFF; font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px">Empezar
+      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+    </button>
+    <div style="margin-top: 14px; text-align: center; font-size: 13px; color: #4D665D">¿Ya tienes cuenta? <button onClick="{{goLogin}}" style="font-size: 13px; font-weight: 700; color: #0E4937; height: 32px">Entrar</button></div>
+  </div>
+</div>
+</sc-if>
+
+<!-- ================= LOGIN ================= -->
+<sc-if value="{{isLogin}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; inset: 0; display: flex; flex-direction: column; padding: 52px max(48px, calc((100% - var(--cw, 600px)) / 2)) 36px; box-sizing: border-box; gap: 16px">
+  <button aria-label="Atrás" onClick="{{goIntro}}" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid #ECE3D6; background: #FFFFFF; display: flex; align-items: center; justify-content: center">
+    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 5l-7 7 7 7"></path></svg>
+  </button>
+  <span style="display: flex; align-items: center; gap: 6px; font-size: 18px; margin-top: 12px"><img src="../../assets/d99d2bd9a06c4532336ffac737d5299b.png" alt="WeFORM" style="height: 26px; width: auto; display: block"></span>
+  <div>
+    <h1 style="margin: 0; font-size: 32px; line-height: 36px; font-weight: 700">Bienvenida de nuevo<span style="color: #FF5D00">.</span></h1>
+    <p style="margin: 6px 0 0; font-size: 15px; line-height: 22px; color: #4D665D">Entra con tu correo de trabajo y el PIN del local.</p>
+  </div>
+  <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600">Correo
+    <input type="email" value="{{loginEmail}}" style="height: 50px; border-radius: 18px; border: 2px solid #0E4937; padding: 0 16px; font-size: 15px; color: #0E4937; background: #FFFFFF; outline: none">
+  </label>
+  <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600">PIN del local
+    <input type="password" value="1234" style="height: 50px; border-radius: 18px; border: 1px solid #ECE3D6; padding: 0 16px; font-size: 15px; color: #0E4937; background: #FFFFFF; outline: none">
+  </label>
+  <sc-if value="{{ true }}" hint-placeholder-val="{{ true }}">
+    <button onClick="{{login}}" style="height: 52px; border-radius: 999px; background: #0E4937; color: #FFFFFF; font-size: 15px; font-weight: 600; margin-top: 4px">Entrar</button>
+  </sc-if>
+  <button onClick="{{login}}" style="height: 52px; border-radius: 999px; border: 1px solid #ECE3D6; background: #FFFFFF; font-size: 15px; font-weight: 600">Entrar con Face ID</button>
+  <div style="margin-top: auto; text-align: center; font-size: 13px; color: #4D665D">¿Nuevo en el equipo? <strong style="color: #0E4937">Usa el código de invitación</strong></div>
+</div>
+</sc-if>
+
+<!-- ================= SPLASH dopo l'accesso ================= -->
+<sc-if value="{{isSplash}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; padding: 0 max(48px, calc((100% - var(--cw, 600px)) / 2)); text-align: center">
+  <svg role="img" aria-label="La campana WeFORM se abre" width="300" height="300" viewBox="0 0 200 200">
+    <defs><linearGradient id="domeB" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1F7A58"></stop><stop offset="1" stop-color="#0E4937"></stop></linearGradient></defs>
+    <circle cx="100" cy="104" r="86" fill="#EAF5DA"></circle>
+    <circle cx="30" cy="92" r="4" fill="#9CCB8A"></circle>
+    <circle cx="170" cy="66" r="5" fill="#FF5D00"></circle>
+    <ellipse class="glow" cx="100" cy="156" rx="44" ry="8" fill="#F8EDCF"></ellipse>
+    <path class="star" d="M100 118l5 13 13 5-13 5-5 13-5-13-13-5 13-5z" fill="#D6A324"></path>
+    <rect x="34" y="160" width="132" height="8" rx="4" fill="#0E4937"></rect>
+    <g class="lid">
+      <path d="M44 150a56 56 0 0 1 112 0z" fill="url(#domeB)"></path>
+      <path d="M64 132a40 40 0 0 1 20-28" stroke="#FFFFFF" stroke-opacity="0.4" stroke-width="6" fill="none" stroke-linecap="round"></path>
+      <circle cx="100" cy="88" r="9" fill="#FF5D00"></circle>
+      <rect x="38" y="148" width="124" height="8" rx="4" fill="#0E4937"></rect>
+    </g>
+  </svg>
+  <div class="rise" style="display: flex; flex-direction: column; gap: 6px">
+    <span style="font-size: 28px; line-height: 32px; font-weight: 700">Hola, Giulia<span style="color: #FF5D00">.</span></span>
+    <span style="font-size: 15px; color: #4D665D">Hoy estás en sala a las 18:00</span>
+  </div>
+</div>
+</sc-if>
+
+<!-- ================= APP ================= -->
+<sc-if value="{{isApp}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; inset: 0">
+
+  <!-- ---------- HOME: reel ---------- -->
+  <sc-if value="{{isHome}}" hint-placeholder-val="{{ true }}">
+  <div style="position: absolute; left: 104px; right: 0; top: 0; bottom: 0; display: flex; flex-direction: column">
+    <div style="flex-shrink: 0; padding: 50px max(48px, calc((100% - var(--cw, 600px)) / 2)) 12px; box-sizing: border-box; display: flex; flex-direction: column; gap: 10px">
+      <div style="display: flex; align-items: center; gap: 10px">
+        <span style="flex: 1; display: flex; align-items: center; gap: 6px; font-size: 19px"><img src="../../assets/d99d2bd9a06c4532336ffac737d5299b.png" alt="WeFORM" style="height: 26px; width: auto; display: block"></span>
+        <button aria-label="Notificaciones" onClick="{{openNotif}}" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid #ECE3D6; background: #FFFFFF; position: relative; display: flex; align-items: center; justify-content: center">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4z"></path><path d="M10 20a2 2 0 0 0 4 0"></path></svg>
+          <span style="position: absolute; top: 10px; right: 11px; width: 7px; height: 7px; border-radius: 999px; background: #FF5D00"></span>
+        </button>
+        <button aria-label="Perfil" onClick="{{goProfile}}" style="width: 44px; height: 44px; border-radius: 999px; background: #9A5B3D; color: #FFFFFF; font-size: 14px; font-weight: 600; display: flex; align-items: center; justify-content: center">GR</button>
+      </div>
+      <span style="font-size: 24px; line-height: 28px; font-weight: 700">Hola, Giulia<span style="color: #FF5D00">.</span> <span style="font-size: 15px; font-weight: 500; color: #4D665D">¿Qué aprendemos hoy?</span></span>
+      <button onClick="{{goTurni}}" style="height: 48px; border-radius: 22px; background: #0E4937; color: #FFFFFF; display: flex; align-items: center; gap: 10px; padding: 0 6px 0 16px; text-align: left">
+        <span style="flex: 1; display: flex; flex-direction: column">
+          <span style="font-size: 11.5px; color: #CFE3D8">Turno de hoy · {{shiftNote}}</span>
+          <span style="font-size: 14px; font-weight: 600">Sala · Cena  18:00–23:30</span>
+        </span>
+        <span style="width: 36px; height: 36px; border-radius: 999px; background: #FFFFFF; color: #0E4937; display: flex; align-items: center; justify-content: center">
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+        </span>
+      </button>
+      <div class="scroll" style="display: flex; gap: 8px; overflow-x: auto; margin: 0; padding: 0">
+        <sc-for list="{{cats}}" as="c" hint-placeholder-count="6">
+          <button onClick="{{c.pick}}" style="{{c.style}}">{{c.label}}</button>
+        </sc-for>
+      </div>
+    </div>
+
+    <div class="scroll" style="flex: 1; min-height: 0; overflow-y: auto; scroll-snap-type: y mandatory">
+      <sc-for list="{{reels}}" as="r" hint-placeholder-count="3">
+        <div style="height: 100%; padding: 0 max(48px, calc((100% - var(--cw, 600px)) / 2)) 12px; box-sizing: border-box; scroll-snap-align: start">
+          <div style="{{r.cardStyle}}">
+            <a href="{{r.yt}}" target="_blank" rel="noopener" onClick="{{r.markSeen}}" aria-label="{{r.aria}}" style="flex: 1; display: flex; flex-direction: column; gap: 10px; text-decoration: none; color: #0E4937; min-height: 0">
+              <div style="display: flex; gap: 6px; align-items: center">
+                <span style="height: 28px; padding: 0 12px; border-radius: 999px; background: #FFFFFF; font-size: 12px; font-weight: 600; display: flex; align-items: center">{{r.dep}} · {{r.dur}}</span>
+                <span style="{{r.statusStyle}}">{{r.statusLabel}}</span>
+                <span style="margin-left: auto; font-size: 12px; font-weight: 600; color: #4D665D">{{r.pos}}</span>
+              </div>
+              <div style="flex: 1; position: relative; display: flex; align-items: center; justify-content: center; min-height: 0">
+                <svg aria-hidden="true" viewBox="0 0 200 200" style="width: 100%; height: 100%; max-width: 380px; max-height: 380px">
+                  <circle cx="100" cy="106" r="86" fill="#FFFFFF" fill-opacity="0.6"></circle>
+                  <path d="{{r.f.hb}}" fill="{{r.f.hair}}"></path>
+                  <path d="M36 200c0-40 26-62 64-62s64 22 64 62z" fill="{{r.f.outfit}}" stroke="#0E4937" stroke-opacity="0.15" stroke-width="2"></path>
+                  <path d="M76 152h48l6 48H70z" fill="{{r.f.apron}}"></path>
+                  <rect x="90" y="110" width="20" height="32" rx="9" fill="{{r.f.skin}}"></rect>
+                  <circle cx="68" cy="90" r="6" fill="{{r.f.skin}}"></circle>
+                  <circle cx="132" cy="90" r="6" fill="{{r.f.skin}}"></circle>
+                  <circle cx="100" cy="86" r="32" fill="{{r.f.skin}}"></circle>
+                  <path d="{{r.f.hf}}" fill="{{r.f.hair}}"></path>
+                  <path d="{{r.f.head}}" fill="{{r.f.headC}}" stroke="#0E4937" stroke-opacity="0.2" stroke-width="1.5"></path>
+                  <path d="M85 88q4.5-5 9 0M106 88q4.5-5 9 0" stroke="#0E4937" stroke-width="3" fill="none" stroke-linecap="round"></path>
+                  <circle cx="81" cy="99" r="5" fill="#FF8A6B" fill-opacity="0.45"></circle>
+                  <circle cx="119" cy="99" r="5" fill="#FF8A6B" fill-opacity="0.45"></circle>
+                  <path d="M88 100q12 15 24 0z" fill="#FFFFFF" stroke="#0E4937" stroke-width="3" stroke-linejoin="round"></path>
+                  <path d="{{r.f.neck}}" fill="#0E4937"></path>
+                  <path d="{{r.f.prop}}" fill="#FFFFFF" stroke="#0E4937" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"></path>
+                  <path d="{{r.f.propA}}" fill="{{r.f.propC}}"></path>
+                  <circle cx="142" cy="180" r="8" fill="{{r.f.skin}}"></circle>
+                </svg>
+                <span style="position: absolute; right: 8px; bottom: 8px; height: 40px; padding: 0 14px 0 10px; border-radius: 999px; background: #0E4937; color: #FFFFFF; display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600">
+                  <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg>{{r.dur}}
+                </span>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 4px">
+                <h2 style="margin: 0; font-size: 23px; line-height: 27px; font-weight: 700">{{r.title}}</h2>
+                <p style="margin: 0; font-size: 14px; line-height: 19px; color: #4D665D">{{r.desc}}</p>
+              </div>
+            </a>
+            <div style="display: flex; gap: 8px; align-items: center">
+              <button aria-label="Guardar" onClick="{{r.save}}" style="width: 44px; height: 44px; border-radius: 999px; background: #FFFFFF; display: flex; align-items: center; justify-content: center">
+                <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="{{r.saveFill}}" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M6 3h12v18l-6-4-6 4z"></path></svg>
+              </button>
+              <span style="flex: 1; font-size: 12px; color: #4D665D">Para {{r.roles}}</span>
+              <button onClick="{{r.quiz}}" style="height: 44px; padding: 0 18px; border-radius: 999px; background: #0E4937; color: #FFFFFF; font-size: 14px; font-weight: 600">Haz el quiz</button>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ---------- TURNI ---------- -->
+  <sc-if value="{{isTurni}}" hint-placeholder-val="{{ false }}">
+  <div class="scroll" style="position: absolute; left: 104px; right: 0; top: 0; bottom: 0; overflow-y: auto; padding: 56px max(48px, calc((100% - var(--cw, 600px)) / 2)) 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px">
+    <div>
+      <h1 style="margin: 0; font-size: 28px; line-height: 32px; font-weight: 700">Tus turnos<span style="color: #FF5D00">.</span></h1>
+      <span style="font-size: 13px; color: #4D665D">Noviembre 2026 · semana 46 · Villa Aurora Milán</span>
+    </div>
+
+    <sc-if value="{{hasSwaps}}" hint-placeholder-val="{{ true }}">
+      <div style="display: flex; flex-direction: column; gap: 8px">
+        <h2 style="margin: 0; font-size: 17px; font-weight: 600">Cambios de turno</h2>
+        <sc-for list="{{swaps}}" as="sw" hint-placeholder-count="1">
+          <div style="background: #FFFFFF; border-radius: 22px; padding: 14px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 10px 30px rgba(14,73,55,0.08)">
+            <div style="display: flex; align-items: center; gap: 10px">
+              <span style="{{sw.av}}">{{sw.ini}}</span>
+              <span style="flex: 1; font-size: 14px; font-weight: 600">{{sw.title}}</span>
+            </div>
+            <div style="display: grid; grid-template-columns: minmax(0, 1fr) 24px minmax(0, 1fr); gap: 6px; align-items: center">
+              <span style="background: #FFE7D6; border-radius: 14px; padding: 8px 10px; font-size: 12.5px; line-height: 17px"><strong>Tú cedes</strong><br>{{sw.mine}}</span>
+              <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h14l-3-3M20 16H6l3 3"></path></svg>
+              <span style="background: #EAF5DA; border-radius: 14px; padding: 8px 10px; font-size: 12.5px; line-height: 17px"><strong>Tú tomas</strong><br>{{sw.theirs}}</span>
+            </div>
+            <sc-if value="{{sw.needsMe}}" hint-placeholder-val="{{ false }}">
+              <div style="display: flex; gap: 8px">
+                <button onClick="{{sw.decline}}" style="flex: 1; height: 44px; border-radius: 999px; border: 1px solid #ECE3D6; background: #FFFFFF; font-size: 14px; font-weight: 600">Rechazar</button>
+                <button onClick="{{sw.accept}}" style="flex: 1; height: 44px; border-radius: 999px; background: #0E4937; color: #FFFFFF; font-size: 14px; font-weight: 600">Aceptar</button>
+              </div>
+            </sc-if>
+            <sc-if value="{{sw.showChip}}" hint-placeholder-val="{{ true }}">
+              <span style="{{sw.chip}}">{{sw.st}}</span>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px">
+      <sc-for list="{{week}}" as="d" hint-placeholder-count="7">
+        <button onClick="{{d.pick}}" style="{{d.style}}">
+          <span style="font-size: 11.5px">{{d.dow}}</span>
+          <span style="font-size: 17px; font-weight: 600">{{d.num}}</span>
+          <span style="{{d.dot}}"></span>
+        </button>
+      </sc-for>
+    </div>
+    <h2 style="margin: 4px 0 0; font-size: 17px; line-height: 22px; font-weight: 600">{{dayTitle}}</h2>
+    <sc-for list="{{dayShifts}}" as="s" hint-placeholder-count="2">
+      <div style="background: #FFFFFF; border-radius: 22px; padding: 14px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 10px 30px rgba(14,73,55,0.08)">
+        <div style="display: flex; gap: 12px; align-items: flex-start">
+          <span style="{{s.iconBox}}">
+            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="{{s.icon}}"></path></svg>
+          </span>
+          <span style="flex: 1; display: flex; flex-direction: column; gap: 2px">
+            <span style="font-size: 15px; font-weight: 600">{{s.title}}</span>
+            <span style="font-size: 12.5px; color: #4D665D">{{s.place}}</span>
+          </span>
+          <span style="font-size: 14px; font-weight: 600">{{s.time}}</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px">
+          <sc-if value="{{s.tag}}" hint-placeholder-val="{{ false }}">
+            <span style="height: 24px; padding: 0 10px; border-radius: 999px; background: #F8EDCF; color: #7A5800; font-size: 11.5px; font-weight: 600; display: flex; align-items: center">{{s.tag}}</span>
+          </sc-if>
+          <sc-if value="{{s.swappable}}" hint-placeholder-val="{{ true }}">
+            <button onClick="{{s.swap}}" style="margin-left: auto; height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid #ECE3D6; background: #FFFFFF; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px">
+              <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h14l-3-3M20 16H6l3 3"></path></svg>Cambiar
+            </button>
+          </sc-if>
+        </div>
+      </div>
+    </sc-for>
+    <sc-if value="{{noShift}}" hint-placeholder-val="{{ false }}">
+      <div style="background: #FFFFFF; border-radius: 22px; padding: 22px; text-align: center; font-size: 14px; color: #4D665D">Día libre. Disfrútalo.</div>
+    </sc-if>
+
+    <sc-if value="{{isToday}}" hint-placeholder-val="{{ true }}">
+      <div style="background: #FFFFFF; border-radius: 22px; padding: 16px; display: flex; flex-direction: column; gap: 12px">
+        <div style="display: flex; justify-content: space-between; align-items: baseline">
+          <span style="font-size: 15px; font-weight: 600">Fichaje</span>
+          <span style="font-size: 12.5px; color: #4D665D">Villa Aurora · GPS activo</span>
+        </div>
+        <sc-if value="{{clockOut}}" hint-placeholder-val="{{ true }}">
+          <button onClick="{{clockIn}}" style="height: 52px; border-radius: 999px; background: #0E4937; color: #FFFFFF; font-size: 15px; font-weight: 600">Fichar entrada</button>
+        </sc-if>
+        <sc-if value="{{clockIsIn}}" hint-placeholder-val="{{ false }}">
+          <div style="display: flex; align-items: center; gap: 10px; background: #EAF5DA; border-radius: 18px; padding: 12px 14px; font-size: 14px; font-weight: 600; color: #2D6A0A">
+            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17 19 7"></path></svg>
+            Entrada 17:52 · de servicio
+          </div>
+          <button onClick="{{clockOutFn}}" style="height: 52px; border-radius: 999px; border: 1px solid #ECE3D6; background: #FFFFFF; font-size: 15px; font-weight: 600">Fichar salida</button>
+        </sc-if>
+        <sc-if value="{{clockDone}}" hint-placeholder-val="{{ false }}">
+          <div style="background: #EAF5DA; border-radius: 18px; padding: 12px 14px; font-size: 14px; line-height: 20px; color: #2D6A0A"><strong>Turno cerrado · 5 h 42 min</strong><br>Entrada 17:52 · Salida 23:34</div>
+        </sc-if>
+      </div>
+    </sc-if>
+
+    <div style="background: #FFFFFF; border-radius: 22px; padding: 16px; display: flex; flex-direction: column; gap: 10px">
+      <div style="display: flex; justify-content: space-between; align-items: baseline">
+        <span style="font-size: 15px; font-weight: 600">Horas trabajadas</span>
+        <span style="font-size: 12.5px; color: #4D665D">de 38 h de contrato</span>
+      </div>
+      <span style="font-size: 28px; font-weight: 700">{{weekHours}}</span>
+      <div style="height: 8px; border-radius: 999px; background: #F6EDE1; overflow: hidden"><div style="{{hoursBar}}"></div></div>
+      <sc-for list="{{punches}}" as="p" hint-placeholder-count="3">
+        <div style="display: flex; justify-content: space-between; padding-top: 10px; border-top: 1px solid #ECE3D6; font-size: 13px">
+          <span>{{p.d}}</span><span style="color: #4D665D">{{p.r}}</span><span style="font-weight: 600">{{p.t}}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ---------- ACADEMY ---------- -->
+  <sc-if value="{{isAcademy}}" hint-placeholder-val="{{ false }}">
+  <div class="scroll" style="position: absolute; left: 104px; right: 0; top: 0; bottom: 0; overflow-y: auto; padding: 56px max(48px, calc((100% - var(--cw, 600px)) / 2)) 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px">
+    <div>
+      <h1 style="margin: 0; font-size: 28px; line-height: 32px; font-weight: 700">Academy<span style="color: #FF5D00">.</span></h1>
+      <span style="font-size: 13px; color: #4D665D">Tu itinerario como camarera de sala</span>
+    </div>
+    <div style="background: #EAF5DA; border-radius: 28px; padding: 18px; display: flex; align-items: center; gap: 16px">
+      <div style="position: relative; width: 84px; height: 84px; flex-shrink: 0">
+        <svg role="img" aria-label="Progreso del itinerario" width="84" height="84" viewBox="0 0 84 84"><circle cx="42" cy="42" r="34" fill="none" stroke="#FFFFFF" stroke-width="9"></circle><circle cx="42" cy="42" r="34" fill="none" stroke="#0E4937" stroke-width="9" stroke-linecap="round" stroke-dasharray="{{ringDash}}" transform="rotate(-90 42 42)"></circle></svg>
+        <span style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700">{{pathPct}}%</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 4px">
+        <span style="font-size: 17px; font-weight: 600">Onboarding Sala</span>
+        <span style="font-size: 13px; color: #4D665D">{{pathDone}} de {{pathTotal}} vídeos con quiz aprobado</span>
+        <span style="font-size: 13px; color: #4D665D">Objetivo: lista antes del 14 nov</span>
+      </div>
+    </div>
+    <h2 style="margin: 4px 0 0; font-size: 17px; font-weight: 600">Tu itinerario</h2>
+    <div style="background: #FFFFFF; border-radius: 22px; padding: 4px 14px">
+      <sc-for list="{{lessons}}" as="l" hint-placeholder-count="5">
+        <div style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #ECE3D6">
+          <a href="{{l.yt}}" target="_blank" rel="noopener" onClick="{{l.markSeen}}" style="flex: 1; display: flex; align-items: center; gap: 12px; text-decoration: none; color: #0E4937; min-width: 0">
+            <span style="{{l.iconBox}}">
+              <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="{{l.icon}}"></path></svg>
+            </span>
+            <span style="flex: 1; display: flex; flex-direction: column; gap: 3px; min-width: 0">
+              <span style="font-size: 14px; font-weight: 600">{{l.title}}</span>
+              <span style="{{l.statusStyle}}">{{l.statusLabel}}</span>
+            </span>
+          </a>
+          <button onClick="{{l.quiz}}" style="height: 40px; padding: 0 14px; border-radius: 999px; background: #0E4937; color: #FFFFFF; font-size: 13px; font-weight: 600">Quiz</button>
+        </div>
+      </sc-for>
+    </div>
+    <h2 style="margin: 4px 0 0; font-size: 17px; font-weight: 600">Documentos APPCC</h2>
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+      <a href="https://www.youtube.com/results?search_query=haccp+temperature+frigorifero+ristorante" target="_blank" rel="noopener" style="background: #F8EDCF; border-radius: 22px; padding: 16px; display: flex; flex-direction: column; gap: 6px; min-height: 110px; box-sizing: border-box; text-decoration: none; color: #0E4937">
+        <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4a2 2 0 0 1 4 0v10a4 4 0 1 1-4 0z M12 9v7"></path></svg>
+        <span style="font-size: 15px; font-weight: 600">APPCC en píldoras: la nevera</span><span style="font-size: 12.5px; color: #4D665D">Repaso en vídeo</span>
+      </a>
+      <a href="{{docUrl.attestato}}" target="_blank" rel="noopener" style="background: #E1ECE7; border-radius: 22px; padding: 16px; display: flex; flex-direction: column; gap: 6px; min-height: 110px; box-sizing: border-box; text-decoration: none; color: #0E4937">
+        <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"></path><path d="M9 12l2 2 4-4"></path></svg>
+        <span style="font-size: 15px; font-weight: 600">Tu certificado</span><span style="font-size: 12.5px; color: #4D665D">Válido hasta mar 2028</span>
+      </a>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ---------- RICHIESTE ---------- -->
+  <sc-if value="{{isRich}}" hint-placeholder-val="{{ false }}">
+  <div class="scroll" style="position: absolute; left: 104px; right: 0; top: 0; bottom: 0; overflow-y: auto; padding: 56px max(48px, calc((100% - var(--cw, 600px)) / 2)) 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px">
+    <div>
+      <h1 style="margin: 0; font-size: 28px; line-height: 32px; font-weight: 700">Vacaciones y permisos<span style="color: #FF5D00">.</span></h1>
+      <span style="font-size: 13px; color: #4D665D">Saldos al 5 de noviembre</span>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+      <div style="background: #EAF5DA; border-radius: 22px; padding: 14px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12.5px">Vacaciones</span><span style="font-size: 22px; font-weight: 700">14,5 días</span></div>
+      <div style="background: #FFE7D6; border-radius: 22px; padding: 14px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12.5px">Permisos</span><span style="font-size: 22px; font-weight: 700">22 h</span></div>
+      <div style="background: #F8EDCF; border-radius: 22px; padding: 14px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 12.5px">Bolsa de horas</span><span style="font-size: 22px; font-weight: 700">+6 h</span></div>
+    </div>
+    <div style="background: #FFFFFF; border-radius: 22px; padding: 4px 14px">
+      <sc-for list="{{requests}}" as="r" hint-placeholder-count="3">
+        <div style="display: flex; flex-direction: column; gap: 8px; padding: 12px 0; border-bottom: 1px solid #ECE3D6">
+          <div style="display: flex; align-items: center; gap: 12px">
+            <span style="{{r.iconBox}}">
+              <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="{{r.icon}}"></path></svg>
+            </span>
+            <span style="flex: 1; display: flex; flex-direction: column; gap: 2px">
+              <span style="font-size: 14px; font-weight: 600">{{r.t}}</span><span style="font-size: 12.5px; color: #4D665D">{{r.s}}</span>
+            </span>
+            <span style="{{r.chip}}">{{r.st}}</span>
+          </div>
+          <sc-if value="{{r.note}}" hint-placeholder-val="{{ false }}">
+            <div style="background: #FFE7D6; border-radius: 14px; padding: 10px 12px; font-size: 12.5px; line-height: 17px">{{r.note}}</div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+    <button onClick="{{newReq}}" style="height: 52px; border-radius: 999px; background: #0E4937; color: #FFFFFF; font-size: 15px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 8px">
+      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
+      Nueva solicitud
+    </button>
+  </div>
+  </sc-if>
+
+  <!-- ---------- PROFILO ---------- -->
+  <sc-if value="{{isProfile}}" hint-placeholder-val="{{ false }}">
+  <div class="scroll" style="position: absolute; left: 104px; right: 0; top: 0; bottom: 0; overflow-y: auto; padding: 56px max(48px, calc((100% - var(--cw, 600px)) / 2)) 28px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px">
+    <div style="display: flex; align-items: center; gap: 14px">
+      <span style="width: 64px; height: 64px; border-radius: 999px; background: #9A5B3D; color: #FFFFFF; font-size: 20px; font-weight: 600; display: flex; align-items: center; justify-content: center">GR</span>
+      <span style="flex: 1; display: flex; flex-direction: column; gap: 2px">
+        <span style="font-size: 22px; font-weight: 700">Giulia Rossi</span>
+        <span style="font-size: 13px; color: #4D665D">Camarera de sala · Villa Aurora Milán · desde el 27 oct</span>
+      </span>
+    </div>
+    <div style="background: #FFFFFF; border-radius: 22px; padding: 16px; display: flex; flex-direction: column; gap: 12px">
+      <div style="display: flex; justify-content: space-between; align-items: baseline">
+        <span style="font-size: 15px; font-weight: 600">Mi disponibilidad</span><span style="font-size: 12.5px; color: #4D665D">próxima semana</span>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px">
+        <sc-for list="{{avail}}" as="a" hint-placeholder-count="7">
+          <button onClick="{{a.toggle}}" aria-label="{{a.aria}}" style="{{a.style}}">{{a.d}}</button>
+        </sc-for>
+      </div>
+      <span style="font-size: 12.5px; color: #4D665D">Toca un día para marcarte disponible. Marco lo ve en el planificador.</span>
+    </div>
+    <a href="{{docUrl.busta}}" target="_blank" rel="noopener" style="background: #0E4937; color: #FFFFFF; border-radius: 22px; padding: 18px; display: flex; flex-direction: column; gap: 6px; text-decoration: none">
+      <span style="font-size: 12.5px; color: #CFE3D8">Nómina · octubre 2026 · neto</span>
+      <span style="font-size: 28px; font-weight: 700">1.482,30 €</span>
+      <span style="font-size: 13px; color: #CFE3D8">162 h trabajadas · 8 h extra</span>
+      <span style="margin-top: 6px; height: 46px; border-radius: 999px; background: #FFFFFF; color: #0E4937; font-size: 14px; font-weight: 600; display: flex; align-items: center; justify-content: center">Abrir la nómina</span>
+    </a>
+    <div style="background: #FFFFFF; border-radius: 22px; padding: 4px 14px">
+      <sc-for list="{{docs}}" as="d" hint-placeholder-count="4">
+        <a href="{{d.url}}" target="_blank" rel="noopener" style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #ECE3D6; text-decoration: none; color: #0E4937">
+          <span style="width: 40px; height: 40px; border-radius: 14px; background: #F6EDE1; display: flex; align-items: center; justify-content: center; flex-shrink: 0">
+            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"></path><path d="M14 3v4h4"></path></svg>
+          </span>
+          <span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 600">{{d.t}}</span><span style="font-size: 12.5px; color: #4D665D">{{d.s}}</span></span>
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6"></path></svg>
+        </a>
+      </sc-for>
+    </div>
+    <button onClick="{{help}}" style="height: 58px; border-radius: 999px; border: 2px solid #0E4937; background: #FFFFFF; color: #0E4937; font-size: 17px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 10px">
+      <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 1 1 16 0v5a2 2 0 0 1-2 2h-2v-6h4M4 13h4v6H6a2 2 0 0 1-2-2z"></path></svg>
+      Asistencia WeFORM
+    </button>
+    <a href="../Main.dc.html" style="height: 58px; border-radius: 999px; border: 2px solid #C42B1C; background: #C42B1C; color: #FFFFFF; font-size: 17px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none">
+      <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3"></path><path d="M10 8l-4 4 4 4M6 12h10"></path></svg>
+      Salir de la app
+    </a>
+  </div>
+  </sc-if>
+
+  <!-- ---------- TAB BAR ---------- -->
+  <nav style="position: absolute; left: 0; top: 0; bottom: 0; width: 104px; background: #FFFFFF; border-right: 1px solid #ECE3D6; display: flex; flex-direction: column; justify-content: center; gap: 10px; padding: 0 10px; box-sizing: border-box">
+    <button onClick="{{goHome}}" style="{{tab.home}}">
+      <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="{{tab.homeW}}" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"></path></svg>Inicio
+    </button>
+    <button onClick="{{goTurni}}" style="{{tab.turni}}">
+      <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="{{tab.turniW}}" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>Turnos
+    </button>
+    <button onClick="{{goAcademy}}" style="{{tab.academy}}">
+      <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="{{tab.academyW}}" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h14v16H6a2 2 0 0 0-2 2z"></path><path d="M4 19V5M8 7h8"></path></svg>Academy
+    </button>
+    <button onClick="{{goRich}}" style="{{tab.rich}}">
+      <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="{{tab.richW}}" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="3"></rect><path d="M9 4h6v3H9zM9 12h6M9 16h4"></path></svg>Solicitudes
+    </button>
+    <button onClick="{{goProfile}}" style="{{tab.profile}}">
+      <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="{{tab.profileW}}" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>Perfil
+    </button>
+  </nav>
+
+  <!-- ---------- NOTIFICHE ---------- -->
+  <sc-if value="{{notifOpen}}" hint-placeholder-val="{{ false }}">
+    <div style="position: absolute; inset: 0; background: rgba(14,73,55,0.35); display: flex; flex-direction: column; justify-content: flex-end">
+      <button aria-label="Cerrar notificaciones" onClick="{{closeNotif}}" style="flex: 1"></button>
+      <div class="sheet" style="width: 100%; max-width: 640px; align-self: center; box-sizing: border-box; background: #FCF7F1; border-radius: 28px 28px 0 0; padding: 20px max(48px, calc((100% - var(--cw, 600px)) / 2)) 32px; display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; align-items: center; justify-content: space-between">
+          <span style="font-size: 20px; font-weight: 700">Notificaciones<span style="color: #FF5D00">.</span></span>
+          <button onClick="{{closeNotif}}" style="height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid #ECE3D6; background: #FFFFFF; font-size: 13px; font-weight: 600">Cerrar</button>
+        </div>
+        <sc-for list="{{notifs}}" as="n" hint-placeholder-count="3">
+          <button onClick="{{n.go}}" style="background: #FFFFFF; border-radius: 20px; padding: 12px 14px; display: flex; gap: 12px; align-items: center; text-align: left">
+            <span style="{{n.box}}">
+              <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="{{n.icon}}"></path></svg>
+            </span>
+            <span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 600">{{n.t}}</span><span style="font-size: 12.5px; line-height: 17px; color: #4D665D">{{n.s}}</span></span>
+          </button>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</sc-if>
+
+<!-- ================= SCAMBIO TURNO ================= -->
+<sc-if value="{{isSwap}}" hint-placeholder-val="{{ false }}">
+<div class="scroll" style="position: absolute; inset: 0; overflow-y: auto; display: flex; flex-direction: column; padding: 52px max(48px, calc((100% - var(--cw, 600px)) / 2)) 32px; box-sizing: border-box; gap: 16px">
+  <div style="display: flex; align-items: center; gap: 8px">
+    <button aria-label="Atrás" onClick="{{goTurni}}" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid #ECE3D6; background: #FFFFFF; display: flex; align-items: center; justify-content: center">
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 5l-7 7 7 7"></path></svg>
+    </button>
+    <span style="flex: 1; text-align: center; font-size: 15px; font-weight: 600">Cambiar turno</span>
+    <span style="width: 44px"></span>
+  </div>
+  <div style="background: #FFE7D6; border-radius: 22px; padding: 16px; display: flex; flex-direction: column; gap: 4px">
+    <span style="font-size: 12.5px">El turno que quieres ceder</span>
+    <span style="font-size: 17px; font-weight: 700">{{swapShift}}</span>
+  </div>
+  <h2 style="margin: 4px 0 0; font-size: 17px; font-weight: 600">¿Con quién lo cambias?</h2>
+  <span style="font-size: 13px; color: #4D665D; margin-top: -10px">Compañeros del mismo rol, con un turno que puedes cubrir</span>
+  <div style="display: flex; flex-direction: column; gap: 8px">
+    <sc-for list="{{swapOptions}}" as="o" hint-placeholder-count="3">
+      <button onClick="{{o.pick}}" style="{{o.style}}">
+        <span style="{{o.av}}">{{o.ini}}</span>
+        <span style="flex: 1; display: flex; flex-direction: column; gap: 2px"><span style="font-size: 14px; font-weight: 600">{{o.name}}</span><span style="font-size: 12.5px; color: #4D665D">Ti dà: {{o.shift}}</span></span>
+        <span style="{{o.radio}}"></span>
+      </button>
+    </sc-for>
+  </div>
+  <div style="background: #EAF5DA; border-radius: 18px; padding: 12px 14px; font-size: 13px; line-height: 18px">Tu compañero recibe la propuesta. Si acepta, pasa a Marco para la aprobación final.</div>
+  <button onClick="{{sendSwap}}" style="{{swapSendStyle}}">Enviar propuesta</button>
+</div>
+</sc-if>
+
+<!-- ================= QUIZ ================= -->
+<sc-if value="{{isQuiz}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; inset: 0; display: flex; flex-direction: column; padding: 52px max(48px, calc((100% - var(--cw, 600px)) / 2)) 32px; box-sizing: border-box; gap: 18px">
+  <div style="display: flex; align-items: center; gap: 8px">
+    <button aria-label="Cerrar quiz" onClick="{{closeQuiz}}" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid #ECE3D6; background: #FFFFFF; display: flex; align-items: center; justify-content: center">
+      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"></path></svg>
+    </button>
+    <span style="flex: 1; text-align: center; font-size: 15px; font-weight: 600">Quiz · {{video.short}}</span>
+    <span style="width: 44px"></span>
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 8px">
+    <span style="font-size: 12.5px; color: #4D665D">Pregunta {{qNum}} de 3</span>
+    <div style="height: 6px; border-radius: 999px; background: #ECE3D6; overflow: hidden"><div style="{{qBar}}"></div></div>
+  </div>
+  <h1 style="margin: 0; font-size: 24px; line-height: 30px; font-weight: 700">{{question.t}}</h1>
+  <div style="display: flex; flex-direction: column; gap: 10px">
+    <sc-for list="{{options}}" as="o" hint-placeholder-count="3">
+      <button onClick="{{o.pick}}" style="{{o.style}}">
+        <span style="{{o.badge}}">{{o.letter}}</span>
+        <span style="flex: 1; font-size: 15px; line-height: 21px">{{o.text}}</span>
+      </button>
+    </sc-for>
+  </div>
+  <sc-if value="{{answered}}" hint-placeholder-val="{{ false }}">
+    <div style="{{feedbackStyle}}"><strong>{{feedbackTitle}}</strong> {{question.e}}</div>
+  </sc-if>
+  <div style="margin-top: auto">
+    <sc-if value="{{answered}}" hint-placeholder-val="{{ false }}">
+      <button onClick="{{nextQ}}" style="width: 100%; height: 52px; border-radius: 999px; background: #0E4937; color: #FFFFFF; font-size: 15px; font-weight: 600">{{nextLabel}}</button>
+    </sc-if>
+    <sc-if value="{{notAnswered}}" hint-placeholder-val="{{ true }}">
+      <div style="height: 52px; border-radius: 999px; background: #F6EDE1; color: #4D665D; font-size: 14px; display: flex; align-items: center; justify-content: center">Elige una respuesta</div>
+    </sc-if>
+  </div>
+</div>
+</sc-if>
+
+<!-- ================= RISULTATO ================= -->
+<sc-if value="{{isResult}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; padding: 96px max(48px, calc((100% - var(--cw, 600px)) / 2)) 32px; box-sizing: border-box; gap: 16px; text-align: center">
+  <div style="width: 176px; height: 176px; border-radius: 999px; background: #EAF5DA; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px">
+    <svg class="star" aria-hidden="true" width="34" height="34" viewBox="0 0 24 24"><path d="M12 2l2.6 7.4L22 12l-7.4 2.6L12 22l-2.6-7.4L2 12l7.4-2.6z" fill="#D6A324"></path></svg>
+    <span style="font-size: 40px; font-weight: 700">{{score}}/3</span>
+    <span style="font-size: 12.5px; color: #4D665D">respuestas correctas</span>
+  </div>
+  <h1 style="margin: 8px 0 0; font-size: 28px; line-height: 32px; font-weight: 700">{{resultTitle}}<span style="color: #FF5D00">.</span></h1>
+  <p style="margin: 0; font-size: 15px; line-height: 22px; color: #4D665D">{{resultSub}}</p>
+  <div style="width: 100%; background: #FFFFFF; border-radius: 22px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; text-align: left; box-sizing: border-box">
+    <span style="width: 40px; height: 40px; border-radius: 14px; background: #EAF5DA; color: #2D6A0A; display: flex; align-items: center; justify-content: center">
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17 19 7"></path></svg>
+    </span>
+    <span style="display: flex; flex-direction: column; gap: 2px">
+      <span style="font-size: 15px; font-weight: 600">{{video.short}} · registrado</span>
+      <span style="font-size: 12.5px; color: #4D665D">Marco, tu responsable, ve el resultado</span>
+    </span>
+  </div>
+  <div style="margin-top: auto; width: 100%; display: flex; flex-direction: column; gap: 10px">
+    <button onClick="{{backHome}}" style="height: 52px; border-radius: 999px; background: #0E4937; color: #FFFFFF; font-size: 15px; font-weight: 600">Siguiente vídeo</button>
+    <button onClick="{{backAcademy}}" style="height: 52px; border-radius: 999px; border: 1px solid #ECE3D6; background: #FFFFFF; font-size: 15px; font-weight: 600">Ir a la Academy</button>
+  </div>
+</div>
+</sc-if>
+
+<!-- ================= NUOVA RICHIESTA ================= -->
+<sc-if value="{{isNewReq}}" hint-placeholder-val="{{ false }}">
+<div class="scroll" style="position: absolute; inset: 0; overflow-y: auto; display: flex; flex-direction: column; padding: 52px max(48px, calc((100% - var(--cw, 600px)) / 2)) 32px; box-sizing: border-box; gap: 16px">
+  <div style="display: flex; align-items: center; gap: 8px">
+    <button aria-label="Atrás" onClick="{{goRich}}" style="width: 44px; height: 44px; border-radius: 999px; border: 1px solid #ECE3D6; background: #FFFFFF; display: flex; align-items: center; justify-content: center">
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 5l-7 7 7 7"></path></svg>
+    </button>
+    <span style="flex: 1; text-align: center; font-size: 15px; font-weight: 600">Nueva solicitud</span>
+    <span style="width: 44px"></span>
+  </div>
+  <span style="font-size: 13px; font-weight: 600">Tipo</span>
+  <div style="display: flex; flex-wrap: wrap; gap: 8px">
+    <sc-for list="{{reqTypes}}" as="t" hint-placeholder-count="3">
+      <button onClick="{{t.pick}}" style="{{t.style}}">{{t.label}}</button>
+    </sc-for>
+  </div>
+  <div style="background: #FFFFFF; border-radius: 22px; padding: 16px; display: flex; flex-direction: column; gap: 10px">
+    <span style="font-size: 15px; font-weight: 600">Diciembre 2026</span>
+    <div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; text-align: center; font-size: 12px; color: #4D665D">
+      <span>L</span><span>M</span><span>X</span><span>J</span><span>V</span><span>S</span><span>D</span>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px">
+      <sc-for list="{{calCells}}" as="c" hint-placeholder-count="35">
+        <button onClick="{{c.pick}}" style="{{c.style}}">{{c.label}}</button>
+      </sc-for>
+    </div>
+  </div>
+  <div style="display: flex; justify-content: space-between; font-size: 14px"><span>Días seleccionados</span><span style="font-weight: 700">{{daysCount}} días</span></div>
+  <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600">Nota para Marco (opcional)
+    <textarea rows="2" style="border-radius: 18px; border: 1px solid #ECE3D6; padding: 12px 14px; font-size: 15px; resize: none; color: #0E4937; background: #FFFFFF"></textarea>
+  </label>
+  <div style="background: #EAF5DA; border-radius: 18px; padding: 12px 14px; font-size: 13px; line-height: 18px">Para cambiar un turno con un compañero usa “Cambiar” en Turnos.</div>
+  <button onClick="{{sendReq}}" style="{{sendStyle}}">Enviar solicitud</button>
+</div>
+</sc-if>
+
+<!-- ================= TOAST ================= -->
+<sc-if value="{{hasToast}}" hint-placeholder-val="{{ false }}">
+  <div role="status" style="position: absolute; left: 50%; transform: translateX(-50%); width: 480px; box-sizing: border-box; top: 40px; background: #0E4937; color: #FFFFFF; border-radius: 18px; padding: 14px 16px; font-size: 14px; font-weight: 500; display: flex; align-items: center; gap: 10px; box-shadow: 0 10px 30px rgba(14,73,55,0.2)">
+    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17 19 7"></path></svg>
+    {{toast}}
+  </div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":820,"height":1180}}'>
+var TINT = { 'Bar': '#E1ECE7', 'Sala': '#FFE7D6', 'Cocina': '#F8EDCF', 'HACCP': '#EAF5DA', 'Hotel': '#F6EDE1' };
+var ICON = {
+  cup: 'M4 9h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z M16 10h2a2.5 2.5 0 0 1 0 5h-2 M8 3c0 1.5 1 1.5 1 3 M12 3c0 1.5 1 1.5 1 3',
+  milk: 'M5 8h12v4a6 6 0 0 1-12 0z M17 9h1.5a2.5 2.5 0 0 1 0 5H16 M3 21h18',
+  cocktail: 'M5 4h14l-7 8z M12 12v8 M8 20h8 M15 4l3-2',
+  wine: 'M8 3h8l-.5 5a3.5 3.5 0 0 1-7 0z M12 11.5V20 M8.5 20h7',
+  bell: 'M4 17h16 M6 17a6 6 0 0 1 12 0 M12 8v3 M10 8h4 M3 20h18',
+  shield: 'M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z M9 12l2 2 4-4',
+  thermo: 'M10 4a2 2 0 0 1 4 0v10a4 4 0 1 1-4 0z M12 9v7',
+  pot: 'M4 10h16v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z M2 10h20 M9 6c0-1 1-1 1-2 M14 6c0-1 1-1 1-2',
+  bed: 'M3 18V7 M3 14h18v4 M21 14v-2a3 3 0 0 0-3-3h-7v5 M5.5 11.5a1.5 1.5 0 1 0 3 0a1.5 1.5 0 1 0-3 0',
+  sun: 'M12 8a4 4 0 1 0 0 8a4 4 0 1 0 0-8 M12 2v2 M12 20v2 M4 12H2 M22 12h-2 M5 5l1.5 1.5 M17.5 17.5 19 19 M19 5l-1.5 1.5 M6.5 17.5 5 19',
+  clock: 'M12 3a9 9 0 1 0 0 18a9 9 0 1 0 0-18 M12 7v5l3 2',
+  swap: 'M4 8h14l-3-3 M20 16H6l3 3',
+  mega: 'M3 10v4h4l6 4V6L7 10z M16 9a4 4 0 0 1 0 6',
+  play: 'M8 5v14l11-7z'
+};
+/* illustrazioni del personale: capelli, copricapo, accessorio al collo e oggetto in mano */
+var HAIR = {
+  short: { f: 'M68 84c0-22 14-34 32-34s32 12 32 30c-8-6-18-10-30-10-14 0-26 6-34 14z', b: '' },
+  bun: { f: 'M68 86c0-22 14-36 32-36s32 14 32 36c-6-10-18-16-32-16s-26 6-32 16z M88 46a12 12 0 1 0 24 0a12 12 0 1 0-24 0z', b: '' },
+  long: { f: 'M68 86c4-20 16-32 32-32s28 12 32 32c-10-12-20-16-32-16s-24 6-32 16z', b: 'M64 92c0-30 16-46 36-46s36 16 36 46v44h-14V98H78v38H64z' },
+  curly: { f: 'M66 88c-6-20 8-38 22-36 6-10 22-10 28 0 14-2 28 16 20 36-6-8-18-14-34-14s-30 6-36 14z', b: '' }
+};
+var HEAD = {
+  toque: 'M70 66c-12-6-10-26 6-26 2-14 20-18 28-8 8-10 28-4 26 10 14 2 14 22 2 24v10H70z',
+  cap: 'M66 80c0-22 16-34 34-34s34 12 34 34c-10-6-22-8-34-8s-24 2-34 8z',
+  band: 'M67 76c10-10 56-10 66 0v6c-10-8-56-8-66 0z'
+};
+var BOW = 'M88 136l12 6 12-6v12l-12-6-12 6z';
+var PROP = {
+  cup: { p: 'M132 152h26v10a10 10 0 0 1-10 10h-6a10 10 0 0 1-10-10z M158 155h4a4 4 0 0 1 0 8h-4 M128 174h34', a: '', c: '#9A5B3D' },
+  pitcher: { p: 'M134 144h24l-3 28a4 4 0 0 1-4 4h-10a4 4 0 0 1-4-4z M134 144l-6-5', a: 'M136 150h20l-1 8h-18z', c: '#F6EDE1' },
+  tumbler: { p: 'M132 146h28l-3 28h-22z', a: 'M135 156h22l-2 16h-18z M152 140a7 7 0 1 0 0.1 0z', c: '#FF5D00' },
+  bottle: { p: 'M144 114h10v14c6 4 8 8 8 14v34h-26v-34c0-6 2-10 8-14z', a: 'M137 148h24v14h-24z', c: '#F8EDCF' },
+  menu: { p: 'M132 140h30v38h-30z M138 150h18 M138 158h18 M138 166h10', a: '', c: '#FFFFFF' },
+  clip: { p: 'M132 142h30v38h-30z M141 137h12v8h-12z M139 160l5 5 9-9', a: '', c: '#FFFFFF' },
+  thermo: { p: 'M142 128a5 5 0 0 1 10 0v32a10 10 0 1 1-10 0z', a: 'M144 150h6v16h-6z', c: '#FF5D00' },
+  pan: { p: 'M126 160h28a14 14 0 0 1-28 0z M154 160h20', a: '', c: '#FFFFFF' },
+  towels: { p: 'M128 150h36v8h-36z M130 158h32v8h-32z M128 166h36v8h-36z', a: 'M130 158h32v8h-32z', c: '#EAF5DA' }
+};
+function F(skin, hair, hairType, outfit, apron, head, headC, neck, prop) {
+  var h = HAIR[hairType], p = PROP[prop];
+  return { skin: skin, hair: hair, hf: h.f, hb: h.b, outfit: outfit, apron: apron, head: head ? HEAD[head] : '', headC: headC || '#FFFFFF', neck: neck ? BOW : '', prop: p.p, propA: p.a, propC: p.c };
+}
+var DOC = {
+  contratto: 'https://www.unife.it/economia/lm.economia/insegnamenti/diritto-delle-relazioni-di-lavoro/materiale-didattico-a-a-2016-2017/contratti-individuali/contratto-individuale-commercio.pdf',
+  busta: '../../assets/fe249a51ae906739a03761f28b01867b.pdf',
+  privacy: 'https://www-cdn-bs.bresciamobilita.it/public/bm/privacy/informativa-privacy-dipendenti_5_2023.pdf',
+  attestato: 'https://www.regione.vda.it/allegato.aspx?pk=5787'
+};
+function Q(t, o, c, e) { return { t: t, o: o, c: c, e: e }; }
+var V = [
+  { id: 'v4', dep: 'Sala', dur: '5 min', icon: 'bell', roles: 'Sala', views: 12, title: 'Acogida y servicio de sala', short: 'Servicio de sala', desc: 'Cómo se recibe al cliente, se le acompaña a la mesa y se prepara el servicio.', yt: 'https://www.youtube.com/results?search_query=accoglienza+cliente+ristorante+cameriere',
+    f: F('#F2C6A0', '#3B2A20', 'bun', '#FFFDF8', '#0E4937', '', '', false, 'menu'),
+    q: [Q('¿En cuánto tiempo saludas a un cliente que entra?', ['En 10 segundos', 'Cuando quedes libre', 'Después de que se siente'], 0, 'Un saludo rápido, aunque sea con la mirada, hace que el cliente se sienta esperado.'),
+        Q('Si no hay mesa libre:', ['Le dices que vuelva más tarde', 'Propones esperar en la barra con un tiempo estimado', 'Le haces esperar de pie'], 1, 'Un tiempo estimado y un sitio donde esperar cambian la experiencia.'),
+        Q('¿Cómo acompañas al cliente a la mesa?', ['Señalas la mesa desde lejos', 'Caminas un paso por delante', 'Le dejas elegir solo'], 1, 'Un paso por delante, despacio, y luego apartas la silla.')] },
+  { id: 'v5', dep: 'Sala', dur: '4 min', icon: 'wine', roles: 'Sala', views: 9, title: 'Cómo servir el vino', short: 'Servicio del vino', desc: 'Presentación de la botella, apertura, cata y cuánto servir.', yt: 'https://www.youtube.com/results?search_query=come+servire+il+vino+al+tavolo+cameriere',
+    f: F('#D9A27A', '#2B1D14', 'short', '#FFFDF8', '#0E4937', '', '', true, 'bottle'),
+    q: [Q('¿Quién prueba el vino primero?', ['El camarero', 'Quien pidió la botella', 'El invitado de más edad'], 1, 'Prueba quien lo pidió y luego se sirve la mesa.'),
+        Q('¿Hasta dónde se llena la copa?', ['Llena', 'Más o menos un tercio', 'La mitad exacta'], 1, 'Un tercio deja al vino espacio para respirar.'),
+        Q('¿Cuándo enseñas la etiqueta?', ['Antes de abrir la botella', 'Después de abrirla', 'Solo si te lo piden'], 0, 'El cliente confirma la botella antes de abrirla.')] },
+  { id: 'v6', dep: 'HACCP', dur: '6 min', icon: 'shield', roles: 'todos los roles', views: 14, title: 'APPCC y alérgenos', short: 'Alérgenos', desc: 'Los 14 alérgenos, dónde se esconden y qué responder al cliente.', yt: 'https://www.youtube.com/results?search_query=14+allergeni+ristorazione+formazione+personale',
+    f: F('#8D5B3E', '#1E1410', 'long', '#0E4937', '#0E4937', '', '', false, 'clip'),
+    q: [Q('¿Cuántos alérgenos hay que declarar?', ['8', '14', '20'], 1, 'El Reglamento UE 1169/2011 enumera 14.'),
+        Q('Un cliente pregunta si el tiramisú lleva frutos secos:', ['Respondes que no', 'Preguntas en cocina y consultas el libro de alérgenos', 'Dices que no lo sabes'], 1, 'Nunca adivines: se pregunta en cocina y se consulta el libro.'),
+        Q('¿Dónde está el libro de alérgenos?', ['En el cajón de la caja', 'Colgado junto al pase', 'Solo en línea'], 1, 'Está colgado junto al pase, a la vista de todos.')] },
+  { id: 'v1', dep: 'Bar', dur: '3 min', icon: 'cup', roles: 'Bar y Sala', views: 11, title: 'El café espresso', short: 'Espresso', desc: 'Dosis, prensado, tiempo de extracción y servicio en barra.', yt: 'https://www.youtube.com/results?search_query=come+fare+un+espresso+perfetto+barista',
+    f: F('#E8B48F', '#5A3A22', 'curly', '#F6EDE1', '#9A5B3D', '', '', false, 'cup'),
+    q: [Q('¿Cuántos gramos para un espresso simple?', ['5 g', '7 g', '12 g'], 1, 'Aquí la dosis es de 7 g: el molino se ajusta cada mañana.'),
+        Q('¿Cuánto dura la extracción?', ['Unos 10 segundos', 'Unos 25 segundos', 'Más de 45 segundos'], 1, 'Unos 25 segundos para 25 ml.'),
+        Q('¿Qué sirves con el café?', ['Solo la cucharilla', 'Platillo, cucharilla y agua al lado', 'Azúcar ya en la taza'], 1, 'Es el estándar de servicio de la casa.')] },
+  { id: 'v2', dep: 'Bar', dur: '4 min', icon: 'milk', roles: 'Bar', views: 6, title: 'Montar la leche para el capuchino', short: 'Capuchino', desc: 'Temperatura, crema aterciopelada y limpieza del vaporizador.', yt: 'https://www.youtube.com/results?search_query=come+montare+il+latte+per+cappuccino+barista',
+    f: F('#C68A62', '#2E1F18', 'bun', '#0E4937', '#D6A324', '', '', false, 'pitcher'),
+    q: [Q('¿A qué temperatura se monta la leche?', ['Hasta 40 °C', '60–65 °C', 'Hasta que hierva'], 1, 'Por encima de 65 °C la leche pierde dulzor.'),
+        Q('Antes de montar la leche:', ['Purgas el vaporizador', 'Añades agua a la leche', 'Calientas la jarra'], 0, 'La purga elimina el agua condensada.'),
+        Q('Después del uso el vaporizador se:', ['deja así hasta la noche', 'limpia y purga enseguida', 'sumerge en agua'], 1, 'La leche seca en el vaporizador es un riesgo higiénico.')] },
+  { id: 'v3', dep: 'Bar', dur: '3 min', icon: 'cocktail', roles: 'Bar', views: 5, title: 'El Negroni perfecto', short: 'Negroni', desc: 'Medidas, hielo, removido y decoración del cóctel más pedido.', yt: 'https://www.youtube.com/results?search_query=negroni+ricetta+originale+barman',
+    f: F('#F0C8A8', '#1E1A17', 'short', '#2F4F45', '#0E4937', '', '', true, 'tumbler'),
+    q: [Q('Las medidas del Negroni son:', ['Ginebra, bitter y vermut a partes iguales', 'El doble de ginebra', 'Solo bitter y soda'], 0, 'Un tercio de cada: ginebra, bitter, vermut rojo.'),
+        Q('El Negroni se prepara:', ['En la coctelera', 'En el vaso, removido con hielo', 'En la batidora'], 1, 'Removido en el vaso: la coctelera lo agua.'),
+        Q('La decoración del Negroni es:', ['Rodaja de naranja', 'Aceituna', 'Rodaja de limón'], 0, 'Rodaja o piel de naranja, según la receta clásica.')] },
+  { id: 'v8', dep: 'Cocina', dur: '5 min', icon: 'pot', roles: 'Cocina', views: 7, title: 'La mise en place en cocina', short: 'Mise en place', desc: 'Puesto listo antes del servicio: recipientes, etiquetas, tablas.', yt: 'https://www.youtube.com/results?search_query=mise+en+place+cucina+professionale',
+    f: F('#B97A55', '#2B1D14', 'short', '#FFFDF8', '#FFFDF8', 'toque', '#FFFFFF', false, 'pan'),
+    q: [Q('La mise en place debe estar lista:', ['A la apertura', '30 minutos antes del servicio', 'Durante el servicio'], 1, 'Media hora antes, para el control del chef.'),
+        Q('Los recipientes se etiquetan con:', ['Solo el nombre', 'Nombre, fecha y caducidad', 'Nada'], 1, 'Nombre, fecha de preparación y caducidad.'),
+        Q('La tabla roja es para:', ['Verduras', 'Carne cruda', 'Pan'], 1, 'Rojo = carne cruda, para evitar contaminaciones.')] },
+  { id: 'v7', dep: 'HACCP', dur: '4 min', icon: 'thermo', roles: 'todos los roles', views: 10, title: 'APPCC: la nevera', short: 'Temperaturas', desc: 'Temperaturas, estantes correctos y qué anotar en la hoja de autocontrol.', yt: 'https://www.youtube.com/results?search_query=haccp+temperature+frigorifero+ristorante',
+    f: F('#F2C6A0', '#6B4A2E', 'short', '#FFFDF8', '#72BF00', 'cap', '#FFFFFF', false, 'thermo'),
+    q: [Q('Temperatura de la nevera:', ['0–4 °C', '6–10 °C', 'Por debajo de −18 °C'], 0, 'Entre 0 y 4 °C para carne, pescado y lácteos.'),
+        Q('El congelador debe estar:', ['A −18 °C o menos', 'A 0 °C', 'A −5 °C'], 0, 'Si sube, avisa enseguida al responsable.'),
+        Q('¿Cuándo se rellena la hoja de temperaturas?', ['Una vez por semana', 'Al inicio y al final del turno', 'Solo durante una inspección'], 1, 'Al inicio y al final de cada turno, con firma.')] },
+  { id: 'v9', dep: 'Hotel', dur: '6 min', icon: 'bed', roles: 'Pisos', views: 4, title: 'Arreglar una habitación de hotel', short: 'Arreglo de habitación', desc: 'El orden correcto: ventilar, ropa, cama, baño, control final.', yt: 'https://www.youtube.com/results?search_query=come+rifare+camera+hotel+housekeeping',
+    f: F('#A86B4A', '#2A1A12', 'long', '#4D665D', '#FFFDF8', 'band', '#FF5D00', false, 'towels'),
+    q: [Q('¿Por dónde se empieza?', ['Por el baño', 'Abriendo las ventanas y quitando la ropa sucia', 'Por el suelo'], 1, 'Primero ventilar y ropa sucia, luego lo demás.'),
+        Q('Los paños del baño:', ['Son los mismos de la habitación', 'Tienen un color propio', 'Se usan al azar'], 1, 'Un color por zona evita contaminaciones.'),
+        Q('Antes de salir compruebas:', ['Minibar, luces y amenities', 'Solo la cama', 'Nada'], 0, 'El control final evita quejas.')] }
+];
+var FOR_ME = ['v4', 'v5', 'v6', 'v1', 'v7'];
+var PATH = ['v4', 'v6', 'v5', 'v1', 'v7', 'v2', 'v8', 'v3'];
+var WEEK = [
+  { n: 9, d: 'Lun', s: [{ t: 'Sala · Cena', p: 'Sala Jardín', h: '18:00–23:30', i: 'cup', k: 'Sala' }] },
+  { n: 10, d: 'Mar', s: [{ t: 'Briefing previo al servicio', p: 'Oficina', h: '17:45–18:00', i: 'bell', k: 'Sala', noSwap: true }, { t: 'Sala · Cena', p: 'Sala Jardín · con Marco y Sara', h: '18:00–23:30', i: 'cup', k: 'Sala', tag: 'Quiz de alérgenos pendiente' }] },
+  { n: 11, d: 'Mié', s: [{ t: 'Bar · Aperitivo', p: 'Lounge bar', h: '17:00–21:00', i: 'cocktail', k: 'Bar', tag: 'Acompañamiento' }] },
+  { n: 12, d: 'Jue', s: [{ t: 'Sala · Comida', p: 'Sala Jardín', h: '11:30–15:00', i: 'cup', k: 'Sala' }] },
+  { n: 13, d: 'Vie', s: [] },
+  { n: 14, d: 'Sáb', s: [{ t: 'Sala · Cena', p: 'Sala Jardín', h: '18:00–00:00', i: 'cup', k: 'Sala' }] },
+  { n: 15, d: 'Dom', s: [] }
+];
+var MATES = [
+  { id: 'lv', name: 'Luca Verdi', ini: 'LV', c: '#4F6B45', shift: 'Vie 13 · Sala Cena 18:00–23:30' },
+  { id: 'sc', name: 'Sara Conti', ini: 'SC', c: '#7A4E8C', shift: 'Dom 15 · Sala Comida 11:30–15:00' },
+  { id: 'em', name: 'Elena Marino', ini: 'EM', c: '#355E8A', shift: 'Lun 16 · Sala Cena 18:00–23:30' }
+];
+var CHIP = { 'Pendiente': 'background:#F8EDCF;color:#7A5800', 'Aprobada': 'background:#EAF5DA;color:#2D6A0A', 'Rechazada': 'background:#FFE7D6;color:#B83A00' };
+var CHIPB = 'height:24px;padding:0 10px;border-radius:999px;font-size:11.5px;font-weight:600;display:inline-flex;align-items:center;align-self:flex-start;white-space:nowrap;';
+var P_ON = 'height:38px;padding:0 16px;border-radius:999px;font-size:13px;font-weight:600;white-space:nowrap;flex-shrink:0;background:#72BF00;color:#0E4937;border:1px solid #72BF00';
+var P_OFF = 'height:38px;padding:0 16px;border-radius:999px;font-size:13px;font-weight:500;white-space:nowrap;flex-shrink:0;background:#FFFFFF;color:#0E4937;border:1px solid #ECE3D6';
+function box(tint, size) { return 'width:' + size + 'px;height:' + size + 'px;border-radius:14px;background:' + tint + ';display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#0E4937'; }
+function av(c, n) { return 'width:' + n + 'px;height:' + n + 'px;border-radius:999px;background:' + c + ';color:#FFFFFF;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0'; }
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      screen: 'intro', tab: 'home', role: 'dip', cat: 'Para ti', notif: false,
+      seen: { v4: true }, done: { v4: 3 }, liked: {}, saved: {},
+      videoId: 'v4', qIndex: 0, picked: null, correct: 0,
+      day: 10, clock: 'out', avail: [true, true, false, true, true, true, false],
+      swaps: [{ id: 'in1', ini: 'SC', c: '#7A4E8C', title: 'Sara te propone un cambio', mine: 'Jue 12 · Sala Comida 11:30–15:00', theirs: 'Dom 15 · Sala Comida 11:30–15:00', st: 'new' }],
+      swapShift: '', swapPick: '',
+      requests: [
+        { t: 'Permiso de 4 horas', s: 'Vie 13 nov · 15:00–19:00', st: 'Aprobada', i: 'clock', note: '' },
+        { t: 'Cambio de turno con Luca', s: 'Jue 12 nov · Cena', st: 'Rechazada', i: 'swap', note: 'Marco: “El 12 vamos cortos de personal, ¿probamos el 19?”' }
+      ],
+      reqType: 'Vacaciones', reqDays: [28, 29, 30, 31], toast: ''
+    };
+  }
+  componentWillUnmount() { [this.tt, this.st, this.sw].forEach(function (t) { if (t) clearTimeout(t); }); }
+  showToast(m) { var self = this; this.setState({ toast: m }); if (this.tt) clearTimeout(this.tt); this.tt = setTimeout(function () { self.setState({ toast: '' }); }, 3000); }
+  vid(id) { for (var i = 0; i < V.length; i++) if (V[i].id === id) return V[i]; return V[0]; }
+  startQuiz(id) { this.setState({ screen: 'quiz', videoId: id, qIndex: 0, picked: null, correct: 0 }); }
+  toggleMap(key, id) { var m = Object.assign({}, this.state[key]); m[id] = !m[id]; var o = {}; o[key] = m; this.setState(o); }
+  setSwap(id, st) { this.setState({ swaps: this.state.swaps.map(function (x) { return x.id === id ? Object.assign({}, x, { st: st }) : x; }) }); }
+  markSeen(id) { var m = Object.assign({}, this.state.seen); m[id] = true; this.setState({ seen: m }); }
+
+  renderVals() {
+    var s = this.state, self = this;
+    var go = function (tab) { return function () { self.setState({ screen: 'app', tab: tab, notif: false }); }; };
+    function status(id) {
+      if (s.done[id] != null) return { l: 'Quiz ' + s.done[id] + '/3', st: CHIP['Aprobada'] };
+      if (s.seen[id]) return { l: 'Quiz pendiente', st: CHIP['Pendiente'] };
+      return { l: 'Nuevo', st: 'background:#FFFFFF;color:#0E4937' };
+    }
+    var list = s.cat === 'Para ti' ? FOR_ME.map(function (id) { return self.vid(id); }) : V.filter(function (x) { return s.cat === 'Todos' || x.dep === s.cat; });
+    var reels = list.map(function (x, i) {
+      var st = status(x.id), lk = !!s.liked[x.id], sv = !!s.saved[x.id];
+      return {
+        title: x.title, desc: x.desc, dep: x.dep, dur: x.dur, roles: x.roles, f: x.f, yt: x.yt, pos: (i + 1) + ' / ' + list.length,
+        aria: 'Buscar en YouTube: ' + x.title,
+        statusLabel: st.l, statusStyle: 'height:28px;padding:0 12px;border-radius:999px;font-size:12px;font-weight:600;display:flex;align-items:center;' + st.st,
+        cardStyle: 'height:100%;border-radius:28px;padding:16px;box-sizing:border-box;display:flex;flex-direction:column;gap:12px;background:' + TINT[x.dep],
+        likes: x.views + (lk ? 1 : 0), likeFill: lk ? '#FF5D00' : 'none',
+        likeStyle: 'height:44px;padding:0 14px;border-radius:999px;background:#FFFFFF;display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:' + (lk ? '#B83A00' : '#0E4937'),
+        saveFill: sv ? '#0E4937' : 'none',
+        like: function () { self.toggleMap('liked', x.id); },
+        save: function () { var was = !!self.state.saved[x.id]; self.toggleMap('saved', x.id); if (!was) self.showToast('Guardado en la Academy'); },
+        markSeen: function () { self.markSeen(x.id); },
+        quiz: function () { self.startQuiz(x.id); }
+      };
+    });
+    var cats = ['Para ti', 'Todos', 'Sala', 'Bar', 'Cocina', 'Hotel', 'HACCP'].map(function (c) {
+      return { label: c, style: c === s.cat ? P_ON : P_OFF, pick: function () { self.setState({ cat: c }); } };
+    });
+
+    var lessons = PATH.map(function (id) {
+      var x = self.vid(id), st = status(id);
+      return { title: x.title, icon: ICON[x.icon], iconBox: box(TINT[x.dep], 40), yt: x.yt,
+        statusLabel: x.dur + ' · ' + st.l, statusStyle: CHIPB + st.st,
+        markSeen: function () { self.markSeen(id); }, quiz: function () { self.startQuiz(id); } };
+    });
+    var pathDone = PATH.filter(function (id) { return s.done[id] != null; }).length;
+    var pathPct = Math.round(pathDone / PATH.length * 100);
+
+    var v = this.vid(s.videoId), qq = v.q[s.qIndex] || v.q[0], answered = s.picked != null, right = answered && s.picked === qq.c;
+    var options = qq.o.map(function (txt, i) {
+      var b = 'display:flex;gap:12px;align-items:center;text-align:left;padding:14px 16px;border-radius:22px;color:#0E4937;';
+      var sty = b + 'background:#FFFFFF;border:2px solid #ECE3D6';
+      var bd = 'width:30px;height:30px;border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;';
+      var bdc = 'background:#F6EDE1;color:#0E4937';
+      if (answered) {
+        if (i === qq.c) { sty = b + 'background:#EAF5DA;border:2px solid #2D6A0A'; bdc = 'background:#2D6A0A;color:#FFFFFF'; }
+        else if (i === s.picked) { sty = b + 'background:#FFE7D6;border:2px solid #B83A00'; bdc = 'background:#B83A00;color:#FFFFFF'; }
+        else sty = b + 'background:#FFFFFF;border:2px solid #ECE3D6;opacity:0.5';
+      }
+      return { letter: 'ABC'[i], text: txt, style: sty, badge: bd + bdc, pick: function () {
+        if (self.state.picked != null) return;
+        self.setState({ picked: i, correct: self.state.correct + (i === qq.c ? 1 : 0) });
+      } };
+    });
+    var score = s.done[v.id] != null ? s.done[v.id] : s.correct;
+
+    var day = WEEK.filter(function (d) { return d.n === s.day; })[0];
+    var week = WEEK.map(function (d) {
+      var on = d.n === s.day;
+      return { num: d.n, dow: d.d, pick: function () { self.setState({ day: d.n }); },
+        style: 'height:64px;border-radius:999px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;color:#0E4937;' + (on ? 'background:#72BF00;font-weight:600' : 'background:transparent'),
+        dot: 'width:5px;height:5px;border-radius:999px;background:' + (d.s.length ? (on ? '#0E4937' : '#FF5D00') : 'transparent') };
+    });
+    var dayShifts = day.s.map(function (x) {
+      var label = day.d + ' ' + day.n + ' · ' + x.t + ' ' + x.h;
+      return { title: x.t, place: 'Villa Aurora · ' + x.p, time: x.h, icon: ICON[x.i], iconBox: box(TINT[x.k], 40), tag: x.tag || '', swappable: !x.noSwap,
+        swap: function () { self.setState({ screen: 'swap', swapShift: label, swapPick: '' }); } };
+    });
+    var hrs = s.clock === 'done' ? 32.2 : 26.5;
+
+    var SWST = { new: ['Por aceptar', ''], wait: ['Esperando al compañero', CHIP['Pendiente']], boss: ['Aceptado · esperando a Marco', CHIP['Pendiente']], ok: ['Aprobado por Marco', CHIP['Aprobada']], no: ['Rechazado', CHIP['Rechazada']] };
+    var swaps = s.swaps.map(function (x) {
+      var m = SWST[x.st];
+      return Object.assign({}, x, { av: av(x.c, 36), needsMe: x.st === 'new', showChip: x.st !== 'new', st: m[0], chip: CHIPB + m[1],
+        accept: function () { self.setSwap(x.id, 'boss'); self.showToast('Cambio aceptado · ahora decide Marco'); },
+        decline: function () { self.setSwap(x.id, 'no'); } });
+    });
+    var swapOptions = MATES.map(function (m) {
+      var on = s.swapPick === m.id;
+      return { name: m.name, ini: m.ini, shift: m.shift, av: av(m.c, 40),
+        style: 'display:flex;align-items:center;gap:12px;text-align:left;padding:12px 14px;border-radius:22px;background:#FFFFFF;border:2px solid ' + (on ? '#0E4937' : '#ECE3D6'),
+        radio: 'width:22px;height:22px;border-radius:999px;box-sizing:border-box;border:' + (on ? '7px solid #0E4937' : '2px solid #ECE3D6'),
+        pick: function () { self.setState({ swapPick: m.id }); } };
+    });
+
+    var cells = [{ l: '', d: 0 }];
+    for (var dd = 1; dd <= 31; dd++) cells.push({ l: String(dd), d: dd });
+    while (cells.length < 35) cells.push({ l: '', d: 0 });
+    var calCells = cells.map(function (c) {
+      var sel = c.d && s.reqDays.indexOf(c.d) >= 0;
+      return { label: c.l, style: 'height:40px;border-radius:999px;font-size:14px;color:#0E4937;' + (c.d ? (sel ? 'background:#72BF00;font-weight:700' : 'background:transparent') : 'visibility:hidden'),
+        pick: function () { if (!c.d) return; var a = self.state.reqDays.slice(), k = a.indexOf(c.d); if (k >= 0) a.splice(k, 1); else a.push(c.d); a.sort(function (x, y) { return x - y; }); self.setState({ reqDays: a }); } };
+    });
+    var reqTypes = ['Vacaciones', 'Permiso', 'Baja por enfermedad'].map(function (t) { return { label: t, style: t === s.reqType ? P_ON : P_OFF, pick: function () { self.setState({ reqType: t }); } }; });
+    var nDays = s.reqDays.length;
+
+    var tabS = function (on) { return 'display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;height:80px;border-radius:22px;font-size:12px;' + (on ? 'font-weight:700;color:#0E4937;background:#EAF5DA' : 'font-weight:500;color:#4D665D'); };
+    var t = s.tab;
+    var roleS = function (on) { return 'height:42px;border-radius:999px;font-size:14px;font-weight:600;color:#0E4937;' + (on ? 'background:#FFFFFF' : 'background:transparent'); };
+
+    return {
+      isIntro: s.screen === 'intro', isLogin: s.screen === 'login', isSplash: s.screen === 'splash', isApp: s.screen === 'app', isQuiz: s.screen === 'quiz', isResult: s.screen === 'result', isNewReq: s.screen === 'newreq', isSwap: s.screen === 'swap',
+      isHome: t === 'home', isTurni: t === 'turni', isAcademy: t === 'academy', isRich: t === 'rich', isProfile: t === 'profile',
+      goIntro: function () { self.setState({ screen: 'intro' }); }, goLogin: function () { self.setState({ screen: 'login' }); },
+      roleIsDip: s.role === 'dip', roleIsTit: s.role === 'tit', roleDipStyle: roleS(s.role === 'dip'), roleTitStyle: roleS(s.role === 'tit'),
+      pickDip: function () { self.setState({ role: 'dip' }); }, pickTit: function () { self.setState({ role: 'tit' }); },
+      loginEmail: s.role === 'dip' ? 'giulia.rossi@villaaurora.it' : 'marco.bianchi@villaaurora.it',
+      login: function () { self.setState({ screen: 'splash' }); if (self.st) clearTimeout(self.st); self.st = setTimeout(function () { self.setState({ screen: 'app', tab: 'home' }); }, 1700); },
+      logout: function () { self.setState({ screen: 'login' }); },
+      help: function () { self.showToast('Asistencia: respuesta por chat en 2 horas'); },
+      goHome: go('home'), goTurni: go('turni'), goAcademy: go('academy'), goRich: go('rich'), goProfile: go('profile'),
+      tab: { home: tabS(t === 'home'), turni: tabS(t === 'turni'), academy: tabS(t === 'academy'), rich: tabS(t === 'rich'), profile: tabS(t === 'profile'),
+        homeW: t === 'home' ? 2.3 : 1.7, turniW: t === 'turni' ? 2.3 : 1.7, academyW: t === 'academy' ? 2.3 : 1.7, richW: t === 'rich' ? 2.3 : 1.7, profileW: t === 'profile' ? 2.3 : 1.7 },
+
+      notifOpen: s.notif, openNotif: function () { self.setState({ notif: true }); }, closeNotif: function () { self.setState({ notif: false }); },
+      notifs: [
+        { t: 'Marco · comunicado', s: 'Esta noche evento privado de 24 cubiertos: briefing a las 17:45.', icon: ICON.mega, box: box('#FFE7D6', 40), go: go('turni') },
+        { t: 'Sara te propone un cambio', s: 'Tu comida del jueves por su comida del domingo.', icon: ICON.swap, box: box('#F8EDCF', 40), go: go('turni') },
+        { t: 'Nuevo vídeo para ti', s: '«Cómo servir el vino» · 4 min + quiz', icon: ICON.play, box: box('#EAF5DA', 40), go: go('home') }
+      ],
+
+      shiftNote: s.clock === 'in' ? 'de servicio desde las 17:52' : s.clock === 'done' ? 'cerrado' : 'Villa Aurora',
+      cats: cats, reels: reels,
+      lessons: lessons, pathDone: pathDone, pathTotal: PATH.length, pathPct: pathPct, ringDash: Math.round(pathPct / 100 * 214) + ' 214',
+      docUrl: DOC,
+
+      video: v, question: qq, options: options, qNum: s.qIndex + 1,
+      qBar: 'height:100%;border-radius:999px;background:#72BF00;width:' + Math.round((s.qIndex + (answered ? 1 : 0)) / 3 * 100) + '%',
+      answered: answered, notAnswered: !answered,
+      feedbackTitle: right ? 'Correcto.' : 'No exactamente.',
+      feedbackStyle: 'border-radius:18px;padding:14px 16px;font-size:14px;line-height:20px;color:#0E4937;background:' + (right ? '#EAF5DA' : '#FFE7D6'),
+      nextLabel: s.qIndex < 2 ? 'Siguiente pregunta' : 'Ver el resultado',
+      nextQ: function () {
+        if (self.state.qIndex < 2) { self.setState({ qIndex: self.state.qIndex + 1, picked: null }); return; }
+        var dn = Object.assign({}, self.state.done); dn[v.id] = self.state.correct;
+        var sn = Object.assign({}, self.state.seen); sn[v.id] = true;
+        self.setState({ screen: 'result', done: dn, seen: sn });
+      },
+      closeQuiz: function () { self.setState({ screen: 'app' }); },
+      score: score,
+      resultTitle: score === 3 ? 'Buen trabajo, Giulia' : score === 2 ? 'Casi perfecto' : 'Para repasar',
+      resultSub: score === 3 ? 'Lo has acertado todo: el módulo está completado.' : 'Te volveremos a plantear las preguntas falladas en 2 días.',
+      backHome: function () { self.setState({ screen: 'app', tab: 'home' }); },
+      backAcademy: function () { self.setState({ screen: 'app', tab: 'academy' }); },
+
+      week: week, dayShifts: dayShifts, noShift: !day.s.length, isToday: s.day === 10,
+      dayTitle: { 9: 'Lunes 9', 10: 'Martes 10 · hoy', 11: 'Miércoles 11', 12: 'Jueves 12', 13: 'Viernes 13', 14: 'Sábado 14', 15: 'Domingo 15' }[s.day],
+      clockOut: s.clock === 'out', clockIsIn: s.clock === 'in', clockDone: s.clock === 'done',
+      clockIn: function () { self.setState({ clock: 'in' }); self.showToast('Entrada fichada a las 17:52'); },
+      clockOutFn: function () { self.setState({ clock: 'done' }); self.showToast('Salida fichada a las 23:34'); },
+      weekHours: String(hrs).replace('.', ',') + ' h',
+      hoursBar: 'height:100%;border-radius:999px;background:#0E4937;width:' + Math.round(hrs / 38 * 100) + '%',
+      punches: [{ d: 'Lun 9 nov', r: '17:56 – 23:41', t: '5 h 45' }, { d: 'Sáb 7 nov', r: '11:28 – 15:10', t: '3 h 42' }, { d: 'Vie 6 nov', r: '17:50 – 23:58', t: '6 h 08' }],
+
+      hasSwaps: s.swaps.length > 0, swaps: swaps,
+      swapShift: s.swapShift, swapOptions: swapOptions,
+      swapSendStyle: 'height:52px;border-radius:999px;font-size:15px;font-weight:600;flex-shrink:0;' + (s.swapPick ? 'background:#0E4937;color:#FFFFFF' : 'background:#F6EDE1;color:#4D665D'),
+      sendSwap: function () {
+        var m = MATES.filter(function (x) { return x.id === self.state.swapPick; })[0]; if (!m) return;
+        var id = 'out' + Date.now();
+        var sw = { id: id, ini: m.ini, c: m.c, title: 'Propuesta a ' + m.name.split(' ')[0], mine: self.state.swapShift, theirs: m.shift, st: 'wait' };
+        self.setState({ screen: 'app', tab: 'turni', swaps: [sw].concat(self.state.swaps) });
+        self.showToast('Propuesta enviada a ' + m.name.split(' ')[0]);
+        self.sw = setTimeout(function () { self.setSwap(id, 'boss'); self.showToast(m.name.split(' ')[0] + ' ha aceptado · ahora decide Marco'); }, 3200);
+      },
+
+      requests: s.requests.map(function (r) { return Object.assign({}, r, { chip: CHIPB + 'align-self:center;' + CHIP[r.st], icon: ICON[r.i], iconBox: box(r.i === 'sun' ? '#EAF5DA' : r.i === 'clock' ? '#FFE7D6' : '#F8EDCF', 36) }); }),
+      newReq: function () { self.setState({ screen: 'newreq', reqType: 'Vacaciones', reqDays: [28, 29, 30, 31] }); },
+      reqTypes: reqTypes, calCells: calCells, daysCount: nDays,
+      sendStyle: 'height:52px;border-radius:999px;font-size:15px;font-weight:600;flex-shrink:0;' + (nDays ? 'background:#0E4937;color:#FFFFFF' : 'background:#F6EDE1;color:#4D665D'),
+      sendReq: function () {
+        var d = self.state.reqDays; if (!d.length) return;
+        var range = d.length > 1 ? d[0] + '–' + d[d.length - 1] + ' de diciembre' : d[0] + ' de diciembre';
+        var r = { t: self.state.reqType + ' ' + range, s: d.length + (d.length > 1 ? ' días' : ' día') + ' · enviada hoy', st: 'Pendiente', i: self.state.reqType === 'Vacaciones' ? 'sun' : 'clock', note: '' };
+        self.setState({ screen: 'app', tab: 'rich', requests: [r].concat(self.state.requests) });
+        self.showToast('Solicitud enviada a Marco');
+      },
+
+      avail: ['L', 'M', 'X', 'J', 'V', 'S', 'D'].map(function (d, i) {
+        var on = s.avail[i];
+        return { d: d, aria: 'Disponibilidad día ' + (i + 1), style: 'height:42px;border-radius:999px;font-size:14px;font-weight:600;color:#0E4937;' + (on ? 'background:#72BF00' : 'background:#F6EDE1'),
+          toggle: function () { var a = self.state.avail.slice(); a[i] = !a[i]; self.setState({ avail: a }); } };
+      }),
+      docs: [
+        { t: 'Nómina · octubre', s: '1.482,30 € neto · PDF de ejemplo', url: DOC.busta },
+        { t: 'Contrato de trabajo', s: 'Modelo de contrato individual', url: DOC.contratto },
+        { t: 'Certificado APPCC', s: 'Modelo de certificado · válido hasta mar 2028', url: DOC.attestato },
+        { t: 'Aviso de privacidad', s: 'Ejemplo de aviso para empleados (RGPD)', url: DOC.privacy }
+      ],
+      hasToast: !!s.toast, toast: s.toast
+    };
+  }
+}
+</script>
+</body>
+</html>
