@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<title>WeFORM v3 · Scegli lingua e ruolo</title>
+<script src="./vendor/react.js"></script>
+<script src="./vendor/react-dom.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+button{font-family:inherit;border:0;cursor:pointer;padding:0;background:none;color:inherit}
+a:active,button:active{transform:scale(0.97)}
+a{color:#0E4937}a:hover{color:#2D6A0A}
+.scroll{scrollbar-width:none}
+.scroll::-webkit-scrollbar{display:none}
+@keyframes lidUp{from{transform:translateY(0) rotate(0deg)}to{transform:translateY(-30px) rotate(-9deg)}}
+@keyframes starIn{from{opacity:0;transform:scale(0.2)}to{opacity:1;transform:scale(1)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.lid{transform-box:view-box;transform-origin:100px 150px;animation:lidUp .5s ease-out .3s both}
+.star{transform-box:fill-box;transform-origin:center;animation:starIn .45s ease-out .75s both}
+.glow{animation:fadeIn .4s ease-out .7s both}
+.rise{animation:rise .5s ease-out .9s both}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #FCF7F1; font-family: 'Instrument Sans', system-ui, sans-serif; color: #0E4937; display: flex; flex-direction: column; padding: 52px 24px 32px; box-sizing: border-box">
+  <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; position: relative; z-index: 2">
+    <img src="./assets/d99d2bd9a06c4532336ffac737d5299b.png" alt="WeFORM" style="height: 28px; width: auto; display: block">
+    <button onClick="{{toggleLang}}" aria-label="{{t.lang}}: {{curName}}" aria-expanded="{{langOpenAria}}" style="{{langBtnStyle}}">
+      <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"></path></svg>
+      <span style="font-size: 13px; font-weight: 700">{{curCode}}</span>
+    </button>
+  </div>
+  <sc-if value="{{langOpen}}" hint-placeholder-val="{{ false }}">
+    <div role="group" aria-label="{{t.lang}}" style="margin-top: 10px; align-self: stretch; background: #FFFFFF; border: 1px solid #ECE3D6; border-radius: 20px; padding: 6px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; box-shadow: 0 10px 30px rgba(14,73,55,0.12); position: relative; z-index: 2">
+      <sc-for list="{{langs}}" as="l" hint-placeholder-count="5">
+        <button onClick="{{l.pick}}" aria-pressed="{{l.pressed}}" aria-label="{{l.name}}" style="{{l.style}}">{{l.code}}</button>
+      </sc-for>
+    </div>
+  </sc-if>
+
+  <div style="flex: 1; display: flex; align-items: center; justify-content: center; min-height: 0">
+    <svg role="img" aria-label="WeFORM" width="236" height="236" viewBox="0 0 200 200">
+      <defs><linearGradient id="domeS" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1F7A58"></stop><stop offset="1" stop-color="#0E4937"></stop></linearGradient></defs>
+      <circle cx="100" cy="104" r="86" fill="#EAF5DA"></circle>
+      <circle cx="30" cy="92" r="4" fill="#9CCB8A"></circle>
+      <circle cx="170" cy="66" r="5" fill="#FF5D00"></circle>
+      <ellipse class="glow" cx="100" cy="156" rx="44" ry="8" fill="#F8EDCF"></ellipse>
+      <path class="star" d="M100 118l5 13 13 5-13 5-5 13-5-13-13-5 13-5z" fill="#D6A324"></path>
+      <rect x="34" y="160" width="132" height="8" rx="4" fill="#0E4937"></rect>
+      <g class="lid">
+        <path d="M44 150a56 56 0 0 1 112 0z" fill="url(#domeS)"></path>
+        <path d="M64 132a40 40 0 0 1 20-28" stroke="#FFFFFF" stroke-opacity="0.4" stroke-width="6" fill="none" stroke-linecap="round"></path>
+        <circle cx="100" cy="88" r="9" fill="#FF5D00"></circle>
+        <rect x="38" y="148" width="124" height="8" rx="4" fill="#0E4937"></rect>
+      </g>
+    </svg>
+  </div>
+
+  <div class="rise" style="display: flex; flex-direction: column; gap: 12px">
+    <h1 style="margin: 0 0 4px; font-size: 30px; line-height: 35px; font-weight: 700">{{t.t1}}<span style="color: #FF5D00">.</span><br>{{t.t2}}<span style="color: #FF5D00">.</span></h1>
+    <a href="{{dipHref}}" style="background: #EAF5DA; border-radius: 28px; padding: 16px 18px; display: flex; align-items: center; gap: 14px; text-decoration: none; color: #0E4937">
+      <span style="width: 50px; height: 50px; border-radius: 18px; background: #FFFFFF; display: flex; align-items: center; justify-content: center; flex-shrink: 0">
+        <svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>
+      </span>
+      <span style="flex: 1; display: flex; flex-direction: column; gap: 3px">
+        <span style="font-size: 18px; font-weight: 700">{{t.dip}}</span>
+        <span style="font-size: 13px; line-height: 18px; color: #4D665D">{{t.dipSub}}</span>
+      </span>
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+    </a>
+    <a href="{{titHref}}" style="background: #0E4937; border-radius: 28px; padding: 16px 18px; display: flex; align-items: center; gap: 14px; text-decoration: none; color: #FFFFFF">
+      <span style="width: 50px; height: 50px; border-radius: 18px; background: #FFFFFF; color: #0E4937; display: flex; align-items: center; justify-content: center; flex-shrink: 0">
+        <svg aria-hidden="true" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"></path></svg>
+      </span>
+      <span style="flex: 1; display: flex; flex-direction: column; gap: 3px">
+        <span style="font-size: 18px; font-weight: 700">{{t.tit}}</span>
+        <span style="font-size: 13px; line-height: 18px; color: #CFE3D8">{{t.titSub}}</span>
+      </span>
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+    </a>
+    <span style="text-align: center; font-size: 12.5px; color: #4D665D; margin-top: 2px">{{t.note}}</span>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+var LANGS = [
+  { id: 'it', code: 'IT', name: 'Italiano' },
+  { id: 'en', code: 'EN', name: 'English' },
+  { id: 'de', code: 'DE', name: 'Deutsch' },
+  { id: 'es', code: 'ES', name: 'Español' },
+  { id: 'uk', code: 'UK', name: 'Українська' }
+];
+var TXT = {
+  it: { lang: 'Lingua', t1: 'Formazione senza noia', t2: 'Gestione senza carta', dip: 'Dipendente', dipSub: 'Video da un minuto, turni, scambi, ferie e buste paga', tit: 'Titolare / Manager', titSub: 'Sedi, team, formazione, report e WeFORM AI', note: 'Puoi cambiare lingua e ruolo in qualsiasi momento uscendo dall’app' },
+  en: { lang: 'Language', t1: 'Training without boredom', t2: 'Management without paper', dip: 'Employee', dipSub: 'One-minute videos, shifts, swaps, leave and payslips', tit: 'Owner / Manager', titSub: 'Venues, team, training, reports and WeFORM AI', note: 'You can change language and role at any time by logging out' },
+  de: { lang: 'Sprache', t1: 'Schulung ohne Langeweile', t2: 'Verwaltung ohne Papier', dip: 'Mitarbeiter', dipSub: 'Videos in einer Minute, Schichten, Tausch, Urlaub und Lohnabrechnungen', tit: 'Inhaber / Manager', titSub: 'Standorte, Team, Schulung, Berichte und WeFORM AI', note: 'Sprache und Rolle kannst du jederzeit wechseln, indem du dich abmeldest' },
+  es: { lang: 'Idioma', t1: 'Formación sin aburrimiento', t2: 'Gestión sin papel', dip: 'Empleado', dipSub: 'Vídeos de un minuto, turnos, cambios, vacaciones y nóminas', tit: 'Propietario / Manager', titSub: 'Locales, equipo, formación, informes y WeFORM AI', note: 'Puedes cambiar de idioma y de rol en cualquier momento saliendo de la app' },
+  uk: { lang: 'Мова', t1: 'Навчання без нудьги', t2: 'Управління без паперу', dip: 'Працівник', dipSub: 'Відео на хвилину, зміни, обміни, відпустки й розрахункові листи', tit: 'Власник / Менеджер', titSub: 'Заклади, команда, навчання, звіти й WeFORM AI', note: 'Мову й роль можна змінити будь-коли, вийшовши із застосунку' }
+};
+function readLang() { try { var v = window.localStorage.getItem('weform-lang'); return TXT[v] ? v : 'it'; } catch (e) { return 'it'; } }
+
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { lang: readLang(), open: false }; }
+  pick(id) { this.setState({ lang: id, open: false }); try { window.localStorage.setItem('weform-lang', id); } catch (e) {} }
+  renderVals() {
+    var self = this, lang = this.state.lang, open = this.state.open;
+    var prefix = lang === 'it' ? '' : lang + '/';
+    var cur = LANGS.filter(function (l) { return l.id === lang; })[0];
+    return {
+      t: TXT[lang],
+      curCode: cur.code, curName: cur.name,
+      langOpen: open, langOpenAria: open ? 'true' : 'false',
+      toggleLang: function () { self.setState({ open: !self.state.open }); },
+      langBtnStyle: 'width:56px;height:56px;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;flex-shrink:0;color:#0E4937;' + (open ? 'background:#72BF00;border:1px solid #72BF00' : 'background:#FFFFFF;border:1px solid #ECE3D6'),
+      dipHref: prefix + 'Dipendente.dc.html',
+      titHref: prefix + 'Titolare.dc.html',
+      langs: LANGS.map(function (l) {
+        var on = l.id === lang;
+        return { code: l.code, name: l.name, pressed: on ? 'true' : 'false',
+          style: 'height:44px;border-radius:14px;font-size:14px;font-weight:700;color:#0E4937;' + (on ? 'background:#72BF00' : 'background:#F6EDE1'),
+          pick: function () { self.pick(l.id); } };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>
